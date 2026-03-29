@@ -45,7 +45,7 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
           />
         </div>
       </CardContent>
-      <CardFooter className="pt-0">
+      <CardFooter className="py-1">
         <p className="text-xs text-muted-foreground">
           {data.source} ·{" "}
           {new Date(data.lastUpdated).toLocaleDateString("en-AU", {
