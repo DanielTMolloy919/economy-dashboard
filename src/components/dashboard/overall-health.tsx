@@ -19,14 +19,17 @@ export function OverallHealth({ score }: { score: number }) {
 
   return (
     <div className="flex flex-col items-center shrink-0">
-      <div className="relative w-40 h-24">
-        <PieChart width={160} height={96}>
+      {/* cy=90 puts the gauge center at the bottom; outerRadius=80 fits within height=95 */}
+      <div className="relative w-[180px] h-[95px]">
+        <PieChart width={180} height={95}>
           <Pie
             data={data}
             startAngle={180}
             endAngle={0}
-            innerRadius={48}
-            outerRadius={68}
+            cx={90}
+            cy={90}
+            innerRadius={58}
+            outerRadius={82}
             dataKey="value"
             strokeWidth={0}
           >
