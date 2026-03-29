@@ -35,7 +35,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="mx-auto w-full max-w-2xl px-4 py-3 flex items-center justify-between">
           <div>
             <h1 className="text-lg font-bold leading-tight">🇦🇺 Australian Economy</h1>
             <p className="text-xs text-muted-foreground">Economic health dashboard</p>
@@ -47,9 +47,9 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-10">
+      <main className="mx-auto w-full max-w-2xl px-4 py-8 space-y-10">
         {/* Hero */}
-        <section className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+        <section className="flex flex-col gap-6 items-center">
           <OverallHealth score={overallScore} />
           <SummaryCards metrics={heroMetrics} />
         </section>
@@ -71,7 +71,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
               <h2 className="text-base font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
                 {section}
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {sectionMetrics.map(({ def, data }) => (
                   <MetricCard
                     key={def.id}
@@ -87,7 +87,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
       </main>
 
       <footer className="border-t mt-16">
-        <div className="container mx-auto px-4 py-6 text-xs text-muted-foreground text-center">
+        <div className="mx-auto w-full max-w-2xl px-4 py-6 text-xs text-muted-foreground text-center">
           Data sourced from World Bank, RBA, and ABS. Updated periodically.
         </div>
       </footer>
