@@ -10,7 +10,7 @@ export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
         const trend = getTrendDirection(m.currentValue, m.previousValue);
         return (
           <Card key={m.id}>
-            <CardContent className="pt-4 pb-4">
+            <CardContent>
               <div className="flex items-center justify-between mb-2">
                 <HealthBadge status={m.health} />
                 <TrendArrow direction={trend} />
