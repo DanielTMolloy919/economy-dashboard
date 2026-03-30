@@ -8,20 +8,11 @@ import {
 } from "~/components/ui/chart";
 import type { ChartType, MetricSeries } from "~/types/metrics";
 
-const chartConfig = {
-  value: {
-    label: "Value",
-    color: "var(--chart-1)",
-  },
-  negative: {
-    label: "Negative",
-    color: "var(--chart-5)",
-  },
-} satisfies ChartConfig;
-
 interface MetricChartProps {
   series: MetricSeries[];
   chartType: ChartType;
+  name: string;
+  unit: string;
   mini?: boolean;
 }
 
@@ -35,7 +26,17 @@ function makeTickFormatter(spanYears: number) {
   };
 }
 
-export function MetricChart({ series, chartType, mini = false }: MetricChartProps) {
+export function MetricChart({ series, chartType, name, unit, mini = false }: MetricChartProps) {
+  const chartConfig = {
+    value: {
+      label: name,
+      color: "var(--chart-1)",
+    },
+    negative: {
+      label: "Negative",
+      color: "var(--chart-5)",
+    },
+  } satisfies ChartConfig;
   const data = series.map((p) => ({ value: p.value, date: p.date }));
 
   const spanYears =
@@ -73,6 +74,10 @@ export function MetricChart({ series, chartType, mini = false }: MetricChartProp
                 year: "numeric",
               })
             }
+            formatter={(value) => [
+              `${(value as number).toLocaleString("en-AU", { maximumFractionDigits: 2 })} ${unit}`,
+              name,
+            ]}
           />
         }
       />

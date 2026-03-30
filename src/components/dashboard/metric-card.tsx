@@ -41,7 +41,8 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
           <MetricChart
             series={filteredSeries}
             chartType={definition.chartType}
-            // mini
+            name={data.name}
+            unit={data.unit}
           />
         </div>
       </CardContent>
