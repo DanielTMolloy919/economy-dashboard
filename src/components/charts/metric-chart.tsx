@@ -70,7 +70,6 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
             labelFormatter={(value) =>
               new Date(value as string).toLocaleDateString("en-AU", {
                 month: "short",
-                day: "numeric",
                 year: "numeric",
               })
             }
