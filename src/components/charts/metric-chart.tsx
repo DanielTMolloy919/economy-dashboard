@@ -1,21 +1,23 @@
 "use client";
+import { Area, AreaChart, Bar, BarChart, Cell, Line, LineChart, XAxis, YAxis } from "recharts";
 import {
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "~/components/ui/chart";
 import type { ChartType, MetricSeries } from "~/types/metrics";
 
-const CHART_COLOR = "#3b82f6";
-const NEGATIVE_COLOR = "#ef4444";
+const chartConfig = {
+  value: {
+    label: "Value",
+    color: "var(--chart-1)",
+  },
+  negative: {
+    label: "Negative",
+    color: "var(--chart-5)",
+  },
+} satisfies ChartConfig;
 
 interface MetricChartProps {
   series: MetricSeries[];
@@ -44,59 +46,64 @@ export function MetricChart({ series, chartType, mini = false }: MetricChartProp
         interval="preserveStartEnd"
       />
       <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} width={38} />
-      <Tooltip
-        contentStyle={{ fontSize: 11, borderRadius: 6 }}
-        labelFormatter={(l) => `Year ${l}`}
-      />
+      <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
     </>
   );
 
   if (chartType === "bar") {
     return (
-      <ResponsiveContainer width="100%" height="100%">
+      <ChartContainer config={chartConfig} className="h-full w-full">
         <BarChart data={data} margin={margin}>
           {axes}
           <Bar dataKey="value" radius={[2, 2, 0, 0]}>
             {data.map((entry, i) => (
-              <Cell key={i} fill={entry.value >= 0 ? CHART_COLOR : NEGATIVE_COLOR} />
+              <Cell
+                key={i}
+                fill={entry.value >= 0 ? "var(--color-value)" : "var(--color-negative)"}
+              />
             ))}
           </Bar>
         </BarChart>
-      </ResponsiveContainer>
+      </ChartContainer>
     );
   }
 
   if (chartType === "area") {
     return (
-      <ResponsiveContainer width="100%" height="100%">
+      <ChartContainer config={chartConfig} className="h-full w-full">
         <AreaChart data={data} margin={margin}>
+          <defs>
+            <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="var(--color-value)" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="var(--color-value)" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
           {axes}
           <Area
             type="monotone"
             dataKey="value"
-            stroke={CHART_COLOR}
+            stroke="var(--color-value)"
             strokeWidth={1.5}
-            fill={CHART_COLOR}
-            fillOpacity={0.1}
+            fill="url(#fillValue)"
             dot={false}
           />
         </AreaChart>
-      </ResponsiveContainer>
+      </ChartContainer>
     );
   }
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ChartContainer config={chartConfig} className="h-full w-full">
       <LineChart data={data} margin={margin}>
         {axes}
         <Line
           type={chartType === "step" ? "stepAfter" : "monotone"}
           dataKey="value"
-          stroke={CHART_COLOR}
+          stroke="var(--color-value)"
           strokeWidth={1.5}
           dot={false}
         />
       </LineChart>
-    </ResponsiveContainer>
+    </ChartContainer>
   );
 }
