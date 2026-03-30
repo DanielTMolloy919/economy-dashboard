@@ -1,4 +1,4 @@
-import type { ChartType } from "~/types/metrics";
+import type { ChartType, TrendPolarity } from "~/types/metrics";
 
 export interface MetricDefinition {
   id: string;
@@ -9,6 +9,7 @@ export interface MetricDefinition {
   chartType: ChartType;
   description: string;
   section: string;
+  trendPolarity: TrendPolarity;
 }
 
 export const metricDefinitions: MetricDefinition[] = [
@@ -16,21 +17,23 @@ export const metricDefinitions: MetricDefinition[] = [
     id: "gdp",
     name: "GDP Growth",
     unit: "% YoY",
-    source: "World Bank",
-    frequency: "Annual",
+    source: "ABS",
+    frequency: "Quarterly",
     chartType: "bar",
     description: "Annual gross domestic product growth rate",
     section: "Growth & Output",
+    trendPolarity: "positive",
   },
   {
     id: "cpi",
     name: "Inflation (CPI)",
     unit: "% YoY",
-    source: "RBA / ABS",
+    source: "ABS",
     frequency: "Quarterly",
     chartType: "line",
     description: "Consumer Price Index — annual change",
     section: "Prices & Wages",
+    trendPolarity: "negative",
   },
   {
     id: "unemployment",
@@ -41,6 +44,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "area",
     description: "Unemployment rate as % of labour force",
     section: "Labour Market",
+    trendPolarity: "negative",
   },
   {
     id: "cash-rate",
@@ -51,6 +55,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "step",
     description: "RBA official cash rate target",
     section: "Financial & Monetary",
+    trendPolarity: "neutral",
   },
   {
     id: "wages",
@@ -61,6 +66,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "line",
     description: "Wage Price Index — annual change",
     section: "Prices & Wages",
+    trendPolarity: "positive",
   },
   {
     id: "aud-usd",
@@ -71,6 +77,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "area",
     description: "Australian dollar vs US dollar exchange rate",
     section: "External & Trade",
+    trendPolarity: "neutral",
   },
   {
     id: "trade",
@@ -81,6 +88,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "bar",
     description: "Goods trade balance (surplus/deficit)",
     section: "External & Trade",
+    trendPolarity: "positive",
   },
   {
     id: "underemployment",
@@ -91,6 +99,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "area",
     description: "Share of employed people who want more work hours",
     section: "Labour Market",
+    trendPolarity: "negative",
   },
   {
     id: "household-spending",
@@ -101,6 +110,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "area",
     description: "Annual change in household consumer spending",
     section: "Growth & Output",
+    trendPolarity: "positive",
   },
   {
     id: "job-vacancies",
@@ -111,6 +121,7 @@ export const metricDefinitions: MetricDefinition[] = [
     chartType: "bar",
     description: "Number of unfilled job vacancies (thousands)",
     section: "Labour Market",
+    trendPolarity: "positive",
   },
 ];
 

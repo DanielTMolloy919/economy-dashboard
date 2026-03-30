@@ -6,7 +6,11 @@ import {
   CardHeader,
 } from "~/components/ui/card";
 import { HealthBadge } from "~/components/dashboard/health-badge";
-import { TrendArrow, getTrendDirection } from "~/components/dashboard/trend-arrow";
+import {
+  TrendArrow,
+  getTrendDirection,
+  getTrendSentiment,
+} from "~/components/dashboard/trend-arrow";
 import { MetricChart } from "~/components/charts/metric-chart";
 import { MetricInfoPopover } from "~/components/dashboard/metric-info-popover";
 import type { MetricData } from "~/types/metrics";
@@ -21,6 +25,7 @@ interface MetricCardProps {
 
 export function MetricCard({ data, definition, filteredSeries }: MetricCardProps) {
   const trend = getTrendDirection(data.currentValue, data.previousValue);
+  const sentiment = getTrendSentiment(trend, definition.trendPolarity);
   const change = data.currentValue - data.previousValue;
   const changeStr = `${change >= 0 ? "+" : ""}${change.toFixed(2)}`;
   const info = metricInfo[definition.id];
@@ -42,7 +47,7 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
               <span className="text-sm text-muted-foreground">{data.unit}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <TrendArrow direction={trend} />
+              <TrendArrow direction={trend} sentiment={sentiment} />
               <span className="text-xs text-muted-foreground">{changeStr} vs prev</span>
             </div>
           </div>
