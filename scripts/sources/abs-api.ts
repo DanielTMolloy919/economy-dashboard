@@ -112,10 +112,10 @@ export async function fetchWages(): Promise<MetricData> {
   // WPI: Wage Price Index
   // Key: MEASURE.INDEX.SECTOR.INDUSTRY.TSEST.REGION.FREQ
   // Fetch index numbers (measure 1), then compute YoY ourselves
-  // THRPEB=Total ordinary time hours, sector 7=Private+Public, industry 1=All industries, seasonally adj, Australia, Quarterly
+  // THRPEB=Total hourly rates excl. bonuses, sector 7=Private+Public, INDUSTRY=TOT=All industries, seasonally adj, Australia, Quarterly
   const response = await fetchAbs(
     "ABS,WPI,1.2.0",
-    "1.THRPEB.7.1.20.AUS.Q",
+    "1.THRPEB.7.TOT.20.AUS.Q",
     "2009-Q1",
   );
   const indexSeries = extractSeries(response);
@@ -140,13 +140,15 @@ export async function fetchCpi(): Promise<MetricData> {
   // CPI: Consumer Price Index
   // Key: MEASURE.REGION.TSEST.FREQ
   // Fetch index numbers, compute YoY
-  // CPI v2.0.0: MEASURE=3 (YoY%), INDEX=10001 (All groups), REGION=50 (Australia), FREQ=Q
+  // CPI v2.0.0: MEASURE=1 (index numbers), INDEX=10001 (All groups), TSEST=wildcard, REGION=50 (Australia), FREQ=Q
+  // Compute YoY from index numbers (TSEST wildcard because Original is the only option for All groups)
   const response = await fetchAbs(
     "ABS,CPI,2.0.0",
-    "3.10001.50.Q",
-    "2010-Q1",
+    "1.10001..50.Q",
+    "2009-Q1",
   );
-  const series = extractSeries(response);
+  const indexSeries = extractSeries(response);
+  const series = toYoY(indexSeries, 4);
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
   return {
