@@ -1,49 +1,22 @@
 # 🇦🇺 Australian Economy Dashboard
 
-A real-time economic health dashboard tracking key Australian economic indicators, built with the T3 stack.
-
-## Features
-
-- **Overall health score** — weighted gauge across all indicators
-- **8 metrics** across four categories: Growth & Output, Prices & Wages, Labour Market, and Financial & External
-- **Time range filtering** — 1Y, 5Y, 10Y, All
-- **Dark mode** support
-- **Live data** from ABS, RBA, and World Bank APIs
+Economic health dashboard for Australia — built with Next.js 15, tRPC, Tailwind v4, and shadcn/ui.
 
 ## Data Sources
 
-| Metric | Source |
-|---|---|
-| GDP Growth | World Bank |
-| Inflation (CPI) | ABS SDMX API |
-| Wage Growth | ABS SDMX API |
-| Unemployment | ABS SDMX API |
-| Cash Rate | RBA |
-| AUD/USD | RBA |
-| Trade Balance | World Bank |
+| Metric | Source | How |
+|---|---|---|
+| GDP Growth | World Bank | REST API — annual GDP growth % for Australia (`NY.GDP.MKTP.KD.ZG`) |
+| Inflation (CPI) | ABS | SDMX-JSON API — quarterly CPI index numbers, converted to YoY % change |
+| Wage Growth | ABS | SDMX-JSON API — quarterly Wage Price Index, converted to YoY % change |
+| Unemployment | ABS | SDMX-JSON API — monthly unemployment rate from Labour Force survey |
+| Cash Rate | RBA | CSV download (Table F1) — official cash rate target, parsed from RBA website |
+| AUD/USD | RBA | CSV download (Table F11) — daily exchange rates, collapsed to monthly |
+| Trade Balance | World Bank | REST API — annual merchandise trade balance in USD, converted to AUD billions |
 
-## Tech Stack
-
-- **Framework** — Next.js 15 (App Router)
-- **Language** — TypeScript
-- **Styling** — Tailwind CSS v4 + shadcn/ui
-- **API** — tRPC
-- **Database** — Drizzle ORM + Turso (libSQL)
-- **Charts** — Recharts via shadcn charts
-
-## Getting Started
+## Dev
 
 ```bash
-pnpm install
-pnpm dev
+pnpm dev          # start dev server
+pnpm tsx scripts/update-data.ts  # refresh all data from sources
 ```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-## Updating Data
-
-```bash
-pnpm tsx scripts/update-data.ts
-```
-
-Fetches the latest data from all sources and writes to `src/data/metrics.json`.
