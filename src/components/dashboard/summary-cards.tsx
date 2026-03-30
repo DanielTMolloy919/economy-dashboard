@@ -5,7 +5,7 @@ import type { MetricData } from "~/types/metrics";
 
 export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
   return (
-    <div className="grid grid-cols-2 gap-3 w-full">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
       {metrics.map((m) => {
         const trend = getTrendDirection(m.currentValue, m.previousValue);
         return (

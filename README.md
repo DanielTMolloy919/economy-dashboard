@@ -21,9 +21,15 @@ pnpm tsx scripts/update-data.ts  # refresh all data from sources
 ```
 
 ## Todos
-- Fix vercel issues - rip out database stuff?
 - What else can we get from ABS? Trade Balance?
-- squash the headers down to a 4x1 at the top, make the graphs bigger and nicer
+- squash the headers down to a 4x1 at the top
+- make the graphs bigger and nicer
 - Last updated + next expected update
 - does the ABS have anything on housing
 - More transparency on how the overall economic score is calculated
+- Can we use ABS to get a deepdive on the labor force or my industry specifically
+    - Scrape indeed hiring data?
+- up and down arrows aren't always good or bad
+- the more info button needs to be a bit more obvious
+- 4x1 tabs up the top link to full graph cards
+- Better trend than just the last value?
