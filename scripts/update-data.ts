@@ -5,8 +5,8 @@
  *
  * Sources:
  *   - RBA CSV: cash-rate (F1), aud-usd (F11)
- *   - World Bank API: gdp, trade
- *   - ABS SDMX API: unemployment (LF), wages (WPI), cpi (CPI)
+ *   - World Bank API: trade
+ *   - ABS SDMX API: gdp (ANA_AGG), unemployment (LF), wages (WPI), cpi (CPI)
  *   - Housing: skipped — ABS RPPI dataflow is ceased (placeholder data retained)
  */
 
@@ -15,8 +15,8 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
-import { fetchGdp, fetchTrade } from "./sources/world-bank";
-import { fetchUnemployment, fetchWages, fetchCpi } from "./sources/abs-api";
+import { fetchTrade } from "./sources/world-bank";
+import { fetchGdp, fetchUnemployment, fetchWages, fetchCpi } from "./sources/abs-api";
 
 const DATA_DIR = join(process.cwd(), "data");
 

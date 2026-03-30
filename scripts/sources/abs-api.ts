@@ -82,6 +82,34 @@ function toYoY(series: MetricSeries[], periodsPerYear: number): MetricSeries[] {
   });
 }
 
+export async function fetchGdp(): Promise<MetricData> {
+  // ANA_AGG: Australian National Accounts Key Aggregates
+  // Key: MEASURE.DATA_ITEM.TSEST.REGION.FREQ
+  // M1=Chain volume index, GPM=GDP, 20=Seasonally adjusted, AUS, Q=Quarterly
+  // Compute YoY from index numbers (4 quarters back)
+  const response = await fetchAbs(
+    "ABS,ANA_AGG,1.0.0",
+    "M1.GPM.20.AUS.Q",
+    "2004-Q1",
+  );
+  const indexSeries = extractSeries(response);
+  const series = toYoY(indexSeries, 4);
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  return {
+    id: "gdp",
+    name: "GDP Growth",
+    lastUpdated: series.at(-1)!.date,
+    source: "ABS",
+    unit: "% YoY",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("gdp", currentValue),
+    series,
+  };
+}
+
 export async function fetchUnemployment(): Promise<MetricData> {
   // LF: Labour Force Survey
   // Key: MEASURE.SEX.AGE.TSEST.REGION.FREQ
