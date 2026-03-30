@@ -25,13 +25,27 @@ interface MetricChartProps {
   mini?: boolean;
 }
 
-function formatDate(dateStr: string): string {
-  const d = new Date(dateStr);
-  return `'${d.getFullYear().toString().slice(2)}`;
+function makeTickFormatter(spanYears: number) {
+  return (dateStr: string) => {
+    const d = new Date(dateStr);
+    if (spanYears <= 1) {
+      return d.toLocaleDateString("en-AU", { month: "short", day: "numeric" });
+    }
+    return `'${d.getFullYear().toString().slice(2)}`;
+  };
 }
 
 export function MetricChart({ series, chartType, mini = false }: MetricChartProps) {
-  const data = series.map((p) => ({ value: p.value, label: formatDate(p.date) }));
+  const data = series.map((p) => ({ value: p.value, date: p.date }));
+
+  const spanYears =
+    data.length >= 2
+      ? (new Date(data.at(-1)!.date).getTime() - new Date(data[0]!.date).getTime()) /
+        (1000 * 60 * 60 * 24 * 365)
+      : 10;
+
+  const tickFormatter = makeTickFormatter(spanYears);
+
   const margin = mini
     ? { top: 2, right: 2, bottom: 0, left: 0 }
     : { top: 8, right: 8, bottom: 0, left: -20 };
@@ -39,14 +53,29 @@ export function MetricChart({ series, chartType, mini = false }: MetricChartProp
   const axes = mini ? null : (
     <>
       <XAxis
-        dataKey="label"
+        dataKey="date"
         tick={{ fontSize: 10 }}
         tickLine={false}
         axisLine={false}
         interval="preserveStartEnd"
+        minTickGap={32}
+        tickFormatter={tickFormatter}
       />
       <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} width={38} />
-      <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
+      <ChartTooltip
+        content={
+          <ChartTooltipContent
+            indicator="dot"
+            labelFormatter={(value) =>
+              new Date(value as string).toLocaleDateString("en-AU", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })
+            }
+          />
+        }
+      />
     </>
   );
 
