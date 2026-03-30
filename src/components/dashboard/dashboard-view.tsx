@@ -76,7 +76,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
             const data = metricsMap.get(id);
             if (!def || !data) return null;
             return (
-              <div key={id} id={id}>
+              <div key={id} id={id} className="scroll-mt-20">
                 <MetricCard
                   data={data}
                   definition={def}
@@ -103,7 +103,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
                 const data = metricsMap.get(def.id);
                 if (!data) return null;
                 return (
-                  <div key={def.id} id={def.id}>
+                  <div key={def.id} id={def.id} className="scroll-mt-20">
                     <MetricCard
                       data={data}
                       definition={def}
