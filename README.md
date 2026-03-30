@@ -1,29 +1,49 @@
-# Create T3 App
+# 🇦🇺 Australian Economy Dashboard
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A real-time economic health dashboard tracking key Australian economic indicators, built with the T3 stack.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- **Overall health score** — weighted gauge across all indicators
+- **8 metrics** across four categories: Growth & Output, Prices & Wages, Labour Market, and Financial & External
+- **Time range filtering** — 1Y, 5Y, 10Y, All
+- **Dark mode** support
+- **Live data** from ABS, RBA, and World Bank APIs
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Data Sources
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+| Metric | Source |
+|---|---|
+| GDP Growth | World Bank |
+| Inflation (CPI) | ABS SDMX API |
+| Wage Growth | ABS SDMX API |
+| Unemployment | ABS SDMX API |
+| Cash Rate | RBA |
+| AUD/USD | RBA |
+| Trade Balance | World Bank |
 
-## Learn More
+## Tech Stack
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- **Framework** — Next.js 15 (App Router)
+- **Language** — TypeScript
+- **Styling** — Tailwind CSS v4 + shadcn/ui
+- **API** — tRPC
+- **Database** — Drizzle ORM + Turso (libSQL)
+- **Charts** — Recharts via shadcn charts
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Getting Started
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+pnpm install
+pnpm dev
+```
 
-## How do I deploy this?
+Open [http://localhost:3000](http://localhost:3000).
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Updating Data
+
+```bash
+pnpm tsx scripts/update-data.ts
+```
+
+Fetches the latest data from all sources and writes to `src/data/metrics.json`.
