@@ -19,3 +19,11 @@ Calls the World Bank REST API for Australia's merchandise trade balance. Comes b
 pnpm dev                         # start dev server
 pnpm tsx scripts/update-data.ts  # refresh all data from sources
 ```
+
+## Todos
+- Fix vercel issues - rip out database stuff?
+- What else can we get from ABS? Trade Balance?
+- squash the headers down to a 4x1 at the top, make the graphs bigger and nicer
+- Last updated + next expected update
+- does the ABS have anything on housing
+- More transparency on how the overall economic score is calculated
