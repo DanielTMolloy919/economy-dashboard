@@ -63,7 +63,10 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
       <main className="mx-auto w-full max-w-2xl px-4 py-8 space-y-6">
         {/* Hero */}
         <section className="flex flex-col gap-6 items-center">
-          <OverallHealth score={overallScore} />
+          <OverallHealth
+            score={overallScore}
+            metrics={metrics.map((m) => ({ id: m.id, currentValue: m.currentValue }))}
+          />
           <SummaryCards metrics={heroMetrics} />
         </section>
 
