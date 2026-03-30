@@ -6,6 +6,8 @@ import {
   getTrendSentiment,
 } from "~/components/dashboard/trend-arrow";
 import { metricDefinitions } from "~/config/metrics";
+import { metricInfo } from "~/config/metric-info";
+import { MetricInfoPopover } from "~/components/dashboard/metric-info-popover";
 import type { MetricData } from "~/types/metrics";
 
 export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
@@ -15,12 +17,20 @@ export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
         const trend = getTrendDirection(m.currentValue, m.previousValue);
         const polarity = metricDefinitions.find((d) => d.id === m.id)?.trendPolarity ?? "neutral";
         const sentiment = getTrendSentiment(trend, polarity);
+        const info = metricInfo[m.id];
         return (
           <a key={m.id} href={`#${m.id}`} className="block group">
             <Card className="transition-colors group-hover:bg-muted/50">
               <CardContent>
                 <div className="flex items-center justify-between mb-2">
-                  <HealthBadge status={m.health} />
+                  <div className="flex items-center gap-2">
+                    <HealthBadge status={m.health} />
+                    {info && (
+                      <span onClick={(e) => e.preventDefault()}>
+                        <MetricInfoPopover info={info} name={m.name} />
+                      </span>
+                    )}
+                  </div>
                   <TrendArrow direction={trend} sentiment={sentiment} />
                 </div>
                 <p className="text-xs text-muted-foreground">{m.name}</p>
