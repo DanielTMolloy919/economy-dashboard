@@ -27,7 +27,7 @@ interface MetricInfoPopoverProps {
 export function MetricInfoPopover({ info, name }: MetricInfoPopoverProps) {
   return (
     <Popover>
-      <PopoverTrigger render={<Button variant="ghost" size="icon-xs" className="text-muted-foreground" />}>
+      <PopoverTrigger render={<Button variant="outline" size="icon-xs" className="text-muted-foreground hover:text-foreground" />}>
         <Info data-icon />
       </PopoverTrigger>
       <PopoverContent side="bottom" align="end" className="w-80">
