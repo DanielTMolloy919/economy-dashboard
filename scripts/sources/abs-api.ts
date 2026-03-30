@@ -164,6 +164,86 @@ export async function fetchWages(): Promise<MetricData> {
   };
 }
 
+export async function fetchUnderemployment(): Promise<MetricData> {
+  // LF_UNDER: Labour Force Underemployment
+  // Key: PARM_ITEM.SEX.AGE.TSEST.REGION.FREQ
+  // M22=Underemployment ratio (share of employed), 3=Persons, 1599=All ages, 20=Seasonally adjusted, AUS, M=Monthly
+  const response = await fetchAbs(
+    "ABS,LF_UNDER,1.0.1",
+    "M22.3.1599.20.AUS.M",
+    "2010-01",
+  );
+  const series = extractSeries(response);
+  const rounded = series.map((p) => ({ ...p, value: Math.round(p.value * 10) / 10 }));
+  const currentValue = rounded.at(-1)!.value;
+  const previousValue = rounded.at(-2)!.value;
+  return {
+    id: "underemployment",
+    name: "Underemployment",
+    lastUpdated: rounded.at(-1)!.date,
+    source: "ABS",
+    unit: "%",
+    frequency: "Monthly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("underemployment", currentValue),
+    series: rounded,
+  };
+}
+
+export async function fetchHouseholdSpending(): Promise<MetricData> {
+  // HSI_M: Monthly Household Spending Indicator
+  // Key: MEASURE.CATEGORY.PRICE_ADJUSTMENT.TSEST.STATE.FREQ
+  // 9=Through the year % change, TOT=Total, CUR=Current price, 20=Seasonally adjusted, AUS, M=Monthly
+  const response = await fetchAbs(
+    "ABS,HSI_M,1.6.0",
+    "9.TOT.CUR.20.AUS.M",
+    "2014-01",
+  );
+  const series = extractSeries(response).filter((p) => p.value !== 0);
+  const currentValue = Math.round(series.at(-1)!.value * 10) / 10;
+  const previousValue = Math.round(series.at(-2)!.value * 10) / 10;
+  return {
+    id: "household-spending",
+    name: "Household Spending",
+    lastUpdated: series.at(-1)!.date,
+    source: "ABS",
+    unit: "% YoY",
+    frequency: "Monthly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("household-spending", currentValue),
+    series,
+  };
+}
+
+export async function fetchJobVacancies(): Promise<MetricData> {
+  // JV: Job Vacancies
+  // Key: MEASURE.SECTOR.INDUSTRY.TSEST.REGION.FREQ
+  // M1=Job vacancies (thousands), 7=Private+Public, TOT=All industries, 20=Seasonally adjusted, AUS, Q=Quarterly
+  const response = await fetchAbs(
+    "ABS,JV,1.0",
+    "M1.7.TOT.20.AUS.Q",
+    "2004-Q1",
+  );
+  const series = extractSeries(response);
+  const rounded = series.map((p) => ({ ...p, value: Math.round(p.value * 10) / 10 }));
+  const currentValue = rounded.at(-1)!.value;
+  const previousValue = rounded.at(-2)!.value;
+  return {
+    id: "job-vacancies",
+    name: "Job Vacancies",
+    lastUpdated: rounded.at(-1)!.date,
+    source: "ABS",
+    unit: "k",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("job-vacancies", currentValue),
+    series: rounded,
+  };
+}
+
 export async function fetchCpi(): Promise<MetricData> {
   // CPI: Consumer Price Index
   // Key: MEASURE.REGION.TSEST.FREQ

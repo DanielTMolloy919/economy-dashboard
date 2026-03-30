@@ -63,15 +63,37 @@ export const metricInfo: Record<string, MetricInfo> = {
       red: "< 2% — almost certain real wage cuts when any inflation is present, reducing household disposable income and consumer spending capacity.",
     },
   },
-  housing: {
+  underemployment: {
     summary:
-      "This tracks the annual percentage change in Australian residential property prices. Housing is both the largest household asset class and a key driver of construction activity and consumer confidence.",
+      "The underemployment ratio measures the share of employed people who want and are available to work more hours than they currently do. It captures hidden labour market slack that the unemployment rate misses.",
     thresholdRationale: {
       green:
-        "0–5% — moderate growth broadly in line with wages and inflation, keeping housing accessible without generating destabilising credit growth.",
+        "< 7% — labour market is tight enough that most part-time workers who want more hours can find them.",
       yellow:
-        "−5–0% (mild falls) or 5–10% (fast rises). Mild falls can correct overvaluation; rapid rises start to price out first-home buyers and stretch household debt.",
-      red: "Falls > 5% can trigger negative equity for recent buyers and sharply reduce household wealth. Rises > 10% signal speculative excess and significantly worsen housing affordability.",
+        "7–9% — a meaningful share of workers are stuck in fewer hours than they want, suppressing wage growth and household income.",
+      red: "> 9% — widespread underutilisation of the workforce, typically seen during recessions or periods of weak economic activity.",
+    },
+  },
+  "household-spending": {
+    summary:
+      "The Monthly Household Spending Indicator tracks the annual change in total consumer spending across all categories. Consumer spending drives around 55% of Australian GDP, making it a key pulse check on economic momentum.",
+    thresholdRationale: {
+      green:
+        "2–7% — healthy nominal growth. Above inflation but not excessive, consistent with rising real living standards and a confident consumer.",
+      yellow:
+        "0–2% signals weak consumer confidence — households are cautious. 7–10% may indicate spending is running ahead of income, often funded by debt.",
+      red: "< 0% — households are cutting spending in absolute terms, a strong recession signal. > 10% is uncommon and typically reflects a post-shock rebound or significant inflation passthrough.",
+    },
+  },
+  "job-vacancies": {
+    summary:
+      "Job vacancies measure the number of unfilled positions that employers are actively trying to fill. It's a leading indicator of labour demand — rising vacancies mean businesses are expanding; falling vacancies mean they're pulling back.",
+    thresholdRationale: {
+      green:
+        "> 250k — above pre-COVID norms, indicating strong employer demand for workers and a tight labour market.",
+      yellow:
+        "150–250k — approaching pre-COVID normal levels. Vacancies are falling but the labour market remains functional.",
+      red: "< 150k — well below historical norms, indicating weak hiring intentions and a labour market under stress.",
     },
   },
   "aud-usd": {

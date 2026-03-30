@@ -63,16 +63,6 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Prices & Wages",
   },
   {
-    id: "housing",
-    name: "Housing Prices",
-    unit: "% YoY",
-    source: "ABS",
-    frequency: "Quarterly",
-    chartType: "line",
-    description: "Residential property price index — annual change",
-    section: "Housing & Fiscal",
-  },
-  {
     id: "aud-usd",
     name: "AUD/USD",
     unit: "USD",
@@ -86,11 +76,41 @@ export const metricDefinitions: MetricDefinition[] = [
     id: "trade",
     name: "Trade Balance",
     unit: "A$B",
-    source: "ABS",
-    frequency: "Monthly",
+    source: "World Bank",
+    frequency: "Annual",
     chartType: "bar",
     description: "Goods and services trade balance (surplus/deficit)",
     section: "External & Trade",
+  },
+  {
+    id: "underemployment",
+    name: "Underemployment",
+    unit: "%",
+    source: "ABS",
+    frequency: "Monthly",
+    chartType: "area",
+    description: "Share of employed people who want more work hours",
+    section: "Labour Market",
+  },
+  {
+    id: "household-spending",
+    name: "Household Spending",
+    unit: "% YoY",
+    source: "ABS",
+    frequency: "Monthly",
+    chartType: "area",
+    description: "Annual change in household consumer spending",
+    section: "Growth & Output",
+  },
+  {
+    id: "job-vacancies",
+    name: "Job Vacancies",
+    unit: "k",
+    source: "ABS",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "Number of unfilled job vacancies (thousands)",
+    section: "Labour Market",
   },
 ];
 
@@ -100,7 +120,6 @@ export const dashboardSections = [
   "Labour Market",
   "Financial & Monetary",
   "External & Trade",
-  "Housing & Fiscal",
 ];
 
 export const heroMetricIds = ["gdp", "cpi", "unemployment", "cash-rate"];

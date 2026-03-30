@@ -6,7 +6,7 @@
  * Sources:
  *   - RBA CSV: cash-rate (F1), aud-usd (F11)
  *   - World Bank API: trade
- *   - ABS SDMX API: gdp (ANA_AGG), unemployment (LF), wages (WPI), cpi (CPI)
+ *   - ABS SDMX API: gdp (ANA_AGG), unemployment (LF), underemployment (LF_UNDER), wages (WPI), cpi (CPI), household-spending (HSI_M), job-vacancies (JV)
  *   - Housing: skipped — ABS RPPI dataflow is ceased (placeholder data retained)
  */
 
@@ -16,7 +16,7 @@ import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
 import { fetchTrade } from "./sources/world-bank";
-import { fetchGdp, fetchUnemployment, fetchWages, fetchCpi } from "./sources/abs-api";
+import { fetchGdp, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies } from "./sources/abs-api";
 
 const DATA_DIR = join(process.cwd(), "data");
 
@@ -55,14 +55,12 @@ async function main() {
     run("gdp", fetchGdp),
     run("trade", fetchTrade),
     run("unemployment", fetchUnemployment),
+    run("underemployment", fetchUnderemployment),
     run("wages", fetchWages),
     run("cpi", fetchCpi),
+    run("household-spending", fetchHouseholdSpending),
+    run("job-vacancies", fetchJobVacancies),
   ]);
-
-  keep(
-    "housing",
-    "ABS RPPI dataflow is ceased — update manually from abs.gov.au/statistics/economy/price-indexes-and-inflation/residential-property-price-indexes-eight-capital-cities",
-  );
 
   console.log("\nDone.");
 }

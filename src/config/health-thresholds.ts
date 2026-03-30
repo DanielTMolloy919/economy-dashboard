@@ -55,17 +55,29 @@ export const healthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 2 }],
     weight: 0.13,
   },
-  housing: {
-    green: { min: 0, max: 5 },
+  underemployment: {
+    green: { min: -Infinity, max: 7 },
+    yellow: [{ min: 7, max: 9 }],
+    red: [{ min: 9, max: Infinity }],
+    weight: 0.08,
+  },
+  "household-spending": {
+    green: { min: 2, max: 7 },
     yellow: [
-      { min: 5, max: 10 },
-      { min: -5, max: 0 },
+      { min: 0, max: 2 },
+      { min: 7, max: 10 },
     ],
     red: [
+      { min: -Infinity, max: 0 },
       { min: 10, max: Infinity },
-      { min: -Infinity, max: -5 },
     ],
-    weight: 0.1,
+    weight: 0.08,
+  },
+  "job-vacancies": {
+    green: { min: 250, max: Infinity },
+    yellow: [{ min: 150, max: 250 }],
+    red: [{ min: -Infinity, max: 150 }],
+    weight: 0.06,
   },
   "aud-usd": {
     green: { min: 0.65, max: 0.8 },
