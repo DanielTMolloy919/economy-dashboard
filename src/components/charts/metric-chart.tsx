@@ -74,10 +74,9 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
                 year: "numeric",
               })
             }
-            formatter={(value) => [
-              `${(value as number).toLocaleString("en-AU", { maximumFractionDigits: 2 })} ${unit}`,
-              name,
-            ]}
+            formatter={(value) =>
+              `${(value as number).toLocaleString("en-AU", { maximumFractionDigits: 2 })} ${unit.split(" ")[0]}`
+            }
           />
         }
       />
