@@ -244,6 +244,34 @@ export async function fetchJobVacancies(): Promise<MetricData> {
   };
 }
 
+export async function fetchTrade(): Promise<MetricData> {
+  // ITGS: International Trade in Goods
+  // Key: MEASURE.DATA_ITEM.TSEST.REGION.FREQ
+  // M1=Current prices, 170=Balance on goods, 20=Seasonally adjusted, AUS, M=Monthly
+  // Values are in A$M — divide by 1000 for A$B
+  const response = await fetchAbs(
+    "ABS,ITGS,1.2.0",
+    "M1.170.20.AUS.M",
+    "2004-01",
+  );
+  const raw = extractSeries(response);
+  const series = raw.map((p) => ({ ...p, value: Math.round((p.value / 1000) * 10) / 10 }));
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  return {
+    id: "trade",
+    name: "Trade Balance",
+    lastUpdated: series.at(-1)!.date,
+    source: "ABS",
+    unit: "A$B",
+    frequency: "Monthly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("trade", currentValue),
+    series,
+  };
+}
+
 export async function fetchCpi(): Promise<MetricData> {
   // CPI: Consumer Price Index
   // Key: MEASURE.REGION.TSEST.FREQ

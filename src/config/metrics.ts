@@ -76,10 +76,10 @@ export const metricDefinitions: MetricDefinition[] = [
     id: "trade",
     name: "Trade Balance",
     unit: "A$B",
-    source: "World Bank",
-    frequency: "Annual",
+    source: "ABS",
+    frequency: "Monthly",
     chartType: "bar",
-    description: "Goods and services trade balance (surplus/deficit)",
+    description: "Goods trade balance (surplus/deficit)",
     section: "External & Trade",
   },
   {
