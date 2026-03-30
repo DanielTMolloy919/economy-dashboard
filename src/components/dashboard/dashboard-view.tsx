@@ -2,13 +2,14 @@
 import { useState } from "react";
 import type { MetricData } from "~/types/metrics";
 import type { MetricDefinition } from "~/config/metrics";
-import { metricDefinitions, dashboardSections, heroMetricIds } from "~/config/metrics";
+import { metricDefinitions, heroMetricIds } from "~/config/metrics";
 import { getOverallScore } from "~/config/health-thresholds";
 import { TimeRangeTabs, type TimeRange } from "~/components/dashboard/time-range-tabs";
 import { OverallHealth } from "~/components/dashboard/overall-health";
 import { SummaryCards } from "~/components/dashboard/summary-cards";
 import { MetricCard } from "~/components/dashboard/metric-card";
 import { ThemeToggle } from "~/components/dashboard/theme-toggle";
+import { Separator } from "~/components/ui/separator";
 
 function filterSeries(
   series: MetricData["series"],
@@ -32,6 +33,18 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
     metrics.map((m) => ({ id: m.id, currentValue: m.currentValue })),
   );
 
+  const heroSet = new Set(heroMetricIds);
+  const otherDefinitions = metricDefinitions.filter((d) => !heroSet.has(d.id));
+
+  // Group remaining metrics by section
+  const otherSections = Array.from(
+    otherDefinitions.reduce((map, def) => {
+      if (!map.has(def.section)) map.set(def.section, []);
+      map.get(def.section)!.push(def);
+      return map;
+    }, new Map<string, MetricDefinition[]>()),
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
@@ -47,43 +60,61 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-2xl px-4 py-8 space-y-10">
+      <main className="mx-auto w-full max-w-2xl px-4 py-8 space-y-6">
         {/* Hero */}
         <section className="flex flex-col gap-6 items-center">
           <OverallHealth score={overallScore} />
           <SummaryCards metrics={heroMetrics} />
         </section>
 
-        {/* Metric sections */}
-        {dashboardSections.map((section) => {
-          const sectionMetrics = metricDefinitions
-            .filter((def) => def.section === section)
-            .reduce<{ def: MetricDefinition; data: MetricData }[]>((acc, def) => {
-              const data = metricsMap.get(def.id);
-              if (data) acc.push({ def, data });
-              return acc;
-            }, []);
+        <Separator />
 
-          if (sectionMetrics.length === 0) return null;
-
-          return (
-            <section key={section}>
-              <h2 className="text-base font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
-                {section}
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {sectionMetrics.map(({ def, data }) => (
-                  <MetricCard
-                    key={def.id}
-                    data={data}
-                    definition={def}
-                    filteredSeries={filterSeries(data.series, timeRange)}
-                  />
-                ))}
+        {/* Big 4 */}
+        <section className="flex flex-col gap-4">
+          {heroMetricIds.map((id) => {
+            const def = metricDefinitions.find((d) => d.id === id);
+            const data = metricsMap.get(id);
+            if (!def || !data) return null;
+            return (
+              <div key={id} id={id}>
+                <MetricCard
+                  data={data}
+                  definition={def}
+                  filteredSeries={filterSeries(data.series, timeRange)}
+                />
               </div>
-            </section>
-          );
-        })}
+            );
+          })}
+        </section>
+
+        <Separator />
+
+        {/* Other metrics by section */}
+        <section className="flex flex-col gap-8">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            More Indicators
+          </h2>
+          {otherSections.map(([section, defs]) => (
+            <div key={section} className="flex flex-col gap-4">
+              <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground/60">
+                {section}
+              </h3>
+              {defs.map((def) => {
+                const data = metricsMap.get(def.id);
+                if (!data) return null;
+                return (
+                  <div key={def.id} id={def.id}>
+                    <MetricCard
+                      data={data}
+                      definition={def}
+                      filteredSeries={filterSeries(data.series, timeRange)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </section>
       </main>
 
       <footer className="border-t mt-16">

@@ -21,29 +21,35 @@ interface MetricCardProps {
 
 export function MetricCard({ data, definition, filteredSeries }: MetricCardProps) {
   const trend = getTrendDirection(data.currentValue, data.previousValue);
-  const info = metricInfo[definition.id];
   const change = data.currentValue - data.previousValue;
   const changeStr = `${change >= 0 ? "+" : ""}${change.toFixed(2)}`;
+  const info = metricInfo[definition.id];
 
   return (
     <Card>
-      <CardHeader className="pb-2 space-y-1">
-        <div className="flex items-center justify-between">
-          <HealthBadge status={data.health} />
-          <div className="flex items-center gap-1">
-            <TrendArrow direction={trend} />
-            {info && <MetricInfoPopover info={info} name={data.name} />}
+      <CardHeader className="pb-3">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center gap-2">
+              <HealthBadge status={data.health} />
+              {info && <MetricInfoPopover info={info} name={data.name} />}
+            </div>
+            <p className="text-base font-semibold leading-tight">{data.name}</p>
+          </div>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-3xl font-bold tabular-nums">{data.currentValue}</span>
+              <span className="text-sm text-muted-foreground">{data.unit}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <TrendArrow direction={trend} />
+              <span className="text-xs text-muted-foreground">{changeStr} vs prev</span>
+            </div>
           </div>
         </div>
-        <p className="text-sm font-medium leading-tight">{data.name}</p>
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-2xl font-bold">{data.currentValue}</span>
-          <span className="text-xs text-muted-foreground">{data.unit}</span>
-        </div>
-        <p className="text-xs text-muted-foreground">{changeStr} vs prev</p>
       </CardHeader>
       <CardContent className="pb-2">
-        <div className="h-20">
+        <div className="h-44">
           <MetricChart
             series={filteredSeries}
             chartType={definition.chartType}
@@ -52,7 +58,7 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
           />
         </div>
       </CardContent>
-      <CardFooter className="py-1">
+      <CardFooter className="py-2">
         <p className="text-xs text-muted-foreground">
           {data.source} ·{" "}
           {new Date(data.lastUpdated).toLocaleDateString("en-AU", {
