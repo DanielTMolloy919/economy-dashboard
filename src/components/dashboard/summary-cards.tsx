@@ -15,7 +15,11 @@ export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
       {metrics.map((m) => {
         const definition = metricDefinitions.find((d) => d.id === m.id);
-        const trend = getTrendDirection(m.currentValue, m.previousValue);
+        const trend = getTrendDirection(
+          m.series,
+          definition?.trendWindow ?? 6,
+          definition?.trendThreshold ?? 0.05,
+        );
         const polarity = definition?.trendPolarity ?? "neutral";
         const sentiment = getTrendSentiment(trend, polarity);
         const decimals = definition?.decimals ?? 1;

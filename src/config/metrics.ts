@@ -11,6 +11,10 @@ export interface MetricDefinition {
   section: string;
   trendPolarity: TrendPolarity;
   decimals: number;
+  // Regression window (number of data points) and minimum slope threshold.
+  // Arrow shows neutral if |slope| < trendThreshold — i.e. the series is flat.
+  trendWindow: number;
+  trendThreshold: number;
 }
 
 export const metricDefinitions: MetricDefinition[] = [
@@ -25,6 +29,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Growth & Output",
     trendPolarity: "positive",
     decimals: 1,
+    trendWindow: 4,       // 4 quarters = 1 year
+    trendThreshold: 0.05, // 0.05pp/quarter slope to register
   },
   {
     id: "cpi",
@@ -37,6 +43,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Prices & Wages",
     trendPolarity: "negative",
     decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.05,
   },
   {
     id: "unemployment",
@@ -49,6 +57,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Labour Market",
     trendPolarity: "negative",
     decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.02,
   },
   {
     id: "cash-rate",
@@ -61,6 +71,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Financial & Monetary",
     trendPolarity: "neutral",
     decimals: 2,
+    trendWindow: 4,       // last 4 decisions
+    trendThreshold: 0.05,
   },
   {
     id: "wages",
@@ -73,6 +85,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Prices & Wages",
     trendPolarity: "positive",
     decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 0.05,
   },
   {
     id: "aud-usd",
@@ -85,6 +99,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "External & Trade",
     trendPolarity: "neutral",
     decimals: 4,
+    trendWindow: 6,
+    trendThreshold: 0.002, // ~0.2 cent/month slope to register
   },
   {
     id: "trade",
@@ -97,6 +113,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "External & Trade",
     trendPolarity: "positive",
     decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.1,  // A$100M/month slope to register
   },
   {
     id: "underemployment",
@@ -109,6 +127,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Labour Market",
     trendPolarity: "negative",
     decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.02,
   },
   {
     id: "household-spending",
@@ -121,6 +141,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Growth & Output",
     trendPolarity: "positive",
     decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.1,
   },
   {
     id: "job-vacancies",
@@ -133,6 +155,8 @@ export const metricDefinitions: MetricDefinition[] = [
     section: "Labour Market",
     trendPolarity: "positive",
     decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 5,    // 5k/quarter slope to register
   },
 ];
 

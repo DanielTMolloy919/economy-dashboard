@@ -24,7 +24,7 @@ interface MetricCardProps {
 }
 
 export function MetricCard({ data, definition, filteredSeries }: MetricCardProps) {
-  const trend = getTrendDirection(data.currentValue, data.previousValue);
+  const trend = getTrendDirection(data.series, definition.trendWindow, definition.trendThreshold);
   const sentiment = getTrendSentiment(trend, definition.trendPolarity);
   const { decimals } = definition;
   const change = data.currentValue - data.previousValue;
