@@ -30,7 +30,7 @@ function parseRbaDate(dateStr: string): string | null {
   return `${year}-${m}-01`;
 }
 
-// Parse "18 Mar 2026" → "2026-03-01"
+// Parse "18 Mar 2026" → "2026-03-18"
 function parseRbaDecisionDate(dateStr: string): string | null {
   const match = /^(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})$/.exec(dateStr.trim());
   if (!match) return null;
@@ -39,10 +39,10 @@ function parseRbaDecisionDate(dateStr: string): string | null {
     May: "05", Jun: "06", Jul: "07", Aug: "08",
     Sep: "09", Oct: "10", Nov: "11", Dec: "12",
   };
-  const [, , mon, year] = match;
+  const [, day, mon, year] = match;
   const m = months[mon!];
   if (!m) return null;
-  return `${year}-${m}-01`;
+  return `${year}-${m}-${day!.padStart(2, "0")}`;
 }
 
 function extractColumn(
@@ -131,15 +131,9 @@ async function scrapeDecisionsTable(): Promise<MetricSeries[]> {
 
   if (points.length === 0) throw new Error("No data rows parsed from cash rate table");
 
-  // Table is newest-first; reverse to chronological, dedupe by month (keep first = most recent decision)
+  // Table is newest-first; reverse to chronological order
   points.reverse();
-  const seen = new Set<string>();
-  return points.filter((p) => {
-    const month = p.date.slice(0, 7);
-    if (seen.has(month)) return false;
-    seen.add(month);
-    return true;
-  });
+  return points;
 }
 
 export async function fetchCashRate(): Promise<MetricData> {
