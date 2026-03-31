@@ -29,11 +29,11 @@ interface AbsResponse {
 
 function parseAbsDate(timeId: string): string {
   // Monthly: "2024-11" → "2024-11-01"
-  // Quarterly: "2024-Q3" → "2024-07-01"
+  // Quarterly: "2024-Q3" → last day of the quarter ("2024-09-30")
   if (timeId.includes("-Q")) {
     const [year, q] = timeId.split("-Q") as [string, string];
-    const month = ((Number(q) - 1) * 3 + 1).toString().padStart(2, "0");
-    return `${year}-${month}-01`;
+    const quarterEnds: Record<string, string> = { "1": "03-31", "2": "06-30", "3": "09-30", "4": "12-31" };
+    return `${year}-${quarterEnds[q] ?? "12-31"}`;
   }
   return `${timeId}-01`;
 }
