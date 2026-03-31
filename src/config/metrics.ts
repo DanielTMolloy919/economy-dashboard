@@ -10,6 +10,7 @@ export interface MetricDefinition {
   description: string;
   section: string;
   trendPolarity: TrendPolarity;
+  decimals: number;
 }
 
 export const metricDefinitions: MetricDefinition[] = [
@@ -23,6 +24,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Annual gross domestic product growth rate",
     section: "Growth & Output",
     trendPolarity: "positive",
+    decimals: 1,
   },
   {
     id: "cpi",
@@ -34,6 +36,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Consumer Price Index — annual change",
     section: "Prices & Wages",
     trendPolarity: "negative",
+    decimals: 1,
   },
   {
     id: "unemployment",
@@ -45,6 +48,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Unemployment rate as % of labour force",
     section: "Labour Market",
     trendPolarity: "negative",
+    decimals: 1,
   },
   {
     id: "cash-rate",
@@ -56,6 +60,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "RBA official cash rate target",
     section: "Financial & Monetary",
     trendPolarity: "neutral",
+    decimals: 2,
   },
   {
     id: "wages",
@@ -67,6 +72,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Wage Price Index — annual change",
     section: "Prices & Wages",
     trendPolarity: "positive",
+    decimals: 1,
   },
   {
     id: "aud-usd",
@@ -78,6 +84,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Australian dollar vs US dollar exchange rate",
     section: "External & Trade",
     trendPolarity: "neutral",
+    decimals: 4,
   },
   {
     id: "trade",
@@ -89,6 +96,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Goods trade balance (surplus/deficit)",
     section: "External & Trade",
     trendPolarity: "positive",
+    decimals: 1,
   },
   {
     id: "underemployment",
@@ -100,6 +108,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Share of employed people who want more work hours",
     section: "Labour Market",
     trendPolarity: "negative",
+    decimals: 1,
   },
   {
     id: "household-spending",
@@ -111,6 +120,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Annual change in household consumer spending",
     section: "Growth & Output",
     trendPolarity: "positive",
+    decimals: 1,
   },
   {
     id: "job-vacancies",
@@ -122,6 +132,7 @@ export const metricDefinitions: MetricDefinition[] = [
     description: "Number of unfilled job vacancies (thousands)",
     section: "Labour Market",
     trendPolarity: "positive",
+    decimals: 1,
   },
 ];
 

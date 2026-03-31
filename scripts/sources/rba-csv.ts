@@ -125,7 +125,7 @@ async function scrapeDecisionsTable(): Promise<MetricSeries[]> {
       ?? tds[1];
     if (!date || !rateTd) continue;
 
-    const value = parseFloat(rateTd.text.trim());
+    const value = Math.round(parseFloat(rateTd.text.trim()) * 100) / 100;
     if (!isNaN(value)) points.push({ date, value });
   }
 

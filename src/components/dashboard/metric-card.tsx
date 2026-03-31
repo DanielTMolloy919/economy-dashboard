@@ -26,8 +26,9 @@ interface MetricCardProps {
 export function MetricCard({ data, definition, filteredSeries }: MetricCardProps) {
   const trend = getTrendDirection(data.currentValue, data.previousValue);
   const sentiment = getTrendSentiment(trend, definition.trendPolarity);
+  const { decimals } = definition;
   const change = data.currentValue - data.previousValue;
-  const changeStr = `${change >= 0 ? "+" : ""}${change.toFixed(2)}`;
+  const changeStr = `${change >= 0 ? "+" : ""}${change.toFixed(decimals)}`;
   const info = metricInfo[definition.id];
 
   return (
@@ -43,7 +44,7 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
           </div>
           <div className="flex flex-col items-end gap-1 shrink-0">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-3xl font-bold tabular-nums">{data.currentValue}</span>
+              <span className="text-3xl font-bold tabular-nums">{data.currentValue.toFixed(decimals)}</span>
               <span className="text-sm text-muted-foreground">{data.unit}</span>
             </div>
             <div className="flex items-center gap-1.5">

@@ -14,9 +14,11 @@ export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
       {metrics.map((m) => {
+        const definition = metricDefinitions.find((d) => d.id === m.id);
         const trend = getTrendDirection(m.currentValue, m.previousValue);
-        const polarity = metricDefinitions.find((d) => d.id === m.id)?.trendPolarity ?? "neutral";
+        const polarity = definition?.trendPolarity ?? "neutral";
         const sentiment = getTrendSentiment(trend, polarity);
+        const decimals = definition?.decimals ?? 1;
         const info = metricInfo[m.id];
         return (
           <a key={m.id} href={`#${m.id}`} className="block group">
@@ -35,7 +37,7 @@ export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
                 </div>
                 <p className="text-xs text-muted-foreground">{m.name}</p>
                 <p className="text-xl font-bold mt-0.5">
-                  {m.currentValue}{" "}
+                  {m.currentValue.toFixed(decimals)}{" "}
                   <span className="text-xs font-normal text-muted-foreground">
                     {m.unit}
                   </span>
