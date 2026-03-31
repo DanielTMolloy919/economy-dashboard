@@ -13,6 +13,7 @@ export interface MetricData {
   id: string;
   name: string;
   lastUpdated: string;
+  nextExpectedUpdate: string | null;
   source: string;
   unit: string;
   frequency: string;

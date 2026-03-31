@@ -1,5 +1,6 @@
 import { getHealthStatus } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
+import { nextAbsUpdate } from "./next-update";
 
 // ABS SDMX-JSON 2.0 REST API
 // Base: https://data.api.abs.gov.au/rest/data/{agencyId},{dataflowId},{version}/{key}
@@ -107,10 +108,12 @@ export async function fetchGdp(): Promise<MetricData> {
   const series = toYoY(indexSeries, 4);
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
   return {
     id: "gdp",
     name: "GDP Growth",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "quarterly"),
     source: "ABS",
     unit: "% YoY",
     frequency: "Quarterly",
@@ -133,10 +136,12 @@ export async function fetchUnemployment(): Promise<MetricData> {
   const series = extractSeries(response);
   const currentValue = Math.round(series.at(-1)!.value * 10) / 10;
   const previousValue = Math.round(series.at(-2)!.value * 10) / 10;
+  const lastUpdated = series.at(-1)!.date;
   return {
     id: "unemployment",
     name: "Unemployment",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
     source: "ABS",
     unit: "%",
     frequency: "Monthly",
@@ -161,10 +166,12 @@ export async function fetchWages(): Promise<MetricData> {
   const series = toYoY(indexSeries, 4); // 4 quarters back = 1 year
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
   return {
     id: "wages",
     name: "Wage Growth",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "quarterly"),
     source: "ABS",
     unit: "% YoY",
     frequency: "Quarterly",
@@ -188,10 +195,12 @@ export async function fetchUnderemployment(): Promise<MetricData> {
   const rounded = series.map((p) => ({ ...p, value: Math.round(p.value * 10) / 10 }));
   const currentValue = rounded.at(-1)!.value;
   const previousValue = rounded.at(-2)!.value;
+  const lastUpdated = rounded.at(-1)!.date;
   return {
     id: "underemployment",
     name: "Underemployment",
-    lastUpdated: rounded.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
     source: "ABS",
     unit: "%",
     frequency: "Monthly",
@@ -214,10 +223,12 @@ export async function fetchHouseholdSpending(): Promise<MetricData> {
   const series = extractSeries(response).filter((p) => p.value !== 0);
   const currentValue = Math.round(series.at(-1)!.value * 10) / 10;
   const previousValue = Math.round(series.at(-2)!.value * 10) / 10;
+  const lastUpdated = series.at(-1)!.date;
   return {
     id: "household-spending",
     name: "Household Spending",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
     source: "ABS",
     unit: "% YoY",
     frequency: "Monthly",
@@ -241,10 +252,12 @@ export async function fetchJobVacancies(): Promise<MetricData> {
   const rounded = series.map((p) => ({ ...p, value: Math.round(p.value * 10) / 10 }));
   const currentValue = rounded.at(-1)!.value;
   const previousValue = rounded.at(-2)!.value;
+  const lastUpdated = rounded.at(-1)!.date;
   return {
     id: "job-vacancies",
     name: "Job Vacancies",
-    lastUpdated: rounded.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "quarterly"),
     source: "ABS",
     unit: "k",
     frequency: "Quarterly",
@@ -269,10 +282,12 @@ export async function fetchTrade(): Promise<MetricData> {
   const series = raw.map((p) => ({ ...p, value: Math.round((p.value / 1000) * 10) / 10 }));
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
   return {
     id: "trade",
     name: "Trade Balance",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
     source: "ABS",
     unit: "A$B",
     frequency: "Monthly",
@@ -300,10 +315,12 @@ export async function fetchCpi(): Promise<MetricData> {
   );
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
   return {
     id: "cpi",
     name: "Inflation (CPI)",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
     source: "ABS",
     unit: "% YoY",
     frequency: "Monthly",

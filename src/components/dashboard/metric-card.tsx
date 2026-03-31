@@ -66,11 +66,20 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
       </CardContent>
       <CardFooter className="py-2">
         <p className="text-xs text-muted-foreground">
-          {data.source} ·{" "}
+          {data.source} · Updated{" "}
           {new Date(data.lastUpdated).toLocaleDateString("en-AU", {
             month: "short",
             year: "numeric",
           })}
+          {data.nextExpectedUpdate && (
+            <>
+              {" "}· Next{" "}
+              {new Date(data.nextExpectedUpdate).toLocaleDateString("en-AU", {
+                day: "numeric",
+                month: "short",
+              })}
+            </>
+          )}
         </p>
       </CardFooter>
     </Card>

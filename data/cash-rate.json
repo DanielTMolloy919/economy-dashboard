@@ -2,6 +2,7 @@
   "id": "cash-rate",
   "name": "Cash Rate",
   "lastUpdated": "2026-03-18",
+  "nextExpectedUpdate": "2026-05-05",
   "source": "RBA",
   "unit": "%",
   "frequency": "~8x/year",

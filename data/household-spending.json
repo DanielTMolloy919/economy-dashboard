@@ -2,6 +2,7 @@
   "id": "household-spending",
   "name": "Household Spending",
   "lastUpdated": "2026-01-01",
+  "nextExpectedUpdate": "2026-02-05",
   "source": "ABS",
   "unit": "% YoY",
   "frequency": "Monthly",

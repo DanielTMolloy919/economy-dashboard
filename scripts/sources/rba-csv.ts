@@ -1,6 +1,7 @@
 import { parse } from "node-html-parser";
 import { getHealthStatus } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
+import { nextAbsUpdate, nextRbaMeetingDate } from "./next-update";
 
 const RBA_BASE = "https://www.rba.gov.au/statistics/tables/csv";
 
@@ -153,10 +154,13 @@ export async function fetchCashRate(): Promise<MetricData> {
 
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  const nextExpectedUpdate = await nextRbaMeetingDate().catch(() => null);
   return {
     id: "cash-rate",
     name: "Cash Rate",
-    lastUpdated: series.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate,
     source: "RBA",
     unit: "%",
     frequency: "~8x/year",
@@ -177,10 +181,12 @@ export async function fetchAudUsd(): Promise<MetricData> {
   ).filter((p) => p.date >= "2010-01-01");
   const currentValue = toMonthlyFiltered.at(-1)!.value;
   const previousValue = toMonthlyFiltered.at(-2)!.value;
+  const lastUpdated = toMonthlyFiltered.at(-1)!.date;
   return {
     id: "aud-usd",
     name: "AUD/USD",
-    lastUpdated: toMonthlyFiltered.at(-1)!.date,
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
     source: "RBA",
     unit: "USD",
     frequency: "Monthly",
