@@ -1,15 +1,27 @@
 import { parse } from "node-html-parser";
 
 // Formula-based next expected update for ABS series.
-// Offsets are conservative estimates based on ABS release patterns:
-//   Monthly series: ~5 weeks after reference month end
-//   Quarterly series: ~7 weeks after quarter end
+// Logic: advance lastUpdated by one period to get the end of the next reference period,
+// then add a release lag. ABS typically publishes:
+//   Monthly series: ~5 weeks after the reference month ends
+//   Quarterly series: ~7 weeks after the reference quarter ends
 export function nextAbsUpdate(lastUpdated: string, frequency: "monthly" | "quarterly"): string {
   const last = new Date(lastUpdated);
+
+  let nextPeriodEnd: Date;
+  if (frequency === "quarterly") {
+    // Advance by 3 months to get the end of the next quarter
+    nextPeriodEnd = new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 3 + 1, 0));
+  } else {
+    // Advance by 1 month to get the end of the next month
+    nextPeriodEnd = new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 2, 0));
+  }
+
   const offsetDays = frequency === "monthly" ? 35 : 49;
-  const next = new Date(last);
-  next.setDate(next.getDate() + offsetDays);
-  return next.toISOString().slice(0, 10);
+  const releaseDate = new Date(nextPeriodEnd);
+  releaseDate.setUTCDate(releaseDate.getUTCDate() + offsetDays);
+
+  return releaseDate.toISOString().slice(0, 10);
 }
 
 // Scrape the RBA board meeting schedule page to get the next decision date

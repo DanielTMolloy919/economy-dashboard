@@ -2,7 +2,7 @@
   "id": "unemployment",
   "name": "Unemployment",
   "lastUpdated": "2026-02-01",
-  "nextExpectedUpdate": "2026-03-08",
+  "nextExpectedUpdate": "2026-05-05",
   "source": "ABS",
   "unit": "%",
   "frequency": "Monthly",
