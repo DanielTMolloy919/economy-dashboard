@@ -1,12 +1,12 @@
 {
   "id": "cpi",
   "name": "Inflation (CPI)",
-  "lastUpdated": "2025-10-01",
+  "lastUpdated": "2026-02-01",
   "source": "ABS",
   "unit": "% YoY",
-  "frequency": "Quarterly",
-  "currentValue": 3.6,
-  "previousValue": 3.2,
+  "frequency": "Monthly",
+  "currentValue": 3.7,
+  "previousValue": 3.8,
   "health": "yellow",
   "series": [
     {
@@ -264,6 +264,22 @@
     {
       "date": "2025-10-01",
       "value": 3.6
+    },
+    {
+      "date": "2025-11-01",
+      "value": 3.4
+    },
+    {
+      "date": "2025-12-01",
+      "value": 3.8
+    },
+    {
+      "date": "2026-01-01",
+      "value": 3.8
+    },
+    {
+      "date": "2026-02-01",
+      "value": 3.7
     }
   ]
 }

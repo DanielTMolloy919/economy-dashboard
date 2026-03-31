@@ -29,7 +29,7 @@ export const metricDefinitions: MetricDefinition[] = [
     name: "Inflation (CPI)",
     unit: "% YoY",
     source: "ABS",
-    frequency: "Quarterly",
+    frequency: "Monthly",
     chartType: "line",
     description: "Consumer Price Index — annual change",
     section: "Prices & Wages",

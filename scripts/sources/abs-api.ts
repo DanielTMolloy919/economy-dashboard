@@ -273,18 +273,32 @@ export async function fetchTrade(): Promise<MetricData> {
 }
 
 export async function fetchCpi(): Promise<MetricData> {
-  // CPI: Consumer Price Index
-  // Key: MEASURE.REGION.TSEST.FREQ
-  // Fetch index numbers, compute YoY
-  // CPI v2.0.0: MEASURE=1 (index numbers), INDEX=10001 (All groups), TSEST=wildcard, REGION=50 (Australia), FREQ=Q
-  // Compute YoY from index numbers (TSEST wildcard because Original is the only option for All groups)
-  const response = await fetchAbs(
-    "ABS,CPI,2.0.0",
-    "1.10001..50.Q",
-    "2009-Q1",
-  );
-  const indexSeries = extractSeries(response);
-  const series = toYoY(indexSeries, 4);
+  // CPI: Consumer Price Index — stitched quarterly (history) + monthly (recent)
+  //
+  // Quarterly: CPI 2.0.0, key 1.10001..50.Q (All groups, Original, Australia)
+  //   Index numbers → toYoY(4). Goes back to 1948, covers up to the last quarterly print.
+  //
+  // Monthly: CPI 2.0.0, key 1.10001.10.50.M (All groups, Original, Australia)
+  //   Launched Nov 2025 (Oct 2025 reference). History only from Apr 2024.
+  //   First computable YoY: Apr 2025. Index numbers → toYoY(12).
+  //
+  // Splice strategy: compute YoY independently on each series, then concatenate.
+  //   Monthly YoY points that fall after the last quarterly YoY date are appended.
+  //   No index rescaling needed — both use the same All-groups measurement.
+
+  const [quarterlyResponse, monthlyResponse] = await Promise.all([
+    fetchAbs("ABS,CPI,2.0.0", "1.10001..50.Q", "2009-Q1"),
+    fetchAbs("ABS,CPI,2.0.0", "1.10001.10.50.M", "2024-04"),
+  ]);
+
+  const quarterlyYoY = toYoY(extractSeries(quarterlyResponse), 4);
+  const monthlyYoY = toYoY(extractSeries(monthlyResponse), 12);
+
+  // Only keep monthly points that are strictly after the last quarterly point
+  const lastQuarterlyDate = quarterlyYoY.at(-1)!.date;
+  const monthlyOnly = monthlyYoY.filter((p) => p.date > lastQuarterlyDate);
+
+  const series = [...quarterlyYoY, ...monthlyOnly];
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
   return {
@@ -293,7 +307,7 @@ export async function fetchCpi(): Promise<MetricData> {
     lastUpdated: series.at(-1)!.date,
     source: "ABS",
     unit: "% YoY",
-    frequency: "Quarterly",
+    frequency: "Monthly",
     currentValue,
     previousValue,
     health: getHealthStatus("cpi", currentValue),
