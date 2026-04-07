@@ -131,13 +131,13 @@ export const metricInfo: Record<string, MetricInfo> = {
   },
   "dwelling-completions": {
     summary:
-      "Dwelling completions count the number of new residential dwellings finished and ready for occupation each quarter. Unlike approvals, completions represent actual supply hitting the market — making this the definitive measure of how quickly housing stock is growing relative to demand.",
+      "Dwelling completions count the number of new residential dwellings finished and ready for occupation. Unlike approvals, completions represent actual supply hitting the market — making this the definitive measure of how quickly housing stock is growing relative to demand. Shown as a monthly rate (quarterly ABS data ÷ 3).",
     thresholdRationale: {
       green:
-        "> 50k/quarter (200k+/year) — approaching the National Housing Accord target of 1.2M new homes over 5 years. At this pace, the structural supply shortfall begins to close.",
+        "> 16.7k/month (200k+/year) — approaching the National Housing Accord target of 1.2M new homes over 5 years. At this pace, the structural supply shortfall begins to close.",
       yellow:
-        "40–50k/quarter — the range Australia has been delivering in recent years, broadly keeping pace with household formation but not making inroads into the backlog.",
-      red: "< 40k/quarter — completions are falling behind household formation rates, adding to the structural shortfall and putting further upward pressure on rents and prices.",
+        "13–16.7k/month — the range Australia has been delivering in recent years, broadly keeping pace with household formation but not making inroads into the backlog.",
+      red: "< 13k/month — completions are falling behind household formation rates, adding to the structural shortfall and putting further upward pressure on rents and prices.",
     },
   },
 };
