@@ -1,5 +1,5 @@
 "use client";
-import { Area, AreaChart, Bar, BarChart, Cell, Line, LineChart, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, XAxis, YAxis } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -87,6 +87,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
       <ChartContainer config={chartConfig} className="h-full w-full">
         <BarChart data={data} margin={margin}>
           {axes}
+          <CartesianGrid horizontal={true} vertical={false} />
           <Bar dataKey="value" radius={[2, 2, 0, 0]}>
             {data.map((entry, i) => (
               <Cell
@@ -111,6 +112,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
             </linearGradient>
           </defs>
           {axes}
+          <CartesianGrid horizontal={true} vertical={false} />
           <Area
             type="monotone"
             dataKey="value"
@@ -128,6 +130,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
     <ChartContainer config={chartConfig} className="h-full w-full">
       <LineChart data={data} margin={margin}>
         {axes}
+        <CartesianGrid horizontal={true} vertical={false} />
         <Line
           type={chartType === "step" ? "stepAfter" : "monotone"}
           dataKey="value"

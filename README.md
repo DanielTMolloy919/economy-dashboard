@@ -21,14 +21,10 @@ pnpm tsx scripts/update-data.ts  # refresh all data from sources
 ```
 
 ## Todos
-- Some ABS stuff we've got is quarterly - can we switch to monthly?
-- Last updated + next expected update
+- More towards storing raw data, doing calculations on it on demand
 - does the ABS have anything on housing
-- More transparency on how the overall economic score is calculated
 - Can we use ABS to get a deepdive on the labor force or my industry specifically
     - Scrape indeed hiring data?
-- up and down arrows aren't always good or bad
-- Better trend than just the last value?
 - government defecit
 - cash rate is out of date
 - Seems like we're behind on CPI as well - https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/latest-release
