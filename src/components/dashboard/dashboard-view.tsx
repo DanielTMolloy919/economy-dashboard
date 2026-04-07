@@ -45,6 +45,14 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
     }, new Map<string, MetricDefinition[]>()),
   );
 
+  const toSlug = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const chapters = [
+    { label: "Key Indicators", id: "key-indicators" },
+    ...otherSections.map(([section]) => ({ label: section, id: toSlug(section) })),
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
@@ -68,12 +76,23 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
             metrics={metrics.map((m) => ({ id: m.id, currentValue: m.currentValue }))}
           />
           <SummaryCards metrics={heroMetrics} />
+          <div className="flex flex-wrap gap-2 justify-center">
+            {chapters.map((ch) => (
+              <a
+                key={ch.id}
+                href={`#${ch.id}`}
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-muted hover:bg-muted/70 text-muted-foreground transition-colors"
+              >
+                {ch.label}
+              </a>
+            ))}
+          </div>
         </section>
 
         <Separator />
 
         {/* Big 4 */}
-        <section className="flex flex-col gap-4">
+        <section id="key-indicators" className="flex flex-col gap-4 scroll-mt-20">
           {heroMetricIds.map((id) => {
             const def = metricDefinitions.find((d) => d.id === id);
             const data = metricsMap.get(id);
@@ -98,7 +117,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
             More Indicators
           </h2>
           {otherSections.map(([section, defs]) => (
-            <div key={section} className="flex flex-col gap-4">
+            <div key={section} id={toSlug(section)} className="flex flex-col gap-4 scroll-mt-20">
               <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground/60">
                 {section}
               </h3>
