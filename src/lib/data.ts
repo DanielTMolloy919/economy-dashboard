@@ -9,6 +9,8 @@ import { metricDefinitions } from "~/config/metrics";
 const runtimeTransforms: Record<string, { factor: number; unit: string }> = {
   // Quarterly ABS data — divide by 3 to express as monthly rate
   "dwelling-completions": { factor: 1 / 3, unit: "k dwellings/mo" },
+  // Already monthly — just standardise the unit label
+  "building-approvals": { factor: 1, unit: "k dwellings/mo" },
 };
 
 function applyTransform(data: MetricData): MetricData {
