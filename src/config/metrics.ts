@@ -158,6 +158,34 @@ export const metricDefinitions: MetricDefinition[] = [
     trendWindow: 4,
     trendThreshold: 5,    // 5k/quarter slope to register
   },
+  {
+    id: "building-approvals",
+    name: "Building Approvals",
+    unit: "k dwellings",
+    source: "ABS",
+    frequency: "Monthly",
+    chartType: "bar",
+    description: "New residential dwelling units approved per month (thousands)",
+    section: "Housing",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.3,  // 300 dwellings/month slope to register
+  },
+  {
+    id: "dwelling-completions",
+    name: "Dwelling Completions",
+    unit: "k dwellings",
+    source: "ABS",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "New residential dwellings completed per quarter (thousands)",
+    section: "Housing",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 0.5,  // 500 dwellings/quarter slope to register
+  },
 ];
 
 export const dashboardSections = [
@@ -166,6 +194,7 @@ export const dashboardSections = [
   "Labour Market",
   "Financial & Monetary",
   "External & Trade",
+  "Housing",
 ];
 
 export const heroMetricIds = ["gdp", "cpi", "unemployment", "cash-rate"];

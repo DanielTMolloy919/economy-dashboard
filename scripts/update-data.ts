@@ -6,8 +6,7 @@
  * Sources:
  *   - RBA CSV: cash-rate (F1), aud-usd (F11)
  *   - World Bank API: (none)
- *   - ABS SDMX API: gdp (ANA_AGG), unemployment (LF), underemployment (LF_UNDER), wages (WPI), cpi (CPI), household-spending (HSI_M), job-vacancies (JV)
- *   - Housing: skipped — ABS RPPI dataflow is ceased (placeholder data retained)
+ *   - ABS SDMX API: gdp (ANA_AGG), unemployment (LF), underemployment (LF_UNDER), wages (WPI), cpi (CPI), household-spending (HSI_M), job-vacancies (JV), building-approvals (BA_GCCSA), dwelling-completions (BUILDING_ACTIVITY)
  */
 
 import { writeFileSync, readFileSync } from "fs";
@@ -15,7 +14,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
-import { fetchGdp, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies } from "./sources/abs-api";
+import { fetchGdp, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
 
 const DATA_DIR = join(process.cwd(), "data");
 
@@ -59,6 +58,8 @@ async function main() {
     run("cpi", fetchCpi),
     run("household-spending", fetchHouseholdSpending),
     run("job-vacancies", fetchJobVacancies),
+    run("building-approvals", fetchBuildingApprovals),
+    run("dwelling-completions", fetchDwellingCompletions),
   ]);
 
   console.log("\nDone.");

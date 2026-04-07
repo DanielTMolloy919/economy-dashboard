@@ -97,6 +97,18 @@ export const healthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 0 }],
     weight: 0.05,
   },
+  "building-approvals": {
+    green: { min: 15, max: Infinity },
+    yellow: [{ min: 10, max: 15 }],
+    red: [{ min: -Infinity, max: 10 }],
+    weight: 0,
+  },
+  "dwelling-completions": {
+    green: { min: 50, max: Infinity },
+    yellow: [{ min: 40, max: 50 }],
+    red: [{ min: -Infinity, max: 40 }],
+    weight: 0,
+  },
 };
 
 export function getHealthStatus(

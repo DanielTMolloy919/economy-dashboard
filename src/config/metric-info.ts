@@ -118,4 +118,26 @@ export const metricInfo: Record<string, MetricInfo> = {
       red: "Deficit — Australia imports more than it exports. Persistent deficits accumulate foreign debt and put downward pressure on the AUD.",
     },
   },
+  "building-approvals": {
+    summary:
+      "Building approvals count the number of new residential dwellings approved for construction each month. As a leading indicator of housing supply, it signals how many homes will enter the construction pipeline 6–18 months ahead — directly shaping future rental vacancy rates and house prices.",
+    thresholdRationale: {
+      green:
+        "> 15k/month — consistent with an annualised rate above 180k dwellings, approaching the pace needed to absorb population growth and reduce the structural housing shortfall.",
+      yellow:
+        "10–15k/month — below what population growth requires. New supply is being added, but not fast enough to prevent rising rents and prices in most cities.",
+      red: "< 10k/month — critically low approvals, indicating a severe pipeline drought. With Australia's population growing by ~650k/year, this pace compounds the housing shortfall rapidly.",
+    },
+  },
+  "dwelling-completions": {
+    summary:
+      "Dwelling completions count the number of new residential dwellings finished and ready for occupation each quarter. Unlike approvals, completions represent actual supply hitting the market — making this the definitive measure of how quickly housing stock is growing relative to demand.",
+    thresholdRationale: {
+      green:
+        "> 50k/quarter (200k+/year) — approaching the National Housing Accord target of 1.2M new homes over 5 years. At this pace, the structural supply shortfall begins to close.",
+      yellow:
+        "40–50k/quarter — the range Australia has been delivering in recent years, broadly keeping pace with household formation but not making inroads into the backlog.",
+      red: "< 40k/quarter — completions are falling behind household formation rates, adding to the structural shortfall and putting further upward pressure on rents and prices.",
+    },
+  },
 };

@@ -298,6 +298,66 @@ export async function fetchTrade(): Promise<MetricData> {
   };
 }
 
+export async function fetchBuildingApprovals(): Promise<MetricData> {
+  // BA_GCCSA: Building Approvals by GCCSA
+  // Key: MEASURE.VALUE.SECTOR.WORK_TYPE.BUILDING_TYPE.TSEST.REGION.FREQ
+  // 1=Number of dwelling units, 1=Total, 9=Total Sectors, 1=New, 100=Total Residential, 10=Original, AUS, M=Monthly
+  // Values are unit counts — divide by 1000 for thousands
+  const response = await fetchAbs(
+    "ABS,BA_GCCSA,1.0.0",
+    "1.1.9.1.100.10.AUS.M",
+    "2004-01",
+  );
+  const raw = extractSeries(response);
+  const series = raw.map((p) => ({ ...p, value: Math.round((p.value / 1000) * 10) / 10 }));
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  return {
+    id: "building-approvals",
+    name: "Building Approvals",
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
+    source: "ABS",
+    unit: "k dwellings",
+    frequency: "Monthly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("building-approvals", currentValue),
+    series,
+  };
+}
+
+export async function fetchDwellingCompletions(): Promise<MetricData> {
+  // BUILDING_ACTIVITY: Building Activity
+  // Key: MEASURE.REGION.PRICE_ADJ.BLD_WORK_TYPE.SECTOR_OWN.TYPE_BLDG.TSEST.FREQ
+  // M7=Dwelling units completed, AUS, CUR, 1=New, 9=Total Sectors, 100=Total Residential, 20=Seasonally Adjusted, Q=Quarterly
+  // Values are unit counts — divide by 1000 for thousands
+  const response = await fetchAbs(
+    "ABS,BUILDING_ACTIVITY,1.0.0",
+    "M7.AUS.CUR.1.9.100.20.Q",
+    "2004-Q1",
+  );
+  const raw = extractSeries(response);
+  const series = raw.map((p) => ({ ...p, value: Math.round((p.value / 1000) * 10) / 10 }));
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  return {
+    id: "dwelling-completions",
+    name: "Dwelling Completions",
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "quarterly"),
+    source: "ABS",
+    unit: "k dwellings",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: getHealthStatus("dwelling-completions", currentValue),
+    series,
+  };
+}
+
 export async function fetchCpi(): Promise<MetricData> {
   // CPI: Consumer Price Index — quarterly history stitched with monthly recent data.
   // Quarterly (2009–): CPI 2.0.0, key 1.10001..50.Q → toYoY(4)
