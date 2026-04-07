@@ -161,7 +161,7 @@ export const metricDefinitions: MetricDefinition[] = [
   {
     id: "building-approvals",
     name: "Building Approvals",
-    unit: "k dwellings/mo",
+    unit: "k dwellings",
     source: "ABS",
     frequency: "Monthly",
     chartType: "bar",
@@ -175,11 +175,11 @@ export const metricDefinitions: MetricDefinition[] = [
   {
     id: "dwelling-completions",
     name: "Dwelling Completions",
-    unit: "k dwellings/mo",
+    unit: "k dwellings",
     source: "ABS",
     frequency: "Quarterly",
     chartType: "bar",
-    description: "New residential dwellings completed per month (thousands, quarterly data normalised)",
+    description: "New residential dwellings completed per month (quarterly data normalised to monthly rate)",
     section: "Housing",
     trendPolarity: "positive",
     decimals: 1,

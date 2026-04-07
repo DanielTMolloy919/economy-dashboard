@@ -4,7 +4,7 @@
   "lastUpdated": "2026-02-01",
   "nextExpectedUpdate": "2026-05-05",
   "source": "ABS",
-  "unit": "k dwellings/mo",
+  "unit": "k dwellings",
   "frequency": "Monthly",
   "currentValue": 18.3,
   "previousValue": 10.5,
