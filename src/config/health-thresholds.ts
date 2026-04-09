@@ -109,6 +109,12 @@ export const healthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 40 }],
     weight: 0,
   },
+  "fiscal-balance": {
+    green: { min: 0, max: Infinity },
+    yellow: [{ min: -40, max: 0 }],
+    red: [{ min: -Infinity, max: -40 }],
+    weight: 0.06,
+  },
 };
 
 export function getHealthStatus(

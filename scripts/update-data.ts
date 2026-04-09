@@ -7,6 +7,7 @@
  *   - RBA CSV: cash-rate (F1), aud-usd (F11)
  *   - World Bank API: (none)
  *   - ABS SDMX API: gdp (ANA_AGG), unemployment (LF), underemployment (LF_UNDER), wages (WPI), cpi (CPI), household-spending (HSI_M), job-vacancies (JV), building-approvals (BA_GCCSA), dwelling-completions (BUILDING_ACTIVITY)
+ *   - ABS GFS XLSX: fiscal-balance (cat. 5519.0)
  */
 
 import { writeFileSync, readFileSync } from "fs";
@@ -15,6 +16,7 @@ import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
 import { fetchGdp, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
+import { fetchFiscalBalance } from "./sources/abs-gfs";
 
 const DATA_DIR = join(process.cwd(), "data");
 
@@ -60,6 +62,7 @@ async function main() {
     run("job-vacancies", fetchJobVacancies),
     run("building-approvals", fetchBuildingApprovals),
     run("dwelling-completions", fetchDwellingCompletions),
+    run("fiscal-balance", fetchFiscalBalance),
   ]);
 
   console.log("\nDone.");

@@ -129,6 +129,17 @@ export const metricInfo: Record<string, MetricInfo> = {
       red: "< 10k/month — critically low approvals, indicating a severe pipeline drought. With Australia's population growing by ~650k/year, this pace compounds the housing shortfall rapidly.",
     },
   },
+  "fiscal-balance": {
+    summary:
+      "The fiscal balance is the net operating balance of all levels of Australian government combined — the difference between total government revenues and expenses on an accrual basis. A surplus means the government is taking in more than it spends; a deficit means it is borrowing to cover the gap. Shown as the trailing 12-month sum to remove quarterly seasonality (e.g. end-of-financial-year revenue spikes).",
+    thresholdRationale: {
+      green:
+        "> A$0B (surplus) — all levels of government combined are running a surplus. Revenues exceed expenses on an annual basis, reducing net debt.",
+      yellow:
+        "A$0B to -A$40B deficit — a moderate deficit consistent with normal economic cycles or targeted fiscal stimulus. Roughly equivalent to up to 1.5% of GDP.",
+      red: "< -A$40B deficit — a large structural deficit, comparable in scale to the GFC aftermath or the COVID response years. Indicates significant borrowing relative to the size of the economy.",
+    },
+  },
   "dwelling-completions": {
     summary:
       "Dwelling completions count the number of new residential dwellings finished and ready for occupation. Unlike approvals, completions represent actual supply hitting the market — making this the definitive measure of how quickly housing stock is growing relative to demand. Shown as a monthly rate (quarterly ABS data ÷ 3).",

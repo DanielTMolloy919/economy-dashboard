@@ -186,6 +186,20 @@ export const metricDefinitions: MetricDefinition[] = [
     trendWindow: 4,
     trendThreshold: 0.2,  // ~200 dwellings/month slope to register
   },
+  {
+    id: "fiscal-balance",
+    name: "Fiscal Balance",
+    unit: "A$B",
+    source: "ABS",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "General government net operating balance — trailing 12-month sum (surplus/deficit)",
+    section: "Growth & Output",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 5,    // A$5B/quarter slope to register
+  },
 ];
 
 export const dashboardSections = [

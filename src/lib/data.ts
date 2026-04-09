@@ -13,17 +13,42 @@ const runtimeTransforms: Record<string, { factor: number; unit: string }> = {
   "building-approvals": { factor: 1, unit: "k dwellings/mo" },
 };
 
+// Metrics that should display as a trailing 4-quarter sum (removes fiscal seasonality).
+const rolling4QMetrics = new Set(["fiscal-balance"]);
+
+function toRolling4Q(series: MetricData["series"]): MetricData["series"] {
+  return series.slice(3).map((p, i) => ({
+    date: p.date,
+    value: Math.round((series[i]!.value + series[i + 1]!.value + series[i + 2]!.value + series[i + 3]!.value) * 10) / 10,
+  }));
+}
+
 function applyTransform(data: MetricData): MetricData {
+  let result = data;
+
   const t = runtimeTransforms[data.id];
-  if (!t) return data;
-  const round1 = (v: number) => Math.round(v * t.factor * 10) / 10;
-  return {
-    ...data,
-    unit: t.unit,
-    currentValue: round1(data.currentValue),
-    previousValue: data.previousValue !== undefined ? round1(data.previousValue) : data.previousValue,
-    series: data.series.map((p) => ({ ...p, value: round1(p.value) })),
-  };
+  if (t) {
+    const round1 = (v: number) => Math.round(v * t.factor * 10) / 10;
+    result = {
+      ...result,
+      unit: t.unit,
+      currentValue: round1(result.currentValue),
+      previousValue: result.previousValue !== undefined ? round1(result.previousValue) : result.previousValue,
+      series: result.series.map((p) => ({ ...p, value: round1(p.value) })),
+    };
+  }
+
+  if (rolling4QMetrics.has(data.id) && result.series.length >= 4) {
+    const series = toRolling4Q(result.series);
+    result = {
+      ...result,
+      series,
+      currentValue: series.at(-1)!.value,
+      previousValue: series.at(-2)!.value,
+    };
+  }
+
+  return result;
 }
 
 function readMetricFile(id: string): MetricData {
