@@ -1,13 +1,13 @@
 {
   "id": "dwelling-completions",
   "name": "Dwelling Completions",
-  "lastUpdated": "2025-09-30",
-  "nextExpectedUpdate": "2026-02-18",
+  "lastUpdated": "2025-12-31",
+  "nextExpectedUpdate": "2026-05-19",
   "source": "ABS",
   "unit": "k dwellings",
   "frequency": "Quarterly",
-  "currentValue": 44.1,
-  "previousValue": 41,
+  "currentValue": 43.4,
+  "previousValue": 44.2,
   "health": "yellow",
   "series": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "date": "2020-09-30",
-      "value": 43.9
+      "value": 43.8
     },
     {
       "date": "2020-12-31",
@@ -300,7 +300,7 @@
     },
     {
       "date": "2022-03-31",
-      "value": 42.3
+      "value": 42.4
     },
     {
       "date": "2022-06-30",
@@ -308,7 +308,7 @@
     },
     {
       "date": "2022-09-30",
-      "value": 44.1
+      "value": 44
     },
     {
       "date": "2022-12-31",
@@ -316,7 +316,7 @@
     },
     {
       "date": "2023-03-31",
-      "value": 44.4
+      "value": 44.5
     },
     {
       "date": "2023-06-30",
@@ -324,11 +324,11 @@
     },
     {
       "date": "2023-09-30",
-      "value": 43.8
+      "value": 43.7
     },
     {
       "date": "2023-12-31",
-      "value": 45.6
+      "value": 45.7
     },
     {
       "date": "2024-03-31",
@@ -336,11 +336,11 @@
     },
     {
       "date": "2024-06-30",
-      "value": 46.1
+      "value": 46.2
     },
     {
       "date": "2024-09-30",
-      "value": 44.1
+      "value": 44
     },
     {
       "date": "2024-12-31",
@@ -352,11 +352,15 @@
     },
     {
       "date": "2025-06-30",
-      "value": 41
+      "value": 41.1
     },
     {
       "date": "2025-09-30",
-      "value": 44.1
+      "value": 44.2
+    },
+    {
+      "date": "2025-12-31",
+      "value": 43.4
     }
   ]
 }
