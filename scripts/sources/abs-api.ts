@@ -126,6 +126,34 @@ export async function fetchGdp(): Promise<MetricData> {
   };
 }
 
+export async function fetchGdpPerCapita(): Promise<MetricData> {
+  // ANA_AGG: Australian National Accounts Key Aggregates
+  // M1=Chain volume index, GPM_PCA=GDP per capita, 20=Seasonally adjusted, AUS, Q=Quarterly
+  // Store raw index — YoY computed at runtime in data.ts
+  const response = await fetchAbs(
+    "ABS,ANA_AGG,1.0.0",
+    "M1.GPM_PCA.20.AUS.Q",
+    "2004-Q1",
+  );
+  const series = extractSeries(response);
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  return {
+    id: "gdp-per-capita",
+    name: "GDP per Capita",
+    lastUpdated,
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "quarterly"),
+    source: "ABS",
+    unit: "index",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: "yellow", // recomputed at runtime after YoY transform
+    series,
+  };
+}
+
 export async function fetchUnemployment(): Promise<MetricData> {
   // LF: Labour Force Survey
   // Key: MEASURE.SEX.AGE.TSEST.REGION.FREQ

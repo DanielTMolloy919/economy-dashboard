@@ -34,6 +34,20 @@ const auMetricDefinitions: MetricDefinition[] = [
     trendThreshold: 0.05, // 0.05pp/quarter slope to register
   },
   {
+    id: "gdp-per-capita",
+    name: "GDP per Capita",
+    unit: "% YoY",
+    source: "ABS",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "Annual GDP per capita growth rate — adjusts for population growth",
+    section: "Growth & Output",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,       // 4 quarters = 1 year
+    trendThreshold: 0.05,
+  },
+  {
     id: "cpi",
     name: "Inflation (CPI)",
     unit: "% YoY",

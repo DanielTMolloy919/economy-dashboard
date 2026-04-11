@@ -4,6 +4,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 import type { CountryCode } from "~/config/countries";
 import { getMetricDefinitions } from "~/config/metrics";
+import { getHealthStatus, getHealthThresholds } from "~/config/health-thresholds";
 
 // Runtime transforms applied after loading raw data.
 // Keys are metric IDs; each entry describes a linear scale factor and updated unit.
@@ -17,6 +18,12 @@ const runtimeTransforms: Record<string, { factor: number; unit: string }> = {
 // Metrics that should display as a trailing 4-quarter sum (removes fiscal seasonality).
 const rolling4QMetrics = new Set(["fiscal-balance"]);
 
+// Metrics stored as index numbers that should display as YoY % change.
+// Value = number of periods per year (4 for quarterly data).
+const yoyIndexMetrics: Record<string, number> = {
+  "gdp-per-capita": 4,
+};
+
 function toRolling4Q(series: MetricData["series"]): MetricData["series"] {
   return series.slice(3).map((p, i) => ({
     date: p.date,
@@ -24,7 +31,15 @@ function toRolling4Q(series: MetricData["series"]): MetricData["series"] {
   }));
 }
 
-function applyTransform(data: MetricData): MetricData {
+function toYoY(series: MetricData["series"], periodsPerYear: number): MetricData["series"] {
+  return series.slice(periodsPerYear).map((p, i) => {
+    const prev = series[i]!;
+    const change = ((p.value - prev.value) / prev.value) * 100;
+    return { date: p.date, value: Math.round(change * 10) / 10 };
+  });
+}
+
+function applyTransform(data: MetricData, country: CountryCode): MetricData {
   let result = data;
 
   const t = runtimeTransforms[data.id];
@@ -49,13 +64,27 @@ function applyTransform(data: MetricData): MetricData {
     };
   }
 
+  const periodsPerYear = yoyIndexMetrics[data.id];
+  if (periodsPerYear && result.series.length > periodsPerYear) {
+    const series = toYoY(result.series, periodsPerYear);
+    const currentValue = series.at(-1)!.value;
+    result = {
+      ...result,
+      series,
+      unit: "% YoY",
+      currentValue,
+      previousValue: series.at(-2)!.value,
+      health: getHealthStatus(getHealthThresholds(country), data.id, currentValue),
+    };
+  }
+
   return result;
 }
 
 function readMetricFile(country: CountryCode, id: string): MetricData {
   const filePath = join(process.cwd(), "data", country, `${id}.json`);
   const raw = readFileSync(filePath, "utf-8");
-  return applyTransform(JSON.parse(raw) as MetricData);
+  return applyTransform(JSON.parse(raw) as MetricData, country);
 }
 
 export function getAllMetrics(country: CountryCode): MetricData[] {

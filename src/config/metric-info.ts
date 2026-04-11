@@ -21,6 +21,17 @@ const auMetricInfo: Record<string, MetricInfo> = {
       red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
     },
   },
+  "gdp-per-capita": {
+    summary:
+      "GDP per capita growth measures the annual change in economic output per person. Unlike total GDP, it adjusts for population growth \u2014 making it the better gauge of whether living standards are actually improving. With Australia's population growing at ~2% per year, total GDP can grow while per-capita output stagnates or falls.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.5% \u2014 per-capita output is growing comfortably above zero, meaning the average person's share of the economy is expanding. Historically around 1\u20131.5% is Australia's trend per-capita growth.",
+      yellow:
+        "0\u20131.5% \u2014 the economy is growing per person but below trend. Living standards are broadly flat.",
+      red: "< 0% \u2014 the economy is shrinking on a per-person basis. Even if total GDP is positive, population growth is outpacing output \u2014 living standards are falling.",
+    },
+  },
   cpi: {
     summary:
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The RBA's formal mandate is to keep inflation within the 2\u20133% target band.",

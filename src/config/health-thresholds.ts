@@ -20,6 +20,12 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 0 }],
     weight: 0.18,
   },
+  "gdp-per-capita": {
+    green: { min: 1.5, max: Infinity },
+    yellow: [{ min: 0, max: 1.5 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
   cpi: {
     green: { min: 2, max: 3 },
     yellow: [

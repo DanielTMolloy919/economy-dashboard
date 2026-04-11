@@ -15,7 +15,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
-import { fetchGdp, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
+import { fetchGdp, fetchGdpPerCapita, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
 import { fetchFiscalBalance } from "./sources/abs-gfs";
 
 const DATA_DIR = join(process.cwd(), "data", "au");
@@ -53,6 +53,7 @@ async function main() {
     run("cash-rate", fetchCashRate),
     run("aud-usd", fetchAudUsd),
     run("gdp", fetchGdp),
+    run("gdp-per-capita", fetchGdpPerCapita),
     run("trade", fetchTrade),
     run("unemployment", fetchUnemployment),
     run("underemployment", fetchUnderemployment),
