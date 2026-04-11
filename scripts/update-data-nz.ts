@@ -15,7 +15,7 @@
  *   - NZ Treasury XLSX: fiscal-balance (OBEGAL)
  */
 
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
@@ -32,6 +32,7 @@ import {
 } from "./sources/stats-nz-api";
 import { fetchNzOcr, fetchNzNzdUsd } from "./sources/rbnz-xlsx";
 import { fetchNzFiscalBalance } from "./sources/nz-treasury";
+import { computeRealWages } from "./sources/derived";
 
 const DATA_DIR = join(process.cwd(), "data", "nz");
 
@@ -80,6 +81,16 @@ async function main() {
     // NZ Treasury
     run("fiscal-balance", fetchNzFiscalBalance),
   ]);
+
+  // Derived metrics (depend on fetched data above)
+  try {
+    const wages: MetricData = JSON.parse(readFileSync(join(DATA_DIR, "wages.json"), "utf-8"));
+    const cpi: MetricData = JSON.parse(readFileSync(join(DATA_DIR, "cpi.json"), "utf-8"));
+    write(computeRealWages(wages, cpi, "nz"));
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`  ✗ real-wages: ${message}`);
+  }
 
   console.log("\nDone.");
 }

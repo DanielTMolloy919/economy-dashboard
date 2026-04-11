@@ -76,6 +76,17 @@ const auMetricInfo: Record<string, MetricInfo> = {
       red: "< 2% \u2014 almost certain real wage cuts when any inflation is present, reducing household disposable income and consumer spending capacity.",
     },
   },
+  "real-wages": {
+    summary:
+      "Real wage growth measures whether workers' pay is rising faster than the cost of living. Calculated as nominal wage growth (WPI) minus CPI inflation. Positive values mean purchasing power is increasing; negative values mean workers are going backwards in real terms.",
+    thresholdRationale: {
+      green:
+        "> +0.5% \u2014 wages are clearly outpacing inflation. Workers' purchasing power is growing, supporting consumer spending and living standards.",
+      yellow:
+        "-0.5% to +0.5% \u2014 wages are roughly tracking inflation. Living standards are flat \u2014 workers aren't gaining but aren't losing ground.",
+      red: "< -0.5% \u2014 inflation is outpacing wage growth. Workers' purchasing power is declining, eroding living standards and typically weakening consumer confidence.",
+    },
+  },
   underemployment: {
     summary:
       "The underemployment ratio measures the share of employed people who want and are available to work more hours than they currently do. It captures hidden labour market slack that the unemployment rate misses.",
@@ -220,6 +231,17 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       yellow:
         "2\u20133% \u2014 modest growth. If inflation is also in this range, real wages are roughly flat.",
       red: "< 2% \u2014 almost certain real wage cuts when any inflation is present.",
+    },
+  },
+  "real-wages": {
+    summary:
+      "Real wage growth measures whether workers' pay is rising faster than the cost of living. Calculated as nominal labour cost growth (LCI) minus CPI inflation. Positive values mean purchasing power is increasing; negative values mean workers are going backwards in real terms.",
+    thresholdRationale: {
+      green:
+        "> +0.5% \u2014 wages are clearly outpacing inflation. Workers' purchasing power is growing, supporting consumer spending and living standards.",
+      yellow:
+        "-0.5% to +0.5% \u2014 wages are roughly tracking inflation. Living standards are flat \u2014 workers aren't gaining but aren't losing ground.",
+      red: "< -0.5% \u2014 inflation is outpacing wage growth. Workers' purchasing power is declining, eroding living standards and typically weakening consumer confidence.",
     },
   },
   underutilisation: {

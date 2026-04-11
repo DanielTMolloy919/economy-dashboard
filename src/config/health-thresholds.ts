@@ -62,6 +62,12 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 2 }],
     weight: 0.13,
   },
+  "real-wages": {
+    green: { min: 0.5, max: Infinity },
+    yellow: [{ min: -0.5, max: 0.5 }],
+    red: [{ min: -Infinity, max: -0.5 }],
+    weight: 0.08,
+  },
   underemployment: {
     green: { min: -Infinity, max: 7 },
     yellow: [{ min: 7, max: 9 }],
@@ -166,6 +172,12 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
     yellow: [{ min: 2, max: 3 }],
     red: [{ min: -Infinity, max: 2 }],
     weight: 0.13,
+  },
+  "real-wages": {
+    green: { min: 0.5, max: Infinity },
+    yellow: [{ min: -0.5, max: 0.5 }],
+    red: [{ min: -Infinity, max: -0.5 }],
+    weight: 0.08,
   },
   underutilisation: {
     green: { min: -Infinity, max: 10 },

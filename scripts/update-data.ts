@@ -17,6 +17,7 @@ import type { MetricData } from "~/types/metrics";
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
 import { fetchGdp, fetchGdpPerCapita, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
 import { fetchFiscalBalance } from "./sources/abs-gfs";
+import { computeRealWages } from "./sources/derived";
 
 const DATA_DIR = join(process.cwd(), "data", "au");
 
@@ -65,6 +66,16 @@ async function main() {
     run("dwelling-completions", fetchDwellingCompletions),
     run("fiscal-balance", fetchFiscalBalance),
   ]);
+
+  // Derived metrics (depend on fetched data above)
+  try {
+    const wages: MetricData = JSON.parse(readFileSync(join(DATA_DIR, "wages.json"), "utf-8"));
+    const cpi: MetricData = JSON.parse(readFileSync(join(DATA_DIR, "cpi.json"), "utf-8"));
+    write(computeRealWages(wages, cpi, "au"));
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`  ✗ real-wages: ${message}`);
+  }
 
   console.log("\nDone.");
 }
