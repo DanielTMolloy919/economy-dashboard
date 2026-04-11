@@ -104,3 +104,33 @@ export async function nextRbaMeetingDate(): Promise<string | null> {
   // If nothing found in current year's table, try next year
   return null;
 }
+
+// Formula-based next expected update for ONS series.
+// ONS typically publishes:
+//   Monthly series: ~5 weeks after the reference month ends
+//   Quarterly series: ~8 weeks after the reference quarter ends
+export function nextOnsUpdate(lastUpdated: string, frequency: "monthly" | "quarterly"): string {
+  const last = new Date(lastUpdated);
+
+  let nextPeriodEnd: Date;
+  if (frequency === "quarterly") {
+    nextPeriodEnd = new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 3 + 1, 0));
+  } else {
+    nextPeriodEnd = new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 2, 0));
+  }
+
+  const offsetDays = frequency === "monthly" ? 35 : 56;
+  const releaseDate = new Date(nextPeriodEnd);
+  releaseDate.setUTCDate(releaseDate.getUTCDate() + offsetDays);
+
+  return releaseDate.toISOString().slice(0, 10);
+}
+
+// Formula-based next expected update for Bank of England rate decisions.
+// The MPC meets ~8 times per year; approximate as ~6.5 weeks between meetings.
+export function nextBoeUpdate(lastUpdated: string): string {
+  const last = new Date(lastUpdated);
+  const releaseDate = new Date(last);
+  releaseDate.setUTCDate(releaseDate.getUTCDate() + 46); // ~6.5 weeks
+  return releaseDate.toISOString().slice(0, 10);
+}

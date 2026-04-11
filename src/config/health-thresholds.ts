@@ -352,10 +352,110 @@ const usHealthThresholds: Record<string, MetricThreshold> = {
   },
 };
 
+const ukHealthThresholds: Record<string, MetricThreshold> = {
+  gdp: {
+    green: { min: 2, max: Infinity },
+    yellow: [{ min: 0, max: 2 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0.18,
+  },
+  "gdp-per-capita": {
+    green: { min: 1.5, max: Infinity },
+    yellow: [{ min: 0, max: 1.5 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
+  "retail-sales": {
+    green: { min: 2, max: 6 },
+    yellow: [
+      { min: 0, max: 2 },
+      { min: 6, max: 9 },
+    ],
+    red: [
+      { min: -Infinity, max: 0 },
+      { min: 9, max: Infinity },
+    ],
+    weight: 0.08,
+  },
+  cpi: {
+    green: { min: 2, max: 3 },
+    yellow: [
+      { min: 1, max: 2 },
+      { min: 3, max: 4 },
+    ],
+    red: [
+      { min: -Infinity, max: 1 },
+      { min: 4, max: Infinity },
+    ],
+    weight: 0.18,
+  },
+  wages: {
+    green: { min: 3.5, max: Infinity },
+    yellow: [{ min: 2, max: 3.5 }],
+    red: [{ min: -Infinity, max: 2 }],
+    weight: 0.13,
+  },
+  "real-wages": {
+    green: { min: 0.5, max: Infinity },
+    yellow: [{ min: -0.5, max: 0.5 }],
+    red: [{ min: -Infinity, max: -0.5 }],
+    weight: 0.08,
+  },
+  unemployment: {
+    green: { min: -Infinity, max: 4.5 },
+    yellow: [{ min: 4.5, max: 6 }],
+    red: [{ min: 6, max: Infinity }],
+    weight: 0.18,
+  },
+  "economic-inactivity": {
+    green: { min: -Infinity, max: 21 },
+    yellow: [{ min: 21, max: 22.5 }],
+    red: [{ min: 22.5, max: Infinity }],
+    weight: 0.08,
+  },
+  "job-vacancies": {
+    green: { min: 800, max: Infinity },
+    yellow: [{ min: 600, max: 800 }],
+    red: [{ min: -Infinity, max: 600 }],
+    weight: 0.06,
+  },
+  "bank-rate": {
+    green: { min: 2, max: 3.5 },
+    yellow: [
+      { min: 1, max: 2 },
+      { min: 3.5, max: 4.5 },
+    ],
+    red: [
+      { min: -Infinity, max: 1 },
+      { min: 4.5, max: Infinity },
+    ],
+    weight: 0.13,
+  },
+  "gbp-usd": {
+    green: { min: 1.2, max: 1.4 },
+    yellow: [
+      { min: 1.1, max: 1.2 },
+      { min: 1.4, max: 1.5 },
+    ],
+    red: [
+      { min: -Infinity, max: 1.1 },
+      { min: 1.5, max: Infinity },
+    ],
+    weight: 0.05,
+  },
+  trade: {
+    green: { min: -5, max: Infinity },
+    yellow: [{ min: -10, max: -5 }],
+    red: [{ min: -Infinity, max: -10 }],
+    weight: 0.05,
+  },
+};
+
 const allHealthThresholds: Record<CountryCode, Record<string, MetricThreshold>> = {
   au: auHealthThresholds,
   nz: nzHealthThresholds,
   us: usHealthThresholds,
+  uk: ukHealthThresholds,
 };
 
 export function getHealthThresholds(country: CountryCode): Record<string, MetricThreshold> {

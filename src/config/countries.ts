@@ -1,4 +1,4 @@
-export type CountryCode = "au" | "nz" | "us";
+export type CountryCode = "au" | "nz" | "us" | "uk";
 
 export interface CountryConfig {
   flag: string;
@@ -29,6 +29,13 @@ export const countries: Record<CountryCode, CountryConfig> = {
     currency: "$",
     locale: "en-US",
     dataSources: "FRED (Federal Reserve Bank of St. Louis)",
+  },
+  uk: {
+    flag: "\u{1F1EC}\u{1F1E7}",
+    name: "United Kingdom",
+    currency: "£",
+    locale: "en-GB",
+    dataSources: "ONS and Bank of England",
   },
 };
 

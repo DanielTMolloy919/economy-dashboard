@@ -491,10 +491,146 @@ const usMetricInfo: Record<string, MetricInfo> = {
   },
 };
 
+const ukMetricInfo: Record<string, MetricInfo> = {
+  gdp: {
+    summary:
+      "GDP growth measures the annual percentage change in the total value of goods and services produced in the United Kingdom. The UK is the world's sixth-largest economy by nominal GDP.",
+    thresholdRationale: {
+      green:
+        "\u2265 2% \u2014 at or above trend growth for the UK economy. Enough to support job creation and rising living standards.",
+      yellow:
+        "0\u20132% \u2014 the economy is still growing but below trend, which may mean the labour market is softening.",
+      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+    },
+  },
+  "gdp-per-capita": {
+    summary:
+      "GDP per capita growth measures the annual change in economic output per person. It adjusts for population growth, making it a better gauge of whether living standards are improving.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.5% \u2014 per-capita output is growing comfortably, meaning the average person's share of the economy is expanding.",
+      yellow:
+        "0\u20131.5% \u2014 the economy is growing per person but below trend. Living standards are broadly flat.",
+      red: "< 0% \u2014 the economy is shrinking on a per-person basis, even if total GDP is positive.",
+    },
+  },
+  "retail-sales": {
+    summary:
+      "Retail sales track the annual change in the volume (quantity bought) of goods sold by retailers. Consumer spending drives around 60% of UK GDP, making this a key pulse check on economic momentum.",
+    thresholdRationale: {
+      green:
+        "2\u20136% \u2014 healthy volume growth. Above inflation but not excessive, consistent with a confident consumer.",
+      yellow:
+        "0\u20132% signals cautious households. 6\u20139% may indicate spending running ahead of income.",
+      red: "< 0% \u2014 retailers experiencing falling sales volumes, a strong recession signal. > 9% is typically a post-shock rebound.",
+    },
+  },
+  cpi: {
+    summary:
+      "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The Bank of England has a 2% CPI inflation target set by the Chancellor.",
+    thresholdRationale: {
+      green:
+        "2\u20133% \u2014 close to the BoE's 2% target. Price stability is maintained and the BoE has room to adjust rates without drastic action.",
+      yellow:
+        "1\u20132% or 3\u20134% \u2014 outside the comfort zone. The BoE will typically signal a policy response. If CPI moves more than 1pp from target, the Governor must write a letter to the Chancellor explaining why.",
+      red: "< 1% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
+    },
+  },
+  wages: {
+    summary:
+      "Average Weekly Earnings (AWE) measure annual growth in total pay (including bonuses) for employees in Great Britain. Reported as a 3-month average to smooth volatility. Real wage growth \u2014 wages rising faster than inflation \u2014 is essential for household living standards.",
+    thresholdRationale: {
+      green:
+        "\u2265 3.5% \u2014 wage growth typically stays ahead of or in line with inflation, meaning workers' real purchasing power is maintained or growing.",
+      yellow:
+        "2\u20133.5% \u2014 modest growth. If inflation is also in this range, real wages are roughly flat.",
+      red: "< 2% \u2014 almost certain real wage cuts when any inflation is present, reducing household disposable income.",
+    },
+  },
+  "real-wages": {
+    summary:
+      "Real wage growth measures whether workers' pay is rising faster than the cost of living. Calculated as nominal wage growth (AWE) minus CPI inflation. Positive values mean purchasing power is increasing; negative values mean workers are going backwards.",
+    thresholdRationale: {
+      green:
+        "> +0.5% \u2014 wages are clearly outpacing inflation. Workers' purchasing power is growing.",
+      yellow:
+        "-0.5% to +0.5% \u2014 wages are roughly tracking inflation. Living standards are flat.",
+      red: "< -0.5% \u2014 inflation is outpacing wage growth. Workers' purchasing power is declining.",
+    },
+  },
+  unemployment: {
+    summary:
+      "The unemployment rate is the share of the labour force actively seeking work but unable to find it, measured by the Labour Force Survey as a 3-month rolling average.",
+    thresholdRationale: {
+      green:
+        "< 4.5% \u2014 close to full employment. Most people who want jobs can find them.",
+      yellow:
+        "4.5\u20136% \u2014 noticeable slack in the labour market. Job seekers face harder searches.",
+      red: "> 6% \u2014 significant labour market distress, typically associated with recession conditions.",
+    },
+  },
+  "economic-inactivity": {
+    summary:
+      "The economic inactivity rate measures the share of working-age people (16\u201364) who are neither employed nor actively seeking work \u2014 including students, long-term sick, carers, and early retirees. UK inactivity has been elevated since COVID, driven largely by long-term sickness.",
+    thresholdRationale: {
+      green:
+        "< 21% \u2014 below or near pre-COVID levels (~20.5%). The labour force is large enough to support economic growth.",
+      yellow:
+        "21\u201322.5% \u2014 elevated inactivity, constraining labour supply and putting upward pressure on wages. A growing policy concern.",
+      red: "> 22.5% \u2014 structurally high inactivity rate. A significant share of the working-age population has left the labour force, limiting potential output.",
+    },
+  },
+  "job-vacancies": {
+    summary:
+      "Job vacancies measure the number of unfilled positions that employers are actively trying to fill. Reported as a 3-month rolling average. Rising vacancies mean businesses are expanding; falling vacancies mean they're pulling back.",
+    thresholdRationale: {
+      green:
+        "> 800k \u2014 strong employer demand for workers, though below the 2022 peak of ~1.3M.",
+      yellow:
+        "600\u2013800k \u2014 moderate levels. The labour market remains functional but demand is softening.",
+      red: "< 600k \u2014 weak hiring intentions, indicating a labour market under stress.",
+    },
+  },
+  "bank-rate": {
+    summary:
+      "The Bank Rate is the interest rate set by the Bank of England's Monetary Policy Committee (MPC). It's the rate the BoE pays on reserves held by commercial banks, and it flows through to mortgage rates, savings rates, and broader financial conditions.",
+    thresholdRationale: {
+      green:
+        "2\u20133.5% \u2014 broadly neutral for the UK economy. Neither stimulating nor restricting activity, consistent with inflation at the 2% target.",
+      yellow:
+        "1\u20132% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20134.5% is restrictive, used to cool above-target inflation.",
+      red: "< 1% are emergency lows that distort asset markets. > 4.5% creates significant mortgage stress for UK households.",
+    },
+  },
+  "gbp-usd": {
+    summary:
+      "The GBP/USD exchange rate (cable) shows how many US dollars one British pound buys. Sterling is influenced by interest rate differentials, trade flows, and market confidence in the UK economy.",
+    thresholdRationale: {
+      green:
+        "1.20\u20131.40 USD \u2014 consistent with sterling's post-Brexit range. Keeps imports affordable while supporting export competitiveness.",
+      yellow:
+        "1.10\u20131.20 makes imports noticeably more expensive, adding to domestic inflation. Above 1.40 can hurt UK export competitiveness.",
+      red: "< 1.10 signals a major confidence shock (near the 2022 mini-budget crisis low). > 1.50 is historically rare in the post-Brexit era.",
+    },
+  },
+  trade: {
+    summary:
+      "The trade balance is the difference between UK exports and imports of goods. The UK has run persistent goods trade deficits, partly offset by a surplus in services (not included here).",
+    thresholdRationale: {
+      green:
+        "> -\u00a35B/month \u2014 a narrow goods deficit, manageable within the UK's overall trade position.",
+      yellow:
+        "-\u00a35B to -\u00a310B/month \u2014 a moderate deficit consistent with the UK's structural goods trade position.",
+      red: "< -\u00a310B/month \u2014 a very wide goods deficit, raising concerns about external competitiveness.",
+    },
+  },
+};
+
 const allMetricInfo: Record<CountryCode, Record<string, MetricInfo>> = {
   au: auMetricInfo,
   nz: nzMetricInfo,
   us: usMetricInfo,
+  uk: ukMetricInfo,
 };
 
 export function getMetricInfo(country: CountryCode): Record<string, MetricInfo> {
