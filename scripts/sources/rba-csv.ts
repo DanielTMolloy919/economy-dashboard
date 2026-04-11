@@ -1,7 +1,9 @@
 import { parse } from "node-html-parser";
-import { getHealthStatus } from "~/config/health-thresholds";
+import { getHealthStatus, getHealthThresholds } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
 import { nextAbsUpdate, nextRbaMeetingDate } from "./next-update";
+
+const auThresholds = getHealthThresholds("au");
 
 const RBA_BASE = "https://www.rba.gov.au/statistics/tables/csv";
 
@@ -166,7 +168,7 @@ export async function fetchCashRate(): Promise<MetricData> {
     frequency: "~8x/year",
     currentValue,
     previousValue,
-    health: getHealthStatus("cash-rate", currentValue),
+    health: getHealthStatus(auThresholds, "cash-rate", currentValue),
     series,
   };
 }
@@ -192,7 +194,7 @@ export async function fetchAudUsd(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("aud-usd", currentValue),
+    health: getHealthStatus(auThresholds, "aud-usd", currentValue),
     series: toMonthlyFiltered,
   };
 }
