@@ -15,15 +15,17 @@ import { MetricChart } from "~/components/charts/metric-chart";
 import { MetricInfoPopover } from "~/components/dashboard/metric-info-popover";
 import type { MetricData } from "~/types/metrics";
 import type { MetricDefinition } from "~/config/metrics";
-import { metricInfo } from "~/config/metric-info";
+import type { MetricInfo } from "~/config/metric-info";
 
 interface MetricCardProps {
   data: MetricData;
   definition: MetricDefinition;
   filteredSeries: MetricData["series"];
+  metricInfo: Record<string, MetricInfo>;
+  locale: string;
 }
 
-export function MetricCard({ data, definition, filteredSeries }: MetricCardProps) {
+export function MetricCard({ data, definition, filteredSeries, metricInfo, locale }: MetricCardProps) {
   const trend = getTrendDirection(data.series, definition.trendWindow, definition.trendThreshold);
   const sentiment = getTrendSentiment(trend, definition.trendPolarity);
   const { decimals } = definition;
@@ -67,14 +69,14 @@ export function MetricCard({ data, definition, filteredSeries }: MetricCardProps
       <CardFooter className="py-2">
         <p className="text-xs text-muted-foreground">
           {data.source} · Updated{" "}
-          {new Date(data.lastUpdated).toLocaleDateString("en-AU", {
+          {new Date(data.lastUpdated).toLocaleDateString(locale, {
             month: "short",
             year: "numeric",
           })}
           {data.nextExpectedUpdate && (
             <>
               {" "}· Next{" "}
-              {new Date(data.nextExpectedUpdate).toLocaleDateString("en-AU", {
+              {new Date(data.nextExpectedUpdate).toLocaleDateString(locale, {
                 day: "numeric",
                 month: "short",
               })}

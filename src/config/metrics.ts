@@ -1,4 +1,5 @@
 import type { ChartType, TrendPolarity } from "~/types/metrics";
+import type { CountryCode } from "~/config/countries";
 
 export interface MetricDefinition {
   id: string;
@@ -17,7 +18,7 @@ export interface MetricDefinition {
   trendThreshold: number;
 }
 
-export const metricDefinitions: MetricDefinition[] = [
+const auMetricDefinitions: MetricDefinition[] = [
   {
     id: "gdp",
     name: "GDP Growth",
@@ -202,13 +203,214 @@ export const metricDefinitions: MetricDefinition[] = [
   },
 ];
 
-export const dashboardSections = [
-  "Growth & Output",
-  "Prices & Wages",
-  "Labour Market",
-  "Financial & Monetary",
-  "External & Trade",
-  "Housing",
+const nzMetricDefinitions: MetricDefinition[] = [
+  {
+    id: "gdp",
+    name: "GDP Growth",
+    unit: "% YoY",
+    source: "Stats NZ",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "Annual gross domestic product growth rate",
+    section: "Growth & Output",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 0.05,
+  },
+  {
+    id: "cpi",
+    name: "Inflation (CPI)",
+    unit: "% YoY",
+    source: "Stats NZ",
+    frequency: "Quarterly",
+    chartType: "line",
+    description: "Consumer Price Index — annual change",
+    section: "Prices & Wages",
+    trendPolarity: "negative",
+    decimals: 1,
+    trendWindow: 4,       // quarterly only in NZ
+    trendThreshold: 0.05,
+  },
+  {
+    id: "unemployment",
+    name: "Unemployment",
+    unit: "%",
+    source: "Stats NZ",
+    frequency: "Quarterly",
+    chartType: "area",
+    description: "Unemployment rate as % of labour force (HLFS)",
+    section: "Labour Market",
+    trendPolarity: "negative",
+    decimals: 1,
+    trendWindow: 4,       // quarterly in NZ
+    trendThreshold: 0.02,
+  },
+  {
+    id: "cash-rate",
+    name: "Official Cash Rate",
+    unit: "%",
+    source: "RBNZ",
+    frequency: "~7x/year",
+    chartType: "step",
+    description: "RBNZ official cash rate",
+    section: "Financial & Monetary",
+    trendPolarity: "neutral",
+    decimals: 2,
+    trendWindow: 4,
+    trendThreshold: 0.05,
+  },
+  {
+    id: "wages",
+    name: "Labour Cost Index",
+    unit: "% YoY",
+    source: "Stats NZ",
+    frequency: "Quarterly",
+    chartType: "line",
+    description: "Labour Cost Index — annual change",
+    section: "Prices & Wages",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 0.05,
+  },
+  {
+    id: "nzd-usd",
+    name: "NZD/USD",
+    unit: "USD",
+    source: "RBNZ",
+    frequency: "Monthly",
+    chartType: "area",
+    description: "New Zealand dollar vs US dollar exchange rate",
+    section: "External & Trade",
+    trendPolarity: "neutral",
+    decimals: 4,
+    trendWindow: 6,
+    trendThreshold: 0.002,
+  },
+  {
+    id: "trade",
+    name: "Trade Balance",
+    unit: "NZ$B",
+    source: "Stats NZ",
+    frequency: "Monthly",
+    chartType: "bar",
+    description: "Goods trade balance (surplus/deficit)",
+    section: "External & Trade",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.05,
+  },
+  {
+    id: "underutilisation",
+    name: "Underutilisation",
+    unit: "%",
+    source: "Stats NZ",
+    frequency: "Quarterly",
+    chartType: "area",
+    description: "Share of labour force underutilised (unemployed + underemployed)",
+    section: "Labour Market",
+    trendPolarity: "negative",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 0.02,
+  },
+  {
+    id: "retail-trade",
+    name: "Retail Trade",
+    unit: "% YoY",
+    source: "Stats NZ",
+    frequency: "Monthly",
+    chartType: "area",
+    description: "Annual change in retail trade sales",
+    section: "Growth & Output",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.1,
+  },
+  {
+    id: "job-vacancies",
+    name: "Job Vacancies",
+    unit: "k",
+    source: "Stats NZ",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "Number of unfilled job vacancies (thousands)",
+    section: "Labour Market",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 1,    // 1k/quarter slope to register (smaller economy)
+  },
+  {
+    id: "building-consents",
+    name: "Building Consents",
+    unit: "k dwellings",
+    source: "Stats NZ",
+    frequency: "Monthly",
+    chartType: "bar",
+    description: "New residential dwellings consented per month (thousands)",
+    section: "Housing",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 6,
+    trendThreshold: 0.1,
+  },
+  {
+    id: "fiscal-balance",
+    name: "Fiscal Balance (OBEGAL)",
+    unit: "NZ$B",
+    source: "NZ Treasury",
+    frequency: "Quarterly",
+    chartType: "bar",
+    description: "Operating balance excluding gains and losses — trailing 12-month sum",
+    section: "Growth & Output",
+    trendPolarity: "positive",
+    decimals: 1,
+    trendWindow: 4,
+    trendThreshold: 1,
+  },
 ];
 
-export const heroMetricIds = ["gdp", "cpi", "unemployment", "cash-rate"];
+const allMetricDefinitions: Record<CountryCode, MetricDefinition[]> = {
+  au: auMetricDefinitions,
+  nz: nzMetricDefinitions,
+};
+
+const allHeroMetricIds: Record<CountryCode, string[]> = {
+  au: ["gdp", "cpi", "unemployment", "cash-rate"],
+  nz: ["gdp", "cpi", "unemployment", "cash-rate"],
+};
+
+const allDashboardSections: Record<CountryCode, string[]> = {
+  au: [
+    "Growth & Output",
+    "Prices & Wages",
+    "Labour Market",
+    "Financial & Monetary",
+    "External & Trade",
+    "Housing",
+  ],
+  nz: [
+    "Growth & Output",
+    "Prices & Wages",
+    "Labour Market",
+    "Financial & Monetary",
+    "External & Trade",
+    "Housing",
+  ],
+};
+
+export function getMetricDefinitions(country: CountryCode): MetricDefinition[] {
+  return allMetricDefinitions[country];
+}
+
+export function getHeroMetricIds(country: CountryCode): string[] {
+  return allHeroMetricIds[country];
+}
+
+export function getDashboardSections(country: CountryCode): string[] {
+  return allDashboardSections[country];
+}

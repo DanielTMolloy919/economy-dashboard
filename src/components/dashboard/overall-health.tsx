@@ -1,8 +1,9 @@
 "use client";
 import { Info } from "lucide-react";
 import { PieChart, Pie, Cell } from "recharts";
-import { healthThresholds, getHealthScore, getHealthStatus } from "~/config/health-thresholds";
-import { metricDefinitions } from "~/config/metrics";
+import type { MetricThreshold } from "~/config/health-thresholds";
+import { getHealthScore, getHealthStatus } from "~/config/health-thresholds";
+import type { MetricDefinition } from "~/config/metrics";
 import { Button } from "~/components/ui/button";
 import {
   Popover,
@@ -28,19 +29,23 @@ function scoreLabel(score: number): string {
 export function OverallHealth({
   score,
   metrics,
+  thresholds,
+  metricDefinitions,
 }: {
   score: number;
   metrics?: { id: string; currentValue: number }[];
+  thresholds: Record<string, MetricThreshold>;
+  metricDefinitions: MetricDefinition[];
 }) {
   const color = scoreColor(score);
   const data = [{ value: score }, { value: 100 - score }];
   const breakdown = (metrics ?? [])
     .map((m) => {
-      const threshold = healthThresholds[m.id];
+      const threshold = thresholds[m.id];
       if (!threshold) return null;
       const def = metricDefinitions.find((d) => d.id === m.id);
-      const status = getHealthStatus(m.id, m.currentValue);
-      const points = getHealthScore(m.id, m.currentValue); // 0/50/100
+      const status = getHealthStatus(thresholds, m.id, m.currentValue);
+      const points = getHealthScore(thresholds, m.id, m.currentValue); // 0/50/100
       const contribution = points * threshold.weight;
       return {
         id: m.id,

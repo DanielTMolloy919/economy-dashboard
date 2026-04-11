@@ -7,8 +7,8 @@ import { ThemeProvider } from "next-themes";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-  title: "Australian Economy Dashboard",
-  description: "Real-time Australian economic health dashboard",
+  title: "Economy Dashboard",
+  description: "Economic health dashboard",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

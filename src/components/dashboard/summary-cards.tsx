@@ -5,12 +5,20 @@ import {
   getTrendDirection,
   getTrendSentiment,
 } from "~/components/dashboard/trend-arrow";
-import { metricDefinitions } from "~/config/metrics";
-import { metricInfo } from "~/config/metric-info";
+import type { MetricDefinition } from "~/config/metrics";
+import type { MetricInfo } from "~/config/metric-info";
 import { MetricInfoPopover } from "~/components/dashboard/metric-info-popover";
 import type { MetricData } from "~/types/metrics";
 
-export function SummaryCards({ metrics }: { metrics: MetricData[] }) {
+export function SummaryCards({
+  metrics,
+  metricDefinitions,
+  metricInfo,
+}: {
+  metrics: MetricData[];
+  metricDefinitions: MetricDefinition[];
+  metricInfo: Record<string, MetricInfo>;
+}) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
       {metrics.map((m) => {
