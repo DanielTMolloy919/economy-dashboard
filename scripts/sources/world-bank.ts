@@ -1,5 +1,7 @@
-import { getHealthStatus } from "~/config/health-thresholds";
+import { getHealthStatus, getHealthThresholds } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
+
+const auThresholds = getHealthThresholds("au");
 
 const WB_BASE = "https://api.worldbank.org/v2/country/AUS/indicator";
 
@@ -41,7 +43,7 @@ export async function fetchGdp(): Promise<MetricData> {
     frequency: "Annual",
     currentValue,
     previousValue,
-    health: getHealthStatus("gdp", currentValue),
+    health: getHealthStatus(auThresholds, "gdp", currentValue),
     series,
   };
 }
@@ -67,7 +69,7 @@ export async function fetchTrade(): Promise<MetricData> {
     frequency: "Annual",
     currentValue,
     previousValue,
-    health: getHealthStatus("trade", currentValue),
+    health: getHealthStatus(auThresholds, "trade", currentValue),
     series,
   };
 }
