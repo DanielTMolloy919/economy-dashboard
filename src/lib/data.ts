@@ -16,7 +16,12 @@ const runtimeTransforms: Record<string, { factor: number; unit: string }> = {
 };
 
 // Metrics that should display as a trailing 4-quarter sum (removes fiscal seasonality).
-const rolling4QMetrics = new Set(["fiscal-balance"]);
+// US fiscal data is pre-computed as a trailing 12-month sum in the fetcher, so excluded here.
+const rolling4QMetrics: Record<CountryCode, Set<string>> = {
+  au: new Set(["fiscal-balance"]),
+  nz: new Set(["fiscal-balance"]),
+  us: new Set(),
+};
 
 // Metrics stored as index numbers that should display as YoY % change.
 // Value = number of periods per year (4 for quarterly data).
@@ -54,7 +59,7 @@ function applyTransform(data: MetricData, country: CountryCode): MetricData {
     };
   }
 
-  if (rolling4QMetrics.has(data.id) && result.series.length >= 4) {
+  if (rolling4QMetrics[country]?.has(data.id) && result.series.length >= 4) {
     const series = toRolling4Q(result.series);
     result = {
       ...result,

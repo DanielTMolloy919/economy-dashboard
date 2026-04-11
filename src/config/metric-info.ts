@@ -323,9 +323,178 @@ const nzMetricInfo: Record<string, MetricInfo> = {
   },
 };
 
+const usMetricInfo: Record<string, MetricInfo> = {
+  gdp: {
+    summary:
+      "GDP growth measures the annual percentage change in the total value of goods and services produced in the United States. The US is the world's largest economy by nominal GDP.",
+    thresholdRationale: {
+      green:
+        "\u2265 2% \u2014 at or above trend growth for the US economy. Enough to support job creation and rising living standards.",
+      yellow:
+        "0\u20132% \u2014 the economy is still growing but below trend, which may mean the labour market is softening.",
+      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+    },
+  },
+  "gdp-per-capita": {
+    summary:
+      "GDP per capita growth measures the annual change in economic output per person. It adjusts for population growth, making it a better gauge of whether living standards are improving.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.5% \u2014 per-capita output is growing comfortably, meaning the average person's share of the economy is expanding.",
+      yellow:
+        "0\u20131.5% \u2014 the economy is growing per person but below trend. Living standards are broadly flat.",
+      red: "< 0% \u2014 the economy is shrinking on a per-person basis, even if total GDP is positive.",
+    },
+  },
+  "personal-consumption": {
+    summary:
+      "Personal consumption expenditures (PCE) track annual change in real consumer spending. Consumer spending drives roughly 70% of US GDP, making it the single most important demand-side indicator.",
+    thresholdRationale: {
+      green:
+        "2\u20137% \u2014 healthy real growth. Above inflation but not excessive, consistent with a confident consumer.",
+      yellow:
+        "0\u20132% signals cautious households. 7\u201310% may indicate spending running ahead of income.",
+      red: "< 0% \u2014 consumers are cutting spending in real terms, a strong recession signal. > 10% is typically a post-shock rebound.",
+    },
+  },
+  "fiscal-balance": {
+    summary:
+      "The federal surplus or deficit measures the difference between federal government revenues and outlays. The US has run persistent deficits for most of the past two decades. Shown as a trailing 12-month sum to smooth monthly volatility.",
+    thresholdRationale: {
+      green:
+        "> -$500B \u2014 a moderate deficit relative to the size of the US economy (~$28T GDP), roughly under 2% of GDP.",
+      yellow:
+        "-$500B to -$1T \u2014 a sizable deficit, in the range of 2\u20134% of GDP. Manageable but limits fiscal flexibility.",
+      red: "< -$1T \u2014 a very large deficit exceeding 4% of GDP, typically seen during recessions or major fiscal expansions.",
+    },
+  },
+  cpi: {
+    summary:
+      "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. While the Fed formally targets 2% PCE inflation, CPI is the most widely cited public measure of price stability.",
+    thresholdRationale: {
+      green:
+        "2\u20133% \u2014 broadly consistent with the Fed's 2% PCE target (CPI typically runs slightly above PCE). Price stability is maintained.",
+      yellow:
+        "1\u20132% or 3\u20134% \u2014 just outside the comfort zone. The Fed will typically signal a policy response.",
+      red: "< 1% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate hikes.",
+    },
+  },
+  wages: {
+    summary:
+      "Average hourly earnings measure annual growth in wages for all private-sector employees. Real wage growth \u2014 wages rising faster than inflation \u2014 is essential for household living standards.",
+    thresholdRationale: {
+      green:
+        "\u2265 3.5% \u2014 wage growth typically stays ahead of or in line with inflation, meaning workers' real purchasing power is maintained or growing.",
+      yellow:
+        "2\u20133.5% \u2014 modest growth. If inflation is also in this range, real wages are roughly flat.",
+      red: "< 2% \u2014 almost certain real wage cuts when any inflation is present, reducing household disposable income.",
+    },
+  },
+  "real-wages": {
+    summary:
+      "Real wage growth measures whether workers' pay is rising faster than the cost of living. Calculated as nominal wage growth minus CPI inflation. Positive values mean purchasing power is increasing; negative values mean workers are going backwards.",
+    thresholdRationale: {
+      green:
+        "> +0.5% \u2014 wages are clearly outpacing inflation. Workers' purchasing power is growing.",
+      yellow:
+        "-0.5% to +0.5% \u2014 wages are roughly tracking inflation. Living standards are flat.",
+      red: "< -0.5% \u2014 inflation is outpacing wage growth. Workers' purchasing power is declining.",
+    },
+  },
+  unemployment: {
+    summary:
+      "The unemployment rate is the share of the civilian labour force actively seeking work but unable to find it. The Fed has a dual mandate to pursue both maximum employment and price stability.",
+    thresholdRationale: {
+      green:
+        "< 4.5% \u2014 close to full employment. The Fed considers this range consistent with its maximum employment mandate.",
+      yellow:
+        "4.5\u20136% \u2014 noticeable slack in the labour market. Job seekers face harder searches.",
+      red: "> 6% \u2014 significant labour market distress, typically associated with recession conditions.",
+    },
+  },
+  underemployment: {
+    summary:
+      "The U-6 rate is the broadest measure of labour underutilisation. It includes the unemployed, those marginally attached to the labour force, and those employed part-time for economic reasons.",
+    thresholdRationale: {
+      green:
+        "< 8% \u2014 the labour market is tight enough that most people who want full-time work can find it.",
+      yellow:
+        "8\u201310% \u2014 a meaningful share of workers are underutilised, suppressing wage growth.",
+      red: "> 10% \u2014 widespread underutilisation, typically seen during recessions.",
+    },
+  },
+  "job-openings": {
+    summary:
+      "JOLTS job openings measure the number of unfilled positions that employers are actively trying to fill. It's a leading indicator of labour demand \u2014 rising openings mean businesses are expanding.",
+    thresholdRationale: {
+      green:
+        "> 8M \u2014 strong employer demand for workers, well above pre-pandemic norms of ~7M.",
+      yellow:
+        "5\u20138M \u2014 moderate levels. The labour market remains functional but demand may be softening.",
+      red: "< 5M \u2014 weak hiring intentions, indicating a labour market under stress.",
+    },
+  },
+  "fed-funds-rate": {
+    summary:
+      "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. Set by the Federal Reserve's FOMC, it's the primary lever for influencing inflation, employment, and broader financial conditions.",
+    thresholdRationale: {
+      green:
+        "2\u20133.5% \u2014 broadly neutral for the US economy. Neither stimulating nor restricting activity, consistent with the Fed's long-run estimate of the neutral rate.",
+      yellow:
+        "1\u20132% is stimulatory. 3.5\u20135% is restrictive, used to cool above-target inflation.",
+      red: "< 1% are emergency lows that distort asset markets. > 5% creates significant borrowing costs across the economy.",
+    },
+  },
+  "usd-index": {
+    summary:
+      "The trade-weighted broad US dollar index measures the value of the dollar against a basket of currencies weighted by trade volumes. As the world's reserve currency, dollar strength has global implications for trade and capital flows.",
+    thresholdRationale: {
+      green:
+        "95\u2013115 \u2014 consistent with the dollar's recent historical range. Keeps US exports reasonably competitive while reflecting reserve currency status.",
+      yellow:
+        "85\u201395 or 115\u2013125 \u2014 outside the normal band. A weak dollar boosts exports but raises import costs; a strong dollar does the reverse.",
+      red: "< 85 signals a major confidence shift away from the dollar. > 125 severely hurts US export competitiveness and emerging market dollar-denominated debt.",
+    },
+  },
+  trade: {
+    summary:
+      "The trade balance is the difference between US exports and imports of goods and services. The US has run persistent trade deficits since the 1970s, reflecting its role as the world's largest consumer market and reserve currency issuer.",
+    thresholdRationale: {
+      green:
+        "> -$50B/month \u2014 a moderate deficit consistent with the structural US trade position.",
+      yellow:
+        "-$50B to -$80B/month \u2014 a larger deficit that may reflect weakening competitiveness or excessive import demand.",
+      red: "< -$80B/month \u2014 a very large deficit, raising concerns about external sustainability.",
+    },
+  },
+  "building-permits": {
+    summary:
+      "Building permits count new privately-owned housing units authorised for construction. As a leading indicator of housing supply, it signals construction activity 3\u201312 months ahead. Reported as a seasonally adjusted annual rate (SAAR) in thousands.",
+    thresholdRationale: {
+      green:
+        "> 1,400k SAAR \u2014 consistent with the pace needed to meet household formation and replace ageing stock.",
+      yellow:
+        "1,000\u20131,400k SAAR \u2014 below what long-run demand requires. Housing undersupply builds.",
+      red: "< 1,000k SAAR \u2014 critically low, typically seen during housing busts or severe recessions.",
+    },
+  },
+  "housing-starts": {
+    summary:
+      "Housing starts count new privately-owned housing units where construction has begun. Unlike permits, starts represent actual construction activity and are a key input to GDP through residential investment.",
+    thresholdRationale: {
+      green:
+        "> 1,400k SAAR \u2014 healthy construction activity, approaching the pace needed to address housing shortfalls.",
+      yellow:
+        "1,000\u20131,400k SAAR \u2014 moderate activity but below long-run requirements.",
+      red: "< 1,000k SAAR \u2014 very weak construction, compounding the housing supply deficit.",
+    },
+  },
+};
+
 const allMetricInfo: Record<CountryCode, Record<string, MetricInfo>> = {
   au: auMetricInfo,
   nz: nzMetricInfo,
+  us: usMetricInfo,
 };
 
 export function getMetricInfo(country: CountryCode): Record<string, MetricInfo> {

@@ -42,7 +42,7 @@ export function computeRealWages(
         : wages.nextExpectedUpdate ?? cpi.nextExpectedUpdate,
     source: wages.source,
     unit: "% YoY",
-    frequency: "Quarterly",
+    frequency: wages.frequency,
     currentValue,
     previousValue,
     health: getHealthStatus(thresholds, "real-wages", currentValue),

@@ -24,6 +24,27 @@ export function nextAbsUpdate(lastUpdated: string, frequency: "monthly" | "quart
   return releaseDate.toISOString().slice(0, 10);
 }
 
+// Formula-based next expected update for FRED series.
+// Most FRED data releases follow predictable schedules:
+//   Monthly series: ~3-4 weeks after the reference month ends
+//   Quarterly series: ~4 weeks after the reference quarter ends
+export function nextFredUpdate(lastUpdated: string, frequency: "monthly" | "quarterly"): string {
+  const last = new Date(lastUpdated);
+
+  let nextPeriodEnd: Date;
+  if (frequency === "quarterly") {
+    nextPeriodEnd = new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 3 + 1, 0));
+  } else {
+    nextPeriodEnd = new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 2, 0));
+  }
+
+  const offsetDays = frequency === "monthly" ? 25 : 30;
+  const releaseDate = new Date(nextPeriodEnd);
+  releaseDate.setUTCDate(releaseDate.getUTCDate() + offsetDays);
+
+  return releaseDate.toISOString().slice(0, 10);
+}
+
 // Scrape the RBA board meeting schedule page to get the next decision date
 // after today. Decision day is the second day of the two-day meeting.
 // Page: https://www.rba.gov.au/schedules-events/board-meeting-schedules.html

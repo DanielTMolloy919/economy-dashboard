@@ -235,9 +235,127 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
   },
 };
 
+const usHealthThresholds: Record<string, MetricThreshold> = {
+  gdp: {
+    green: { min: 2, max: Infinity },
+    yellow: [{ min: 0, max: 2 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0.15,
+  },
+  "gdp-per-capita": {
+    green: { min: 1.5, max: Infinity },
+    yellow: [{ min: 0, max: 1.5 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
+  "personal-consumption": {
+    green: { min: 2, max: 7 },
+    yellow: [
+      { min: 0, max: 2 },
+      { min: 7, max: 10 },
+    ],
+    red: [
+      { min: -Infinity, max: 0 },
+      { min: 10, max: Infinity },
+    ],
+    weight: 0.06,
+  },
+  "fiscal-balance": {
+    green: { min: -500, max: Infinity },
+    yellow: [{ min: -1000, max: -500 }],
+    red: [{ min: -Infinity, max: -1000 }],
+    weight: 0.04,
+  },
+  cpi: {
+    green: { min: 2, max: 3 },
+    yellow: [
+      { min: 1, max: 2 },
+      { min: 3, max: 4 },
+    ],
+    red: [
+      { min: -Infinity, max: 1 },
+      { min: 4, max: Infinity },
+    ],
+    weight: 0.15,
+  },
+  wages: {
+    green: { min: 3.5, max: Infinity },
+    yellow: [{ min: 2, max: 3.5 }],
+    red: [{ min: -Infinity, max: 2 }],
+    weight: 0.10,
+  },
+  "real-wages": {
+    green: { min: 0.5, max: Infinity },
+    yellow: [{ min: -0.5, max: 0.5 }],
+    red: [{ min: -Infinity, max: -0.5 }],
+    weight: 0.06,
+  },
+  unemployment: {
+    green: { min: -Infinity, max: 4.5 },
+    yellow: [{ min: 4.5, max: 6 }],
+    red: [{ min: 6, max: Infinity }],
+    weight: 0.15,
+  },
+  underemployment: {
+    green: { min: -Infinity, max: 8 },
+    yellow: [{ min: 8, max: 10 }],
+    red: [{ min: 10, max: Infinity }],
+    weight: 0.06,
+  },
+  "job-openings": {
+    green: { min: 8000, max: Infinity },
+    yellow: [{ min: 5000, max: 8000 }],
+    red: [{ min: -Infinity, max: 5000 }],
+    weight: 0.04,
+  },
+  "fed-funds-rate": {
+    green: { min: 2, max: 3.5 },
+    yellow: [
+      { min: 1, max: 2 },
+      { min: 3.5, max: 5 },
+    ],
+    red: [
+      { min: -Infinity, max: 1 },
+      { min: 5, max: Infinity },
+    ],
+    weight: 0.10,
+  },
+  "usd-index": {
+    green: { min: 95, max: 115 },
+    yellow: [
+      { min: 85, max: 95 },
+      { min: 115, max: 125 },
+    ],
+    red: [
+      { min: -Infinity, max: 85 },
+      { min: 125, max: Infinity },
+    ],
+    weight: 0.04,
+  },
+  trade: {
+    green: { min: -50, max: Infinity },
+    yellow: [{ min: -80, max: -50 }],
+    red: [{ min: -Infinity, max: -80 }],
+    weight: 0.05,
+  },
+  "building-permits": {
+    green: { min: 1400, max: Infinity },
+    yellow: [{ min: 1000, max: 1400 }],
+    red: [{ min: -Infinity, max: 1000 }],
+    weight: 0,
+  },
+  "housing-starts": {
+    green: { min: 1400, max: Infinity },
+    yellow: [{ min: 1000, max: 1400 }],
+    red: [{ min: -Infinity, max: 1000 }],
+    weight: 0,
+  },
+};
+
 const allHealthThresholds: Record<CountryCode, Record<string, MetricThreshold>> = {
   au: auHealthThresholds,
   nz: nzHealthThresholds,
+  us: usHealthThresholds,
 };
 
 export function getHealthThresholds(country: CountryCode): Record<string, MetricThreshold> {
