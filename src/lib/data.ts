@@ -2,14 +2,15 @@ import "server-only";
 import { readFileSync } from "fs";
 import { join } from "path";
 import type { MetricData } from "~/types/metrics";
-import { metricDefinitions } from "~/config/metrics";
+import type { CountryCode } from "~/config/countries";
+import { getMetricDefinitions } from "~/config/metrics";
 
 // Runtime transforms applied after loading raw data.
 // Keys are metric IDs; each entry describes a linear scale factor and updated unit.
 const runtimeTransforms: Record<string, { factor: number; unit: string }> = {
-  // Quarterly ABS data — divide by 3 to express as monthly rate
+  // AU: Quarterly ABS data — divide by 3 to express as monthly rate
   "dwelling-completions": { factor: 1 / 3, unit: "k dwellings/mo" },
-  // Already monthly — just standardise the unit label
+  // AU: Already monthly — just standardise the unit label
   "building-approvals": { factor: 1, unit: "k dwellings/mo" },
 };
 
@@ -51,19 +52,20 @@ function applyTransform(data: MetricData): MetricData {
   return result;
 }
 
-function readMetricFile(id: string): MetricData {
-  const filePath = join(process.cwd(), "data", `${id}.json`);
+function readMetricFile(country: CountryCode, id: string): MetricData {
+  const filePath = join(process.cwd(), "data", country, `${id}.json`);
   const raw = readFileSync(filePath, "utf-8");
   return applyTransform(JSON.parse(raw) as MetricData);
 }
 
-export function getAllMetrics(): MetricData[] {
-  return metricDefinitions.map((def) => readMetricFile(def.id));
+export function getAllMetrics(country: CountryCode): MetricData[] {
+  const definitions = getMetricDefinitions(country);
+  return definitions.map((def) => readMetricFile(country, def.id));
 }
 
-export function getMetricById(id: string): MetricData | null {
+export function getMetricById(country: CountryCode, id: string): MetricData | null {
   try {
-    return readMetricFile(id);
+    return readMetricFile(country, id);
   } catch {
     return null;
   }

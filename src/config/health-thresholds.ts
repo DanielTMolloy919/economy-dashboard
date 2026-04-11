@@ -1,4 +1,5 @@
 import type { HealthStatus } from "~/types/metrics";
+import type { CountryCode } from "~/config/countries";
 
 export interface ThresholdRange {
   min: number;
@@ -12,7 +13,7 @@ export interface MetricThreshold {
   weight: number; // weight in overall score (0-1, sum = 1)
 }
 
-export const healthThresholds: Record<string, MetricThreshold> = {
+const auHealthThresholds: Record<string, MetricThreshold> = {
   gdp: {
     green: { min: 2.5, max: Infinity },
     yellow: [{ min: 0, max: 2.5 }],
@@ -117,11 +118,120 @@ export const healthThresholds: Record<string, MetricThreshold> = {
   },
 };
 
+const nzHealthThresholds: Record<string, MetricThreshold> = {
+  gdp: {
+    green: { min: 2, max: Infinity },
+    yellow: [{ min: 0, max: 2 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0.18,
+  },
+  cpi: {
+    green: { min: 1, max: 3 },
+    yellow: [
+      { min: 0, max: 1 },
+      { min: 3, max: 5 },
+    ],
+    red: [
+      { min: -Infinity, max: 0 },
+      { min: 5, max: Infinity },
+    ],
+    weight: 0.18,
+  },
+  unemployment: {
+    green: { min: -Infinity, max: 4.5 },
+    yellow: [{ min: 4.5, max: 6 }],
+    red: [{ min: 6, max: Infinity }],
+    weight: 0.18,
+  },
+  "cash-rate": {
+    green: { min: 2, max: 3.5 },
+    yellow: [
+      { min: 1, max: 2 },
+      { min: 3.5, max: 4.5 },
+    ],
+    red: [
+      { min: -Infinity, max: 1 },
+      { min: 4.5, max: Infinity },
+    ],
+    weight: 0.13,
+  },
+  wages: {
+    green: { min: 3, max: Infinity },
+    yellow: [{ min: 2, max: 3 }],
+    red: [{ min: -Infinity, max: 2 }],
+    weight: 0.13,
+  },
+  underutilisation: {
+    green: { min: -Infinity, max: 10 },
+    yellow: [{ min: 10, max: 13 }],
+    red: [{ min: 13, max: Infinity }],
+    weight: 0.08,
+  },
+  "retail-trade": {
+    green: { min: 2, max: 6 },
+    yellow: [
+      { min: 0, max: 2 },
+      { min: 6, max: 9 },
+    ],
+    red: [
+      { min: -Infinity, max: 0 },
+      { min: 9, max: Infinity },
+    ],
+    weight: 0.08,
+  },
+  "job-vacancies": {
+    green: { min: 50, max: Infinity },
+    yellow: [{ min: 30, max: 50 }],
+    red: [{ min: -Infinity, max: 30 }],
+    weight: 0.06,
+  },
+  "nzd-usd": {
+    green: { min: 0.58, max: 0.72 },
+    yellow: [
+      { min: 0.52, max: 0.58 },
+      { min: 0.72, max: 0.78 },
+    ],
+    red: [
+      { min: -Infinity, max: 0.52 },
+      { min: 0.78, max: Infinity },
+    ],
+    weight: 0.05,
+  },
+  trade: {
+    green: { min: 0, max: Infinity },
+    yellow: [{ min: -2, max: 0 }],
+    red: [{ min: -Infinity, max: -2 }],
+    weight: 0.05,
+  },
+  "building-consents": {
+    green: { min: 3, max: Infinity },
+    yellow: [{ min: 2, max: 3 }],
+    red: [{ min: -Infinity, max: 2 }],
+    weight: 0,
+  },
+  "fiscal-balance": {
+    green: { min: 0, max: Infinity },
+    yellow: [{ min: -10, max: 0 }],
+    red: [{ min: -Infinity, max: -10 }],
+    weight: 0.06,
+  },
+};
+
+const allHealthThresholds: Record<CountryCode, Record<string, MetricThreshold>> = {
+  au: auHealthThresholds,
+  nz: nzHealthThresholds,
+};
+
+export function getHealthThresholds(country: CountryCode): Record<string, MetricThreshold> {
+  return allHealthThresholds[country];
+}
+
 export function getHealthStatus(
+  thresholds: Record<string, MetricThreshold>,
   metricId: string,
   value: number,
 ): HealthStatus {
-  const threshold = healthThresholds[metricId];
+  const threshold = thresholds[metricId];
   if (!threshold) return "yellow";
 
   if (value >= threshold.green.min && value <= threshold.green.max) {
@@ -137,8 +247,12 @@ export function getHealthStatus(
   return "yellow";
 }
 
-export function getHealthScore(metricId: string, value: number): number {
-  const status = getHealthStatus(metricId, value);
+export function getHealthScore(
+  thresholds: Record<string, MetricThreshold>,
+  metricId: string,
+  value: number,
+): number {
+  const status = getHealthStatus(thresholds, metricId, value);
   switch (status) {
     case "green":
       return 100;
@@ -150,15 +264,16 @@ export function getHealthScore(metricId: string, value: number): number {
 }
 
 export function getOverallScore(
+  thresholds: Record<string, MetricThreshold>,
   metrics: { id: string; currentValue: number }[],
 ): number {
   let totalWeight = 0;
   let weightedScore = 0;
 
   for (const metric of metrics) {
-    const threshold = healthThresholds[metric.id];
+    const threshold = thresholds[metric.id];
     if (!threshold) continue;
-    const score = getHealthScore(metric.id, metric.currentValue);
+    const score = getHealthScore(thresholds, metric.id, metric.currentValue);
     weightedScore += score * threshold.weight;
     totalWeight += threshold.weight;
   }

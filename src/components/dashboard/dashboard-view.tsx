@@ -1,9 +1,12 @@
 "use client";
 import { useState } from "react";
 import type { MetricData } from "~/types/metrics";
+import type { CountryCode } from "~/config/countries";
+import { countries } from "~/config/countries";
 import type { MetricDefinition } from "~/config/metrics";
-import { metricDefinitions, heroMetricIds } from "~/config/metrics";
-import { getOverallScore } from "~/config/health-thresholds";
+import { getMetricDefinitions, getHeroMetricIds } from "~/config/metrics";
+import { getHealthThresholds, getOverallScore } from "~/config/health-thresholds";
+import { getMetricInfo } from "~/config/metric-info";
 import { TimeRangeTabs, type TimeRange } from "~/components/dashboard/time-range-tabs";
 import { OverallHealth } from "~/components/dashboard/overall-health";
 import { SummaryCards } from "~/components/dashboard/summary-cards";
@@ -22,19 +25,26 @@ function filterSeries(
   return series.filter((p) => new Date(p.date) >= cutoff);
 }
 
-export function DashboardView({ metrics }: { metrics: MetricData[] }) {
+export function DashboardView({ metrics, country }: { metrics: MetricData[]; country: CountryCode }) {
   const [timeRange, setTimeRange] = useState<TimeRange>("all");
+
+  const config = countries[country];
+  const metricDefs = getMetricDefinitions(country);
+  const heroMetricIds = getHeroMetricIds(country);
+  const thresholds = getHealthThresholds(country);
+  const metricInfoMap = getMetricInfo(country);
 
   const metricsMap = new Map(metrics.map((m) => [m.id, m]));
   const heroMetrics = heroMetricIds
     .map((id) => metricsMap.get(id))
     .filter((m): m is MetricData => m !== undefined);
   const overallScore = getOverallScore(
+    thresholds,
     metrics.map((m) => ({ id: m.id, currentValue: m.currentValue })),
   );
 
   const heroSet = new Set(heroMetricIds);
-  const otherDefinitions = metricDefinitions.filter((d) => !heroSet.has(d.id));
+  const otherDefinitions = metricDefs.filter((d) => !heroSet.has(d.id));
 
   // Group remaining metrics by section
   const otherSections = Array.from(
@@ -58,7 +68,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
         <div className="mx-auto w-full max-w-2xl px-4 py-3 flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold leading-tight">🇦🇺 Australian Economy</h1>
+            <h1 className="text-lg font-bold leading-tight">{config.flag} {config.name} Economy</h1>
             <p className="text-xs text-muted-foreground">Economic health dashboard</p>
           </div>
           <div className="flex items-center gap-3">
@@ -74,8 +84,14 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
           <OverallHealth
             score={overallScore}
             metrics={metrics.map((m) => ({ id: m.id, currentValue: m.currentValue }))}
+            thresholds={thresholds}
+            metricDefinitions={metricDefs}
           />
-          <SummaryCards metrics={heroMetrics} />
+          <SummaryCards
+            metrics={heroMetrics}
+            metricDefinitions={metricDefs}
+            metricInfo={metricInfoMap}
+          />
           <div className="flex flex-wrap gap-2 justify-center">
             {chapters.map((ch) => (
               <a
@@ -94,7 +110,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
         {/* Big 4 */}
         <section id="key-indicators" className="flex flex-col gap-4 scroll-mt-20">
           {heroMetricIds.map((id) => {
-            const def = metricDefinitions.find((d) => d.id === id);
+            const def = metricDefs.find((d) => d.id === id);
             const data = metricsMap.get(id);
             if (!def || !data) return null;
             return (
@@ -103,6 +119,8 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
                   data={data}
                   definition={def}
                   filteredSeries={filterSeries(data.series, timeRange)}
+                  metricInfo={metricInfoMap}
+                  locale={config.locale}
                 />
               </div>
             );
@@ -130,6 +148,8 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
                       data={data}
                       definition={def}
                       filteredSeries={filterSeries(data.series, timeRange)}
+                      metricInfo={metricInfoMap}
+                      locale={config.locale}
                     />
                   </div>
                 );
@@ -141,7 +161,7 @@ export function DashboardView({ metrics }: { metrics: MetricData[] }) {
 
       <footer className="border-t mt-16">
         <div className="mx-auto w-full max-w-2xl px-4 py-6 text-xs text-muted-foreground text-center">
-          Data sourced from World Bank, RBA, and ABS. Updated periodically.
+          Data sourced from {config.dataSources}. Updated periodically.
         </div>
       </footer>
     </div>

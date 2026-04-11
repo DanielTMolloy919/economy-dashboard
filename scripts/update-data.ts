@@ -18,7 +18,7 @@ import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
 import { fetchGdp, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
 import { fetchFiscalBalance } from "./sources/abs-gfs";
 
-const DATA_DIR = join(process.cwd(), "data");
+const DATA_DIR = join(process.cwd(), "data", "au");
 
 function write(metric: MetricData) {
   const path = join(DATA_DIR, `${metric.id}.json`);
