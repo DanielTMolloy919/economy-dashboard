@@ -12,6 +12,7 @@ import { OverallHealth } from "~/components/dashboard/overall-health";
 import { SummaryCards } from "~/components/dashboard/summary-cards";
 import { MetricCard } from "~/components/dashboard/metric-card";
 import { ThemeToggle } from "~/components/dashboard/theme-toggle";
+import { CountrySwitcher } from "~/components/dashboard/country-switcher";
 import { Separator } from "~/components/ui/separator";
 
 function filterSeries(
@@ -67,9 +68,12 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
     <div className="min-h-screen bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
         <div className="mx-auto w-full max-w-2xl px-4 py-3 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold leading-tight">{config.flag} {config.name} Economy</h1>
-            <p className="text-xs text-muted-foreground">Economic health dashboard</p>
+          <div className="flex items-center gap-3">
+            <CountrySwitcher current={country} />
+            <div>
+              <h1 className="text-lg font-bold leading-tight">{config.name} Economy</h1>
+              <p className="text-xs text-muted-foreground">Economic health dashboard</p>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <TimeRangeTabs value={timeRange} onChange={setTimeRange} />
