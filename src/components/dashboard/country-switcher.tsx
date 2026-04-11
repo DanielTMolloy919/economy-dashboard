@@ -4,52 +4,37 @@ import { useRouter } from "next/navigation";
 import type { CountryCode } from "~/config/countries";
 import { countries, validCountryCodes } from "~/config/countries";
 import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "~/components/ui/combobox";
-
-interface CountryItem {
-  value: CountryCode;
-  label: string;
-}
-
-const countryItems: CountryItem[] = validCountryCodes.map((code) => ({
-  value: code,
-  label: `${countries[code].flag} ${countries[code].name}`,
-}));
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 export function CountrySwitcher({ current }: { current: CountryCode }) {
   const router = useRouter();
-  const currentItem = countryItems.find((item) => item.value === current)!;
 
   return (
-    <Combobox
-      items={countryItems}
-      value={currentItem}
-      onValueChange={(item) => {
-        if (item && item.value !== current) {
-          router.push(`/${item.value}`);
+    <Select
+      value={current}
+      onValueChange={(value) => {
+        if (value !== current) {
+          router.push(`/${value}`);
         }
       }}
     >
-      <ComboboxInput
-        placeholder="Select country"
-        className="w-52"
-      />
-      <ComboboxContent>
-        <ComboboxEmpty>No countries found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item: CountryItem) => (
-            <ComboboxItem key={item.value} value={item}>
-              {item.label}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
-    </Combobox>
+      <SelectTrigger className="w-52">
+        <SelectValue>
+          {countries[current].flag} {countries[current].name}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        {validCountryCodes.map((code) => (
+          <SelectItem key={code} value={code}>
+            {countries[code].flag} {countries[code].name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
