@@ -1,25 +1,55 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import type { CountryCode } from "~/config/countries";
 import { countries, validCountryCodes } from "~/config/countries";
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "~/components/ui/combobox";
+
+interface CountryItem {
+  value: CountryCode;
+  label: string;
+}
+
+const countryItems: CountryItem[] = validCountryCodes.map((code) => ({
+  value: code,
+  label: `${countries[code].flag} ${countries[code].name}`,
+}));
 
 export function CountrySwitcher({ current }: { current: CountryCode }) {
+  const router = useRouter();
+  const currentItem = countryItems.find((item) => item.value === current)!;
+
   return (
-    <div className="flex items-center gap-1">
-      {validCountryCodes.map((code) => (
-        <Link
-          key={code}
-          href={`/${code}`}
-          className={`px-1.5 py-0.5 rounded text-sm transition-colors ${
-            code === current
-              ? "bg-muted font-medium"
-              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-          }`}
-          aria-current={code === current ? "page" : undefined}
-          title={`${countries[code].name} Economy`}
-        >
-          {countries[code].flag}
-        </Link>
-      ))}
-    </div>
+    <Combobox
+      items={countryItems}
+      value={currentItem}
+      onValueChange={(item) => {
+        if (item && item.value !== current) {
+          router.push(`/${item.value}`);
+        }
+      }}
+    >
+      <ComboboxInput
+        placeholder="Select country"
+        className="w-52"
+      />
+      <ComboboxContent>
+        <ComboboxEmpty>No countries found.</ComboboxEmpty>
+        <ComboboxList>
+          {(item: CountryItem) => (
+            <ComboboxItem key={item.value} value={item}>
+              {item.label}
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
   );
 }
