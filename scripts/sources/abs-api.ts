@@ -1,6 +1,8 @@
-import { getHealthStatus } from "~/config/health-thresholds";
+import { getHealthStatus, getHealthThresholds } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
 import { nextAbsUpdate } from "./next-update";
+
+const auThresholds = getHealthThresholds("au");
 
 // ABS SDMX-JSON 2.0 REST API
 // Base: https://data.api.abs.gov.au/rest/data/{agencyId},{dataflowId},{version}/{key}
@@ -119,7 +121,7 @@ export async function fetchGdp(): Promise<MetricData> {
     frequency: "Quarterly",
     currentValue,
     previousValue,
-    health: getHealthStatus("gdp", currentValue),
+    health: getHealthStatus(auThresholds, "gdp", currentValue),
     series,
   };
 }
@@ -147,7 +149,7 @@ export async function fetchUnemployment(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("unemployment", currentValue),
+    health: getHealthStatus(auThresholds, "unemployment", currentValue),
     series,
   };
 }
@@ -177,7 +179,7 @@ export async function fetchWages(): Promise<MetricData> {
     frequency: "Quarterly",
     currentValue,
     previousValue,
-    health: getHealthStatus("wages", currentValue),
+    health: getHealthStatus(auThresholds, "wages", currentValue),
     series,
   };
 }
@@ -206,7 +208,7 @@ export async function fetchUnderemployment(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("underemployment", currentValue),
+    health: getHealthStatus(auThresholds, "underemployment", currentValue),
     series: rounded,
   };
 }
@@ -234,7 +236,7 @@ export async function fetchHouseholdSpending(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("household-spending", currentValue),
+    health: getHealthStatus(auThresholds, "household-spending", currentValue),
     series,
   };
 }
@@ -263,7 +265,7 @@ export async function fetchJobVacancies(): Promise<MetricData> {
     frequency: "Quarterly",
     currentValue,
     previousValue,
-    health: getHealthStatus("job-vacancies", currentValue),
+    health: getHealthStatus(auThresholds, "job-vacancies", currentValue),
     series: rounded,
   };
 }
@@ -293,7 +295,7 @@ export async function fetchTrade(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("trade", currentValue),
+    health: getHealthStatus(auThresholds, "trade", currentValue),
     series,
   };
 }
@@ -323,7 +325,7 @@ export async function fetchBuildingApprovals(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("building-approvals", currentValue),
+    health: getHealthStatus(auThresholds, "building-approvals", currentValue),
     series,
   };
 }
@@ -353,7 +355,7 @@ export async function fetchDwellingCompletions(): Promise<MetricData> {
     frequency: "Quarterly",
     currentValue,
     previousValue,
-    health: getHealthStatus("dwelling-completions", currentValue),
+    health: getHealthStatus(auThresholds, "dwelling-completions", currentValue),
     series,
   };
 }
@@ -386,7 +388,7 @@ export async function fetchCpi(): Promise<MetricData> {
     frequency: "Monthly",
     currentValue,
     previousValue,
-    health: getHealthStatus("cpi", currentValue),
+    health: getHealthStatus(auThresholds, "cpi", currentValue),
     series,
   };
 }

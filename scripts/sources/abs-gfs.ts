@@ -1,7 +1,9 @@
 import * as XLSX from "xlsx";
-import { getHealthStatus } from "~/config/health-thresholds";
+import { getHealthStatus, getHealthThresholds } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
 import { nextAbsUpdate } from "./next-update";
+
+const auThresholds = getHealthThresholds("au");
 
 const ABS_GFS_BASE =
   "https://www.abs.gov.au/statistics/economy/government/government-finance-statistics-australia";
@@ -162,7 +164,7 @@ export async function fetchFiscalBalance(): Promise<MetricData> {
     frequency: "Quarterly",
     currentValue,
     previousValue,
-    health: getHealthStatus("fiscal-balance", currentValue),
+    health: getHealthStatus(auThresholds, "fiscal-balance", currentValue),
     series,
   };
 }
