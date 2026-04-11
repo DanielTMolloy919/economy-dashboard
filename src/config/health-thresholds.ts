@@ -179,12 +179,6 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: -0.5 }],
     weight: 0.08,
   },
-  underutilisation: {
-    green: { min: -Infinity, max: 10 },
-    yellow: [{ min: 10, max: 13 }],
-    red: [{ min: 13, max: Infinity }],
-    weight: 0.08,
-  },
   "retail-trade": {
     green: { min: 2, max: 6 },
     yellow: [
@@ -196,12 +190,6 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
       { min: 9, max: Infinity },
     ],
     weight: 0.08,
-  },
-  "job-vacancies": {
-    green: { min: 50, max: Infinity },
-    yellow: [{ min: 30, max: 50 }],
-    red: [{ min: -Infinity, max: 30 }],
-    weight: 0.06,
   },
   "nzd-usd": {
     green: { min: 0.58, max: 0.72 },
@@ -220,12 +208,6 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
     yellow: [{ min: -2, max: 0 }],
     red: [{ min: -Infinity, max: -2 }],
     weight: 0.05,
-  },
-  "building-consents": {
-    green: { min: 3, max: Infinity },
-    yellow: [{ min: 2, max: 3 }],
-    red: [{ min: -Infinity, max: 2 }],
-    weight: 0,
   },
   "fiscal-balance": {
     green: { min: 0, max: Infinity },

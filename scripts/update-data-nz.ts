@@ -1,18 +1,15 @@
 /**
  * NZ data update orchestrator — fetches all NZ metrics from live APIs and writes to /data/nz/*.json
  *
- * Usage: STATS_NZ_API_KEY=<key> pnpm tsx scripts/update-data-nz.ts
+ * Usage: FRED_API_KEY=<key> pnpm tsx scripts/update-data-nz.ts
  *
  * Prerequisites:
- *   - Stats NZ API key: Register at https://portal.apis.stats.govt.nz/
- *   - RBNZ data: May require manual download of Excel files to data/nz/rbnz-cache/
- *     if Cloudflare blocks automated access.
+ *   - FRED API key: Free at https://fred.stlouisfed.org/docs/api/api_key.html
  *
  * Sources:
- *   - Stats NZ SDMX API: gdp, cpi, unemployment, wages (LCI), trade, underutilisation,
- *     retail-trade, job-vacancies, building-consents
- *   - RBNZ Excel: cash-rate (OCR), nzd-usd (B1)
+ *   - FRED: gdp, cpi, unemployment, wages, trade, retail-trade, nzd-usd, cash-rate
  *   - NZ Treasury XLSX: fiscal-balance (OBEGAL)
+ *   - Derived: real-wages (wages − CPI)
  */
 
 import { writeFileSync, mkdirSync, readFileSync } from "fs";
@@ -25,12 +22,10 @@ import {
   fetchNzUnemployment,
   fetchNzWages,
   fetchNzTrade,
-  fetchNzUnderutilisation,
   fetchNzRetailTrade,
-  fetchNzJobVacancies,
-  fetchNzBuildingConsents,
-} from "./sources/stats-nz-api";
-import { fetchNzOcr, fetchNzNzdUsd } from "./sources/rbnz-xlsx";
+  fetchNzNzdUsd,
+  fetchNzCashRate,
+} from "./sources/fred-nz";
 import { fetchNzFiscalBalance } from "./sources/nz-treasury";
 import { computeRealWages } from "./sources/derived";
 
@@ -65,19 +60,15 @@ async function main() {
   console.log("Updating NZ economy dashboard data...\n");
 
   await Promise.all([
-    // Stats NZ (requires STATS_NZ_API_KEY)
+    // FRED
     run("gdp", fetchNzGdp),
     run("cpi", fetchNzCpi),
     run("unemployment", fetchNzUnemployment),
     run("wages", fetchNzWages),
     run("trade", fetchNzTrade),
-    run("underutilisation", fetchNzUnderutilisation),
     run("retail-trade", fetchNzRetailTrade),
-    run("job-vacancies", fetchNzJobVacancies),
-    run("building-consents", fetchNzBuildingConsents),
-    // RBNZ (may need cached files)
-    run("cash-rate", fetchNzOcr),
     run("nzd-usd", fetchNzNzdUsd),
+    run("cash-rate", fetchNzCashRate),
     // NZ Treasury
     run("fiscal-balance", fetchNzFiscalBalance),
   ]);

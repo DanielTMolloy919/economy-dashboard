@@ -21,7 +21,7 @@ function getApiKey(): string {
   return key;
 }
 
-async function fetchFredSeries(
+export async function fetchFredSeries(
   seriesId: string,
   startDate = "2005-01-01",
 ): Promise<MetricSeries[]> {
@@ -34,7 +34,7 @@ async function fetchFredSeries(
     .map((obs) => ({ date: obs.date, value: parseFloat(obs.value) }));
 }
 
-function toYoY(series: MetricSeries[], periodsPerYear: number): MetricSeries[] {
+export function toYoY(series: MetricSeries[], periodsPerYear: number): MetricSeries[] {
   return series.slice(periodsPerYear).map((p, i) => {
     const prev = series[i]!;
     const change = ((p.value - prev.value) / prev.value) * 100;
@@ -52,7 +52,7 @@ function toTrailing12MonthSum(series: MetricSeries[]): MetricSeries[] {
   });
 }
 
-function round1(v: number): number {
+export function round1(v: number): number {
   return Math.round(v * 10) / 10;
 }
 

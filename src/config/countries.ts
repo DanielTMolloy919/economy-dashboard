@@ -21,7 +21,7 @@ export const countries: Record<CountryCode, CountryConfig> = {
     name: "New Zealand",
     currency: "NZ$",
     locale: "en-NZ",
-    dataSources: "Stats NZ, RBNZ, and NZ Treasury",
+    dataSources: "FRED and NZ Treasury",
   },
   us: {
     flag: "\u{1F1FA}\u{1F1F8}",

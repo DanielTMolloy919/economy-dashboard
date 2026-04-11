@@ -244,17 +244,6 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       red: "< -0.5% \u2014 inflation is outpacing wage growth. Workers' purchasing power is declining, eroding living standards and typically weakening consumer confidence.",
     },
   },
-  underutilisation: {
-    summary:
-      "The underutilisation rate measures the share of the labour force that is either unemployed or underemployed (working fewer hours than desired). It captures total labour market slack.",
-    thresholdRationale: {
-      green:
-        "< 10% \u2014 labour market is tight enough that most people who want work or more hours can find them.",
-      yellow:
-        "10\u201313% \u2014 a meaningful share of the workforce is underutilised, suppressing wage growth and household income.",
-      red: "> 13% \u2014 widespread underutilisation, typically seen during recessions or periods of weak economic activity.",
-    },
-  },
   "retail-trade": {
     summary:
       "The Retail Trade Survey tracks the annual change in total retail sales. Consumer spending drives around 60% of NZ GDP, making it a key pulse check on economic momentum.",
@@ -264,17 +253,6 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       yellow:
         "0\u20132% signals weak consumer confidence. 6\u20139% may indicate spending is running ahead of income.",
       red: "< 0% \u2014 retailers experiencing falling sales, a strong recession signal. > 9% is uncommon and typically reflects a post-shock rebound.",
-    },
-  },
-  "job-vacancies": {
-    summary:
-      "Job vacancies measure the number of unfilled positions that employers are actively trying to fill. Rising vacancies mean businesses are expanding; falling vacancies mean they're pulling back.",
-    thresholdRationale: {
-      green:
-        "> 50k \u2014 strong employer demand for workers, indicating a tight labour market.",
-      yellow:
-        "30\u201350k \u2014 moderate vacancy levels. The labour market remains functional but demand is softening.",
-      red: "< 30k \u2014 weak hiring intentions, indicating a labour market under stress.",
     },
   },
   "nzd-usd": {
@@ -297,17 +275,6 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       yellow:
         "NZ$0B to -NZ$2B deficit \u2014 a small deficit within normal range for NZ.",
       red: "< -NZ$2B deficit \u2014 a large deficit that accumulates foreign debt and puts downward pressure on the NZD.",
-    },
-  },
-  "building-consents": {
-    summary:
-      "Building consents count the number of new residential dwellings consented for construction each month. As a leading indicator of housing supply, it signals how many homes will enter the construction pipeline.",
-    thresholdRationale: {
-      green:
-        "> 3k/month \u2014 consistent with an annualised rate above 36k dwellings, approaching the pace needed to address NZ's housing shortfall.",
-      yellow:
-        "2\u20133k/month \u2014 below what population growth requires. Supply is being added, but not fast enough.",
-      red: "< 2k/month \u2014 critically low consents, compounding the housing shortfall.",
     },
   },
   "fiscal-balance": {
