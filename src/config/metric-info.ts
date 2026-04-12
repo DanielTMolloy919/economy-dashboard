@@ -593,11 +593,114 @@ const ukMetricInfo: Record<string, MetricInfo> = {
   },
 };
 
+const caMetricInfo: Record<string, MetricInfo> = {
+  gdp: {
+    summary:
+      "GDP growth measures the annual percentage change in the total value of goods and services produced in Canada. Canada is the world's ninth-largest economy by nominal GDP, with a highly trade-dependent structure.",
+    thresholdRationale: {
+      green:
+        "\u2265 2% \u2014 at or above trend growth for Canada. Enough to absorb population growth and support rising living standards.",
+      yellow:
+        "0\u20132% \u2014 the economy is still growing but below trend, which may mean jobs aren't being created fast enough to keep pace with population growth.",
+      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+    },
+  },
+  "retail-sales": {
+    summary:
+      "Retail sales track the annual change in the volume of goods sold by retailers. Consumer spending drives a significant share of Canadian GDP, making this a key pulse check on economic momentum.",
+    thresholdRationale: {
+      green:
+        "2\u20136% \u2014 healthy volume growth. Above inflation but not excessive, consistent with a confident consumer.",
+      yellow:
+        "0\u20132% signals cautious households. 6\u20139% may indicate spending running ahead of income.",
+      red: "< 0% \u2014 retailers experiencing falling sales volumes, a strong recession signal. > 9% is typically a post-shock rebound.",
+    },
+  },
+  cpi: {
+    summary:
+      "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The Bank of Canada targets 2% inflation, with a 1\u20133% control range.",
+    thresholdRationale: {
+      green:
+        "1\u20133% \u2014 within the Bank of Canada's control range. Price stability is maintained and the BoC has room to adjust rates without drastic action.",
+      yellow:
+        "0\u20131% or 3\u20134% \u2014 outside the control range. The BoC will typically signal a policy response to bring inflation back to target.",
+      red: "< 0% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
+    },
+  },
+  wages: {
+    summary:
+      "Wage growth measures the annual change in manufacturing hourly earnings, the best available proxy on FRED for Canadian wage dynamics. Real wage growth \u2014 wages rising faster than inflation \u2014 is essential for household living standards.",
+    thresholdRationale: {
+      green:
+        "\u2265 3% \u2014 wage growth typically stays ahead of or in line with inflation, meaning workers' real purchasing power is maintained or growing.",
+      yellow:
+        "2\u20133% \u2014 modest growth. If inflation is also in this range, real wages are roughly flat.",
+      red: "< 2% \u2014 almost certain real wage cuts when any inflation is present, reducing household disposable income.",
+    },
+  },
+  "real-wages": {
+    summary:
+      "Real wage growth measures whether workers' pay is rising faster than the cost of living. Calculated as nominal wage growth minus CPI inflation. Positive values mean purchasing power is increasing; negative values mean workers are going backwards.",
+    thresholdRationale: {
+      green:
+        "> +0.5% \u2014 wages are clearly outpacing inflation. Workers' purchasing power is growing.",
+      yellow:
+        "-0.5% to +0.5% \u2014 wages are roughly tracking inflation. Living standards are flat.",
+      red: "< -0.5% \u2014 inflation is outpacing wage growth. Workers' purchasing power is declining.",
+    },
+  },
+  unemployment: {
+    summary:
+      "The unemployment rate is the share of the labour force actively seeking work but unable to find it. Canada's natural rate of unemployment is typically estimated at around 5\u20136%.",
+    thresholdRationale: {
+      green:
+        "< 5.5% \u2014 close to full employment. Most people who want jobs can find them without causing wage-driven inflation.",
+      yellow:
+        "5.5\u20137% \u2014 noticeable slack in the labour market. Job seekers face harder searches; weaker household incomes put pressure on consumer spending.",
+      red: "> 7% \u2014 significant labour market distress, typically associated with recession conditions.",
+    },
+  },
+  "policy-rate": {
+    summary:
+      "The Bank of Canada's policy interest rate influences borrowing costs across the economy. It flows through to mortgage rates, business loans, and the Canadian dollar. Tracked here via the 3-month interbank rate as a close proxy.",
+    thresholdRationale: {
+      green:
+        "2\u20133.5% \u2014 broadly neutral for the Canadian economy. Neither stimulating nor restricting activity, consistent with inflation at the 2% target.",
+      yellow:
+        "1\u20132% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20134.5% is restrictive, used to cool above-target inflation.",
+      red: "< 1% are emergency lows that distort asset markets. > 4.5% creates significant mortgage stress for Canadian households, who carry high household debt ratios.",
+    },
+  },
+  "cad-usd": {
+    summary:
+      "The CAD/USD exchange rate shows how many US dollars one Canadian dollar buys. The loonie is heavily influenced by commodity prices (especially oil), interest rate differentials, and trade flows with the US.",
+    thresholdRationale: {
+      green:
+        "0.72\u20130.82 USD \u2014 consistent with the Canadian dollar's recent historical range. Keeps imports affordable while supporting export competitiveness.",
+      yellow:
+        "0.65\u20130.72 makes imports more expensive, adding to domestic inflation. Above 0.82 can hurt Canadian export competitiveness.",
+      red: "< 0.65 signals a major confidence shock or commodity price collapse. > 0.88 is historically rare and would significantly hurt exporters.",
+    },
+  },
+  trade: {
+    summary:
+      "The trade balance is the difference between Canadian exports and imports of goods. Canada's trade position is heavily influenced by commodity exports (oil, minerals, agriculture) and manufactured goods imports.",
+    thresholdRationale: {
+      green:
+        "> C$0B/month \u2014 a trade surplus, reflecting strong commodity export revenues.",
+      yellow:
+        "-C$5B to C$0B/month \u2014 a moderate deficit, which may reflect weak commodity prices or strong import demand.",
+      red: "< -C$5B/month \u2014 a wide trade deficit, raising concerns about external competitiveness.",
+    },
+  },
+};
+
 const allMetricInfo: Record<CountryCode, Record<string, MetricInfo>> = {
   au: auMetricInfo,
   nz: nzMetricInfo,
   us: usMetricInfo,
   uk: ukMetricInfo,
+  ca: caMetricInfo,
 };
 
 export function getMetricInfo(country: CountryCode): Record<string, MetricInfo> {

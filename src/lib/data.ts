@@ -22,6 +22,7 @@ const rolling4QMetrics: Record<CountryCode, Set<string>> = {
   nz: new Set(["fiscal-balance"]),
   us: new Set(),
   uk: new Set(),
+  ca: new Set(),
 };
 
 // Metrics stored as index numbers that should display as YoY % change.

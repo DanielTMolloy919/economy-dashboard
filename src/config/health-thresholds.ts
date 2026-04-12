@@ -433,11 +433,93 @@ const ukHealthThresholds: Record<string, MetricThreshold> = {
   },
 };
 
+const caHealthThresholds: Record<string, MetricThreshold> = {
+  gdp: {
+    green: { min: 2, max: Infinity },
+    yellow: [{ min: 0, max: 2 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0.18,
+  },
+  "retail-sales": {
+    green: { min: 2, max: 6 },
+    yellow: [
+      { min: 0, max: 2 },
+      { min: 6, max: 9 },
+    ],
+    red: [
+      { min: -Infinity, max: 0 },
+      { min: 9, max: Infinity },
+    ],
+    weight: 0.08,
+  },
+  cpi: {
+    green: { min: 1, max: 3 },
+    yellow: [
+      { min: 0, max: 1 },
+      { min: 3, max: 4 },
+    ],
+    red: [
+      { min: -Infinity, max: 0 },
+      { min: 4, max: Infinity },
+    ],
+    weight: 0.18,
+  },
+  wages: {
+    green: { min: 3, max: Infinity },
+    yellow: [{ min: 2, max: 3 }],
+    red: [{ min: -Infinity, max: 2 }],
+    weight: 0.13,
+  },
+  "real-wages": {
+    green: { min: 0.5, max: Infinity },
+    yellow: [{ min: -0.5, max: 0.5 }],
+    red: [{ min: -Infinity, max: -0.5 }],
+    weight: 0.08,
+  },
+  unemployment: {
+    green: { min: -Infinity, max: 5.5 },
+    yellow: [{ min: 5.5, max: 7 }],
+    red: [{ min: 7, max: Infinity }],
+    weight: 0.18,
+  },
+  "policy-rate": {
+    green: { min: 2, max: 3.5 },
+    yellow: [
+      { min: 1, max: 2 },
+      { min: 3.5, max: 4.5 },
+    ],
+    red: [
+      { min: -Infinity, max: 1 },
+      { min: 4.5, max: Infinity },
+    ],
+    weight: 0.13,
+  },
+  "cad-usd": {
+    green: { min: 0.72, max: 0.82 },
+    yellow: [
+      { min: 0.65, max: 0.72 },
+      { min: 0.82, max: 0.88 },
+    ],
+    red: [
+      { min: -Infinity, max: 0.65 },
+      { min: 0.88, max: Infinity },
+    ],
+    weight: 0.05,
+  },
+  trade: {
+    green: { min: 0, max: Infinity },
+    yellow: [{ min: -5, max: 0 }],
+    red: [{ min: -Infinity, max: -5 }],
+    weight: 0.05,
+  },
+};
+
 const allHealthThresholds: Record<CountryCode, Record<string, MetricThreshold>> = {
   au: auHealthThresholds,
   nz: nzHealthThresholds,
   us: usHealthThresholds,
   uk: ukHealthThresholds,
+  ca: caHealthThresholds,
 };
 
 export function getHealthThresholds(country: CountryCode): Record<string, MetricThreshold> {
