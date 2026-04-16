@@ -16,6 +16,19 @@ interface MetricChartProps {
   mini?: boolean;
 }
 
+// Clamp the y-axis to the P2–P98 range + 10% padding so that extreme
+// outliers (e.g. COVID-era monthly swings) don't squash the normal range.
+function clampedDomain(values: number[]): [number, number] | ["auto", "auto"] {
+  if (values.length < 10) return ["auto", "auto"];
+  const sorted = [...values].sort((a, b) => a - b);
+  const lo = sorted[Math.floor(sorted.length * 0.02)]!;
+  const hi = sorted[Math.floor(sorted.length * 0.98)]!;
+  const range = hi - lo;
+  if (range === 0) return ["auto", "auto"];
+  const pad = range * 0.1;
+  return [lo - pad, hi + pad];
+}
+
 function makeTickFormatter(spanYears: number) {
   return (dateStr: string) => {
     const d = new Date(dateStr);
@@ -38,6 +51,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
     },
   } satisfies ChartConfig;
   const data = series.map((p) => ({ value: p.value, date: p.date }));
+  const domain = clampedDomain(data.map((d) => d.value));
 
   const spanYears =
     data.length >= 2
@@ -62,7 +76,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
         minTickGap={32}
         tickFormatter={tickFormatter}
       />
-      <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} width={38} />
+      <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} width={38} domain={domain} allowDataOverflow />
       <ChartTooltip
         content={
           <ChartTooltipContent
@@ -88,7 +102,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
         <BarChart data={data} margin={margin}>
           {axes}
           <CartesianGrid horizontal={true} vertical={false} />
-          <Bar dataKey="value" radius={[2, 2, 0, 0]}>
+          <Bar dataKey="value" radius={[2, 2, 0, 0]} isAnimationActive={false}>
             {data.map((entry, i) => (
               <Cell
                 key={i}
@@ -120,6 +134,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
             strokeWidth={1.5}
             fill="url(#fillValue)"
             dot={false}
+            isAnimationActive={false}
           />
         </AreaChart>
       </ChartContainer>
@@ -137,6 +152,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
           stroke="var(--color-value)"
           strokeWidth={1.5}
           dot={false}
+          isAnimationActive={false}
         />
       </LineChart>
     </ChartContainer>
