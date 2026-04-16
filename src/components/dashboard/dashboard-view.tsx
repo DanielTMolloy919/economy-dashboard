@@ -1,18 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { MetricData } from "~/types/metrics";
 import type { CountryCode } from "~/config/countries";
 import { countries } from "~/config/countries";
 import type { MetricDefinition } from "~/config/metrics";
 import { getMetricDefinitions, getHeroMetricIds } from "~/config/metrics";
-import { getHealthThresholds, getOverallScore } from "~/config/health-thresholds";
+import {
+  getHealthThresholds,
+  getOverallScore,
+  getHealthStatus,
+} from "~/config/health-thresholds";
 import { getMetricInfo } from "~/config/metric-info";
+import { computeScoreHistory } from "~/lib/score-history";
 import { TimeRangeTabs, type TimeRange } from "~/components/dashboard/time-range-tabs";
 import { OverallHealth } from "~/components/dashboard/overall-health";
 import { SummaryCards } from "~/components/dashboard/summary-cards";
 import { MetricCard } from "~/components/dashboard/metric-card";
 import { ThemeToggle } from "~/components/dashboard/theme-toggle";
 import { CountrySwitcher } from "~/components/dashboard/country-switcher";
+import { ScoreHistoryChart } from "~/components/dashboard/score-history-chart";
 import { Separator } from "~/components/ui/separator";
 
 function filterSeries(
@@ -26,8 +32,14 @@ function filterSeries(
   return series.filter((p) => new Date(p.date) >= cutoff);
 }
 
+function formatReplayDate(date: string): string {
+  const d = new Date(date + "T00:00:00");
+  return d.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
+}
+
 export function DashboardView({ metrics, country }: { metrics: MetricData[]; country: CountryCode }) {
   const [timeRange, setTimeRange] = useState<TimeRange>("all");
+  const [replayDate, setReplayDate] = useState<string | null>(null);
 
   const config = countries[country];
   const metricDefs = getMetricDefinitions(country);
@@ -35,14 +47,47 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
   const thresholds = getHealthThresholds(country);
   const metricInfoMap = getMetricInfo(country);
 
-  const metricsMap = new Map(metrics.map((m) => [m.id, m]));
+  // Pre-compute score history once (all GDP dates × all metrics)
+  const scoreHistory = useMemo(
+    () => computeScoreHistory(thresholds, metrics),
+    // thresholds is a stable module-level reference; metrics changes only on data refresh
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [metrics],
+  );
+
+  // Slice every metric's series to the replay date (or use live data)
+  const effectiveMetrics = useMemo(() => {
+    if (!replayDate) return metrics;
+    return metrics.map((m) => {
+      const upTo = m.series.filter((p) => p.date <= replayDate);
+      const latest = upTo[upTo.length - 1];
+      if (!latest) return m;
+      const value = latest.value;
+      const prev = upTo.length >= 2 ? upTo[upTo.length - 2]!.value : value;
+      const health = getHealthStatus(thresholds, m.id, value);
+      return { ...m, currentValue: value, previousValue: prev, series: upTo, health };
+    });
+  }, [replayDate, metrics, thresholds]);
+
+  const metricsMap = new Map(effectiveMetrics.map((m) => [m.id, m]));
   const heroMetrics = heroMetricIds
     .map((id) => metricsMap.get(id))
     .filter((m): m is MetricData => m !== undefined);
+
   const overallScore = getOverallScore(
     thresholds,
-    metrics.map((m) => ({ id: m.id, currentValue: m.currentValue, series: m.series })),
+    effectiveMetrics.map((m) => ({ id: m.id, currentValue: m.currentValue, series: m.series })),
   );
+
+  // Escape key clears replay
+  useEffect(() => {
+    if (!replayDate) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setReplayDate(null);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [replayDate]);
 
   const heroSet = new Set(heroMetricIds);
   const otherDefinitions = metricDefs.filter((d) => !heroSet.has(d.id));
@@ -87,7 +132,7 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
         <section className="flex flex-col gap-6 items-center">
           <OverallHealth
             score={overallScore}
-            metrics={metrics.map((m) => ({ id: m.id, currentValue: m.currentValue, series: m.series }))}
+            metrics={effectiveMetrics.map((m) => ({ id: m.id, currentValue: m.currentValue, series: m.series }))}
             thresholds={thresholds}
             metricDefinitions={metricDefs}
           />
@@ -96,6 +141,33 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
             metricDefinitions={metricDefs}
             metricInfo={metricInfoMap}
           />
+
+          {/* Replay banner */}
+          {replayDate && (
+            <div className="flex w-full items-center justify-between rounded-lg bg-muted px-3 py-2 text-sm">
+              <span className="text-muted-foreground">
+                Viewing{" "}
+                <span className="font-medium text-foreground">
+                  {formatReplayDate(replayDate)}
+                </span>{" "}
+                — press <kbd className="rounded border px-1 text-xs">Esc</kbd> to return to live
+              </span>
+              <button
+                onClick={() => setReplayDate(null)}
+                className="ml-3 text-muted-foreground hover:text-foreground"
+                aria-label="Return to live view"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          <ScoreHistoryChart
+            data={scoreHistory}
+            selectedDate={replayDate}
+            onSelectDate={setReplayDate}
+          />
+
           <div className="flex flex-wrap gap-2 justify-center">
             {chapters.map((ch) => (
               <a
