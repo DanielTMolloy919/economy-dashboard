@@ -8,7 +8,7 @@
   "frequency": "Monthly",
   "currentValue": 2.23,
   "previousValue": 2.18,
-  "health": "green",
+  "health": "yellow",
   "series": [
     {
       "date": "2010-01-01",

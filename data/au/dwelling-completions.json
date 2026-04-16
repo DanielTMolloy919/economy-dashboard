@@ -8,7 +8,7 @@
   "frequency": "Quarterly",
   "currentValue": 43.4,
   "previousValue": 44.2,
-  "health": "yellow",
+  "health": "green",
   "series": [
     {
       "date": "2004-03-31",

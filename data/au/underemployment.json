@@ -1,12 +1,12 @@
 {
   "id": "underemployment",
   "name": "Underemployment",
-  "lastUpdated": "2026-02-01",
-  "nextExpectedUpdate": "2026-05-05",
+  "lastUpdated": "2026-03-01",
+  "nextExpectedUpdate": "2026-06-04",
   "source": "ABS",
   "unit": "%",
   "frequency": "Monthly",
-  "currentValue": 6.1,
+  "currentValue": 6.2,
   "previousValue": 6.1,
   "health": "green",
   "series": [
@@ -780,11 +780,15 @@
     },
     {
       "date": "2026-01-01",
-      "value": 6.1
+      "value": 6.2
     },
     {
       "date": "2026-02-01",
       "value": 6.1
+    },
+    {
+      "date": "2026-03-01",
+      "value": 6.2
     }
   ]
 }
