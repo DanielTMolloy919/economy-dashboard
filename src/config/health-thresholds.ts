@@ -608,9 +608,47 @@ export function getHealthScore(
   }
 }
 
+// How far outside the green zone a value is (0 if inside).
+function distanceFromGreen(threshold: MetricThreshold, value: number): number {
+  const { min, max } = threshold.green;
+  if (value >= min && value <= max) return 0;
+  if (min !== -Infinity && value < min) return min - value;
+  if (max !== Infinity && value > max) return value - max;
+  return 0;
+}
+
+// Compare average distance-from-green over the last 6 periods vs the 6 before that.
+// Returns +10 (improving), 0 (flat), or -10 (deteriorating).
+export function getTrendModifier(
+  threshold: MetricThreshold,
+  series: { value: number }[],
+): -10 | 0 | 10 {
+  if (series.length < 4) return 0;
+  const N = Math.min(6, Math.floor(series.length / 2));
+  const recent = series.slice(-N);
+  const older = series.slice(-2 * N, -N);
+  if (older.length === 0) return 0;
+
+  const avgDistRecent = recent.reduce((s, p) => s + distanceFromGreen(threshold, p.value), 0) / recent.length;
+  const avgDistOlder = older.reduce((s, p) => s + distanceFromGreen(threshold, p.value), 0) / older.length;
+
+  // Normalise by the green zone width so the threshold is scale-independent.
+  const { min, max } = threshold.green;
+  const greenWidth =
+    min !== -Infinity && max !== Infinity
+      ? max - min
+      : Math.max(avgDistOlder, avgDistRecent, 0.5) * 2;
+
+  const normalised = (avgDistOlder - avgDistRecent) / (greenWidth / 2);
+  // positive = distance shrank (improving), negative = distance grew (deteriorating)
+  if (normalised > 0.2) return 10;
+  if (normalised < -0.2) return -10;
+  return 0;
+}
+
 export function getOverallScore(
   thresholds: Record<string, MetricThreshold>,
-  metrics: { id: string; currentValue: number }[],
+  metrics: { id: string; currentValue: number; series?: { value: number }[] }[],
 ): number {
   let totalWeight = 0;
   let weightedScore = 0;
@@ -618,7 +656,9 @@ export function getOverallScore(
   for (const metric of metrics) {
     const threshold = thresholds[metric.id];
     if (!threshold) continue;
-    const score = getHealthScore(thresholds, metric.id, metric.currentValue);
+    const base = getHealthScore(thresholds, metric.id, metric.currentValue);
+    const trend = metric.series ? getTrendModifier(threshold, metric.series) : 0;
+    const score = Math.max(0, Math.min(100, base + trend));
     weightedScore += score * threshold.weight;
     totalWeight += threshold.weight;
   }

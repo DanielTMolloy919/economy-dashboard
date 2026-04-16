@@ -41,7 +41,7 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
     .filter((m): m is MetricData => m !== undefined);
   const overallScore = getOverallScore(
     thresholds,
-    metrics.map((m) => ({ id: m.id, currentValue: m.currentValue })),
+    metrics.map((m) => ({ id: m.id, currentValue: m.currentValue, series: m.series })),
   );
 
   const heroSet = new Set(heroMetricIds);
@@ -87,7 +87,7 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
         <section className="flex flex-col gap-6 items-center">
           <OverallHealth
             score={overallScore}
-            metrics={metrics.map((m) => ({ id: m.id, currentValue: m.currentValue }))}
+            metrics={metrics.map((m) => ({ id: m.id, currentValue: m.currentValue, series: m.series }))}
             thresholds={thresholds}
             metricDefinitions={metricDefs}
           />

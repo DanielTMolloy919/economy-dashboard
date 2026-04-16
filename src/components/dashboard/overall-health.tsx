@@ -2,7 +2,7 @@
 import { Info } from "lucide-react";
 import { PieChart, Pie, Cell } from "recharts";
 import type { MetricThreshold } from "~/config/health-thresholds";
-import { getHealthScore, getHealthStatus } from "~/config/health-thresholds";
+import { getHealthScore, getHealthStatus, getTrendModifier } from "~/config/health-thresholds";
 import type { MetricDefinition } from "~/config/metrics";
 import { Button } from "~/components/ui/button";
 import {
@@ -33,7 +33,7 @@ export function OverallHealth({
   metricDefinitions,
 }: {
   score: number;
-  metrics?: { id: string; currentValue: number }[];
+  metrics?: { id: string; currentValue: number; series?: { value: number }[] }[];
   thresholds: Record<string, MetricThreshold>;
   metricDefinitions: MetricDefinition[];
 }) {
@@ -45,7 +45,9 @@ export function OverallHealth({
       if (!threshold) return null;
       const def = metricDefinitions.find((d) => d.id === m.id);
       const status = getHealthStatus(thresholds, m.id, m.currentValue);
-      const points = getHealthScore(thresholds, m.id, m.currentValue); // 0/50/100
+      const base = getHealthScore(thresholds, m.id, m.currentValue); // 0/50/100
+      const trend = m.series ? getTrendModifier(threshold, m.series) : 0;
+      const points = Math.max(0, Math.min(100, base + trend));
       const contribution = points * threshold.weight;
       return {
         id: m.id,
@@ -54,6 +56,7 @@ export function OverallHealth({
         weight: threshold.weight,
         status,
         points,
+        trend,
         contribution,
       };
     })
@@ -106,8 +109,8 @@ export function OverallHealth({
               <PopoverHeader>
                 <PopoverTitle>How the score is calculated</PopoverTitle>
                 <PopoverDescription>
-                  Each metric is mapped to points (green=100, yellow=50, red=0), then averaged using
-                  fixed weights.
+                  Each metric scores 0/50/100 (red/yellow/green), adjusted ±10 for trend, then
+                  averaged using fixed weights.
                 </PopoverDescription>
               </PopoverHeader>
 
@@ -127,7 +130,12 @@ export function OverallHealth({
                       <div className="flex flex-col">
                         <span className="font-medium">{b.name}</span>
                         <span className="text-muted-foreground">
-                          {b.value} • {b.status} ({b.points})
+                          {b.value} • {b.status}
+                          {b.trend !== 0 && (
+                            <span className={b.trend > 0 ? "text-green-500" : "text-red-500"}>
+                              {" "}{b.trend > 0 ? "↑" : "↓"}{b.trend > 0 ? "+10" : "−10"}
+                            </span>
+                          )}
                         </span>
                       </div>
                       <span className="tabular-nums text-right text-muted-foreground">
