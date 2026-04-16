@@ -5,6 +5,28 @@ import { fetchFredSeries, round1 } from "./fred-api";
 
 const nzThresholds = getHealthThresholds("nz");
 
+// --- GDP per Capita (quarterly index, YoY computed at runtime in data.ts) ---
+export async function fetchNzGdpPerCapita(): Promise<MetricData> {
+  // NZLRGDPPCMEI: Real GDP per capita, chain volume index, quarterly SA (OECD MEI)
+  const series = await fetchFredSeries("NZLRGDPPCMEI", "2004-01-01");
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  return {
+    id: "gdp-per-capita",
+    name: "GDP per Capita",
+    lastUpdated,
+    nextExpectedUpdate: nextFredUpdate(lastUpdated, "quarterly"),
+    source: "FRED",
+    unit: "index",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: "yellow", // recomputed at runtime after YoY transform
+    series,
+  };
+}
+
 // --- GDP Growth (quarterly, already % YoY from FRED) ---
 export async function fetchNzGdp(): Promise<MetricData> {
   // NZLGDPRQPSMEI: GDP growth rate, same period previous year, quarterly

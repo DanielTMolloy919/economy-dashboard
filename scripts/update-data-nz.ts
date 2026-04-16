@@ -17,6 +17,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import {
+  fetchNzGdpPerCapita,
   fetchNzGdp,
   fetchNzCpi,
   fetchNzUnemployment,
@@ -62,6 +63,7 @@ async function main() {
   await Promise.all([
     // FRED
     run("gdp", fetchNzGdp),
+    run("gdp-per-capita", fetchNzGdpPerCapita),
     run("cpi", fetchNzCpi),
     run("unemployment", fetchNzUnemployment),
     run("wages", fetchNzWages),

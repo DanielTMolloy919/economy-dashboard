@@ -189,6 +189,17 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 7.5% \u2014 extreme overheating, unsustainable for a mature developed economy.",
     },
   },
+  "gdp-per-capita": {
+    summary:
+      "GDP per capita growth measures the annual change in economic output per person. Unlike total GDP, it adjusts for population growth \u2014 making it the better gauge of whether living standards are actually improving.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.5% \u2014 per-capita output is growing comfortably, meaning the average person\u2019s share of the economy is expanding.",
+      yellow:
+        "0\u20131.5% \u2014 the economy is growing per person but below trend. Living standards are broadly flat.",
+      red: "< 0% \u2014 the economy is shrinking on a per-person basis. Even if total GDP is positive, population growth is outpacing output.",
+    },
+  },
   cpi: {
     summary:
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The RBNZ's mandate is to keep inflation within the 1\u20133% target band.",
@@ -603,6 +614,17 @@ const caMetricInfo: Record<string, MetricInfo> = {
       yellow:
         "0\u20132% \u2014 below-potential growth; jobs may not be created fast enough to keep pace with population growth. 5.5\u20137.5% \u2014 running hot, with risk of inflation and capacity constraints.",
       red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 7.5% \u2014 extreme overheating, unsustainable for a mature developed economy.",
+    },
+  },
+  "gdp-per-capita": {
+    summary:
+      "GDP per capita growth measures the annual change in economic output per person. Unlike total GDP, it adjusts for population growth \u2014 making it the better gauge of whether living standards are actually improving. Canada\u2019s population has grown rapidly in recent years due to high immigration, making per-capita growth especially important.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.5% \u2014 per-capita output is growing comfortably, meaning the average person\u2019s share of the economy is expanding.",
+      yellow:
+        "0\u20131.5% \u2014 the economy is growing per person but below trend. Living standards are broadly flat.",
+      red: "< 0% \u2014 the economy is shrinking on a per-person basis. Canada\u2019s high immigration rate means total GDP can grow while per-capita output falls.",
     },
   },
   "retail-sales": {

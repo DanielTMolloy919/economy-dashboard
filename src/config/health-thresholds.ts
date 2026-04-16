@@ -150,6 +150,12 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 0 }, { min: 7.5, max: Infinity }],
     weight: 0.18,
   },
+  "gdp-per-capita": {
+    green: { min: 1.5, max: Infinity },
+    yellow: [{ min: 0, max: 1.5 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
   // CPI — RBNZ 1–3% target band with 2% midpoint (Policy Targets Agreement / Monetary Policy Remit)
   // https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-monetary-policy-remit
   cpi: {
@@ -479,6 +485,12 @@ const caHealthThresholds: Record<string, MetricThreshold> = {
     yellow: [{ min: 0, max: 2.0 }, { min: 5.5, max: 7.5 }],
     red: [{ min: -Infinity, max: 0 }, { min: 7.5, max: Infinity }],
     weight: 0.18,
+  },
+  "gdp-per-capita": {
+    green: { min: 1.5, max: Infinity },
+    yellow: [{ min: 0, max: 1.5 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
   },
   "retail-sales": {
     green: { min: 2, max: 6 },

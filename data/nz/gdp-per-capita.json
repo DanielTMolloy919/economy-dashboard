@@ -1,0 +1,13 @@
+{
+  "id": "gdp-per-capita",
+  "name": "GDP per Capita",
+  "lastUpdated": null,
+  "nextExpectedUpdate": null,
+  "source": "FRED",
+  "unit": "index",
+  "frequency": "Quarterly",
+  "currentValue": 0,
+  "previousValue": 0,
+  "health": "yellow",
+  "series": []
+}
