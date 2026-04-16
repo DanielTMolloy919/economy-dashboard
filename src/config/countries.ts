@@ -11,7 +11,7 @@ export interface CountryConfig {
 export const countries: Record<CountryCode, CountryConfig> = {
   au: {
     flag: "\u{1F1E6}\u{1F1FA}",
-    name: "Australian",
+    name: "Australia",
     currency: "A$",
     locale: "en-AU",
     dataSources: "World Bank, RBA, and ABS",
@@ -39,7 +39,7 @@ export const countries: Record<CountryCode, CountryConfig> = {
   },
   ca: {
     flag: "\u{1F1E8}\u{1F1E6}",
-    name: "Canadian",
+    name: "Canada",
     currency: "C$",
     locale: "en-CA",
     dataSources: "FRED (Federal Reserve Bank of St. Louis)",
