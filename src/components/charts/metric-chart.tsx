@@ -73,12 +73,6 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
     return rounded % 1 === 0 ? String(rounded) : rounded.toFixed(1);
   };
 
-  // Size the y-axis to fit its widest label (6px per char + 8px padding at font-size 10)
-  const yAxisWidth =
-    domain[0] === "auto"
-      ? 32
-      : Math.max(yTickFormatter(domain[0]).length, yTickFormatter(domain[1]).length) * 6 + 8;
-
   const margin = mini
     ? { top: 2, right: 2, bottom: 0, left: 0 }
     : { top: 8, right: 8, bottom: 0, left: 0 };
@@ -98,7 +92,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
         tick={{ fontSize: 10 }}
         tickLine={false}
         axisLine={false}
-        width={yAxisWidth}
+        width="auto"
         domain={domain}
         allowDataOverflow
         tickFormatter={yTickFormatter}
