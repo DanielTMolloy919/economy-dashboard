@@ -125,10 +125,11 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 10 }],
     weight: 0,
   },
+  // Thresholds in k dwellings/mo (post runtime ÷3 transform — raw data is quarterly)
   "dwelling-completions": {
-    green: { min: 50, max: Infinity },
-    yellow: [{ min: 40, max: 50 }],
-    red: [{ min: -Infinity, max: 40 }],
+    green: { min: 16.7, max: Infinity },
+    yellow: [{ min: 13.3, max: 16.7 }],
+    red: [{ min: -Infinity, max: 13.3 }],
     weight: 0,
   },
   "fiscal-balance": {
