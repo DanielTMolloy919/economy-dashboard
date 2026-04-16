@@ -46,7 +46,7 @@ export function ScoreHistoryChart({
 
   return (
     <div className="w-full space-y-1">
-      <ResponsiveContainer width="100%" height={80}>
+      <ResponsiveContainer width="100%" height={120}>
         <AreaChart
           data={data}
           margin={{ top: 4, right: 8, left: 8, bottom: 0 }}
