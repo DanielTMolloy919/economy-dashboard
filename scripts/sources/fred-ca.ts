@@ -30,8 +30,9 @@ export async function fetchCaGdp(): Promise<MetricData> {
 
 // --- CPI (monthly, already % YoY from FRED) ---
 export async function fetchCaCpi(): Promise<MetricData> {
-  // CPALTT01CAM657N: CPI All Items, Total for Canada, YoY % change, monthly
-  const series = await fetchFredSeries("CPALTT01CAM657N", "2005-01-01");
+  // CPALTT01CAM659N: CPI All Items, Total for Canada, growth rate same period previous year (YoY), monthly
+  // Note: 657N is MoM % change; 659N is YoY % change
+  const series = await fetchFredSeries("CPALTT01CAM659N", "2005-01-01");
   const rounded = series.map((p) => ({ ...p, value: round1(p.value) }));
   const currentValue = rounded.at(-1)!.value;
   const previousValue = rounded.at(-2)!.value;
