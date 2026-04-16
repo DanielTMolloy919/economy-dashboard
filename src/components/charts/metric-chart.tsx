@@ -63,7 +63,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
 
   const margin = mini
     ? { top: 2, right: 2, bottom: 0, left: 0 }
-    : { top: 8, right: 8, bottom: 0, left: -20 };
+    : { top: 8, right: 8, bottom: 0, left: 0 };
 
   const axes = mini ? null : (
     <>
@@ -76,7 +76,20 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
         minTickGap={32}
         tickFormatter={tickFormatter}
       />
-      <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} width={38} domain={domain} allowDataOverflow />
+      <YAxis
+        tick={{ fontSize: 10 }}
+        tickLine={false}
+        axisLine={false}
+        width={48}
+        domain={domain}
+        allowDataOverflow
+        tickFormatter={(v: number) => {
+          const abs = Math.abs(v);
+          if (abs >= 100) return v.toFixed(0);
+          if (abs >= 10) return v.toFixed(1);
+          return v.toFixed(2);
+        }}
+      />
       <ChartTooltip
         content={
           <ChartTooltipContent
