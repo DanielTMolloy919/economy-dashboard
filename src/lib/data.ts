@@ -81,9 +81,14 @@ function applyTransform(data: MetricData, country: CountryCode): MetricData {
       unit: "% YoY",
       currentValue,
       previousValue: series.at(-2)!.value,
-      health: getHealthStatus(getHealthThresholds(country), data.id, currentValue),
     };
   }
+
+  // Always recalculate health from current thresholds — the JSON-stored value is stale.
+  result = {
+    ...result,
+    health: getHealthStatus(getHealthThresholds(country), result.id, result.currentValue),
+  };
 
   return result;
 }

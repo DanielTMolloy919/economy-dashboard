@@ -15,10 +15,10 @@ const auMetricInfo: Record<string, MetricInfo> = {
       "GDP growth measures the annual percentage change in the total value of goods and services produced in Australia. It's the broadest measure of whether the economy is expanding or contracting.",
     thresholdRationale: {
       green:
-        "\u2265 2.5% \u2014 at or above trend growth for a developed economy. Enough to absorb population growth and support rising living standards.",
+        "2.25\u20135.5% \u2014 at or above the RBA\u2019s estimated potential growth rate of ~2.25%, and not yet overheating. Source: RBA Statement on Monetary Policy, Nov 2024.",
       yellow:
-        "0\u20132.5% \u2014 the economy is still growing but below trend, which may mean jobs aren't being created fast enough to keep pace with population growth.",
-      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+        "0\u20132.25% \u2014 below-potential growth; jobs may not be created fast enough to keep pace with population growth. 5.5\u20137.5% \u2014 running hot, with risk of inflation and capacity constraints.",
+      red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 7.5% \u2014 extreme overheating, unsustainable for a mature developed economy.",
     },
   },
   "gdp-per-capita": {
@@ -37,10 +37,10 @@ const auMetricInfo: Record<string, MetricInfo> = {
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The RBA's formal mandate is to keep inflation within the 2\u20133% target band.",
     thresholdRationale: {
       green:
-        "2\u20133% \u2014 within the RBA's target band. Price stability is maintained, purchasing power is preserved, and the RBA has room to adjust rates without drastic action.",
+        "2\u20133% \u2014 within the RBA\u2019s formal 2\u20133% target band. Price stability is maintained and the RBA has room to adjust rates without drastic action. Source: RBA inflation target mandate.",
       yellow:
-        "1\u20132% or 3\u20134% \u2014 just outside the target band. The RBA will typically signal a policy response, but the situation isn't an immediate crisis.",
-      red: "< 1% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises to bring under control.",
+        "1\u20132% or 3\u20134% \u2014 just outside the target band. The RBA will typically signal a policy response, but the situation isn\u2019t an immediate crisis.",
+      red: "< 1% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
     },
   },
   unemployment: {
@@ -48,7 +48,7 @@ const auMetricInfo: Record<string, MetricInfo> = {
       "The unemployment rate is the share of the labour force actively seeking work but unable to find it. It's one of the RBA's two primary mandates alongside inflation.",
     thresholdRationale: {
       green:
-        "< 4.5% \u2014 close to full employment. At this level, most people who want jobs can find them without causing wage-driven inflation to take off.",
+        "< 4.5% \u2014 at or near the RBA\u2019s estimated NAIRU of ~4.25\u20134.5%. Most people who want jobs can find them without causing wage-driven inflation. Source: RBA Statement on Monetary Policy, Nov 2024.",
       yellow:
         "4.5\u20136% \u2014 noticeable slack in the labour market. Job seekers face harder searches; weaker household incomes put pressure on consumer spending.",
       red: "> 6% \u2014 significant labour market distress, typically associated with recession conditions and rising long-term unemployment.",
@@ -59,10 +59,10 @@ const auMetricInfo: Record<string, MetricInfo> = {
       "The RBA cash rate is the interest rate on overnight loans between banks. It's the primary lever the RBA uses to influence inflation, employment, and economic activity \u2014 it flows through to mortgage rates, business borrowing costs, and the AUD.",
     thresholdRationale: {
       green:
-        "2\u20133.5% \u2014 broadly neutral for Australia. Neither stimulating nor restricting the economy, consistent with inflation sitting at the 2\u20133% target.",
+        "2.5\u20133.5% \u2014 within the RBA\u2019s estimated neutral rate range. At neutral, monetary policy neither stimulates nor restricts the economy, consistent with inflation at the 2\u20133% target. Source: RBA speech by Kent, Jun 2024.",
       yellow:
-        "1\u20132% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20134.5% is mildly restrictive, used to cool above-target inflation.",
-      red: "< 1% are emergency lows that distort asset markets. > 4.5% creates acute mortgage stress for Australian households, who carry some of the highest household debt ratios in the world.",
+        "1\u20132.5% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20135% is restrictive, used to cool above-target inflation.",
+      red: "< 1% are emergency lows that distort asset markets. > 5% is well above neutral \u2014 acutely restrictive for Australian households, who carry some of the highest household debt ratios in the world.",
     },
   },
   wages: {
@@ -183,10 +183,10 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       "GDP growth measures the annual percentage change in the total value of goods and services produced in New Zealand. It's the broadest measure of whether the economy is expanding or contracting.",
     thresholdRationale: {
       green:
-        "\u2265 2% \u2014 at or above trend growth for NZ. Enough to absorb population growth and support rising living standards.",
+        "2\u20135.5% \u2014 at or above the RBNZ\u2019s estimated potential growth rate of ~2%, and not yet overheating. Source: RBNZ Monetary Policy Statement.",
       yellow:
-        "0\u20132% \u2014 the economy is still growing but below trend, which may mean jobs aren't being created fast enough to keep pace with population growth.",
-      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+        "0\u20132% \u2014 below-potential growth; jobs may not be created fast enough to keep pace with population growth. 5.5\u20137.5% \u2014 running hot, with risk of inflation and capacity constraints.",
+      red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 7.5% \u2014 extreme overheating, unsustainable for a mature developed economy.",
     },
   },
   cpi: {
@@ -194,7 +194,7 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The RBNZ's mandate is to keep inflation within the 1\u20133% target band.",
     thresholdRationale: {
       green:
-        "1\u20133% \u2014 within the RBNZ's target band. Price stability is maintained and the RBNZ has room to adjust rates without drastic action.",
+        "1\u20133% \u2014 within the RBNZ\u2019s 1\u20133% target band (midpoint 2%). Price stability is maintained and the RBNZ has room to adjust rates without drastic action. Source: RBNZ Monetary Policy Remit.",
       yellow:
         "0\u20131% or 3\u20135% \u2014 just outside the target band. The RBNZ will typically signal a policy response.",
       red: "< 0% risks deflation and economic stagnation. > 5% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
@@ -205,7 +205,7 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       "The unemployment rate is the share of the labour force actively seeking work but unable to find it, measured quarterly by the Household Labour Force Survey.",
     thresholdRationale: {
       green:
-        "< 4.5% \u2014 close to full employment. Most people who want jobs can find them.",
+        "< 4.5% \u2014 at or near the RBNZ\u2019s estimated NAIRU of ~4\u20134.5%. Most people who want jobs can find them. Source: RBNZ Monetary Policy Statement.",
       yellow:
         "4.5\u20136% \u2014 noticeable slack in the labour market. Job seekers face harder searches.",
       red: "> 6% \u2014 significant labour market distress, typically associated with recession conditions.",
@@ -216,10 +216,10 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       "The RBNZ Official Cash Rate (OCR) is the interest rate at which banks borrow and lend overnight. It's the primary lever the RBNZ uses to influence inflation and economic activity \u2014 it flows through to mortgage rates and business borrowing costs.",
     thresholdRationale: {
       green:
-        "2\u20133.5% \u2014 broadly neutral for NZ. Neither stimulating nor restricting the economy, consistent with inflation in the 1\u20133% target band.",
+        "2.25\u20133% \u2014 within the RBNZ\u2019s estimated neutral OCR range of ~2.5\u20132.75%. At neutral, monetary policy neither stimulates nor restricts the economy. Source: RBNZ \u201cFinding Neutral\u201d, Apr 2024.",
       yellow:
-        "1\u20132% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20134.5% is mildly restrictive, used to cool above-target inflation.",
-      red: "< 1% are emergency lows that distort asset markets. > 4.5% creates acute mortgage stress for NZ households.",
+        "0.75\u20132.25% is stimulatory (appropriate during downturns but risks inflating assets). 3\u20134.5% is restrictive, used to cool above-target inflation.",
+      red: "< 0.75% are emergency lows that distort asset markets. > 4.5% creates acute mortgage stress for NZ households.",
     },
   },
   wages: {
@@ -296,10 +296,10 @@ const usMetricInfo: Record<string, MetricInfo> = {
       "GDP growth measures the annual percentage change in the total value of goods and services produced in the United States. The US is the world's largest economy by nominal GDP.",
     thresholdRationale: {
       green:
-        "\u2265 2% \u2014 at or above trend growth for the US economy. Enough to support job creation and rising living standards.",
+        "1.8\u20135% \u2014 at or above the Fed\u2019s longer-run real GDP growth estimate of ~1.8%, and not yet overheating. Source: Fed Summary of Economic Projections, Dec 2024.",
       yellow:
-        "0\u20132% \u2014 the economy is still growing but below trend, which may mean the labour market is softening.",
-      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+        "0\u20131.8% \u2014 below-potential growth; the labour market may be softening. 5\u20137% \u2014 running hot, with risk of inflation and capacity constraints.",
+      red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 7% \u2014 extreme overheating, unsustainable for a mature developed economy.",
     },
   },
   "gdp-per-capita": {
@@ -340,10 +340,10 @@ const usMetricInfo: Record<string, MetricInfo> = {
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. While the Fed formally targets 2% PCE inflation, CPI is the most widely cited public measure of price stability.",
     thresholdRationale: {
       green:
-        "2\u20133% \u2014 broadly consistent with the Fed's 2% PCE target (CPI typically runs slightly above PCE). Price stability is maintained.",
+        "1.5\u20132.5% \u2014 symmetric \u00b10.5pp around the Fed\u2019s 2% PCE target (CPI historically runs ~0.3pp above PCE, making ~2% CPI the target-equivalent). Source: Fed Statement on Longer-Run Goals.",
       yellow:
-        "1\u20132% or 3\u20134% \u2014 just outside the comfort zone. The Fed will typically signal a policy response.",
-      red: "< 1% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate hikes.",
+        "0.5\u20131.5% \u2014 below target; the Fed may consider easing. 2.5\u20134% \u2014 above target; the Fed will typically signal a tightening response.",
+      red: "< 0.5% \u2014 deflation risk, significantly below target. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate hikes.",
     },
   },
   wages: {
@@ -373,10 +373,10 @@ const usMetricInfo: Record<string, MetricInfo> = {
       "The unemployment rate is the share of the civilian labour force actively seeking work but unable to find it. The Fed has a dual mandate to pursue both maximum employment and price stability.",
     thresholdRationale: {
       green:
-        "< 4.5% \u2014 close to full employment. The Fed considers this range consistent with its maximum employment mandate.",
+        "< 4% \u2014 at or below the Fed\u2019s longer-run unemployment estimate of ~4.1%, consistent with maximum employment. Source: Fed Summary of Economic Projections, Dec 2024.",
       yellow:
-        "4.5\u20136% \u2014 noticeable slack in the labour market. Job seekers face harder searches.",
-      red: "> 6% \u2014 significant labour market distress, typically associated with recession conditions.",
+        "4\u20135.5% \u2014 noticeable slack in the labour market, above the Fed\u2019s NAIRU estimate. Job seekers face harder searches.",
+      red: "> 5.5% \u2014 significant labour market distress, well above NAIRU, typically associated with recession conditions.",
     },
   },
   underemployment: {
@@ -406,9 +406,9 @@ const usMetricInfo: Record<string, MetricInfo> = {
       "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. Set by the Federal Reserve's FOMC, it's the primary lever for influencing inflation, employment, and broader financial conditions.",
     thresholdRationale: {
       green:
-        "2\u20133.5% \u2014 broadly neutral for the US economy. Neither stimulating nor restricting activity, consistent with the Fed's long-run estimate of the neutral rate.",
+        "2.5\u20133.5% \u2014 within the Fed\u2019s estimated neutral rate range (median longer-run FFR ~3.0%). At neutral, monetary policy neither stimulates nor restricts activity. Source: Fed SEP, Dec 2024.",
       yellow:
-        "1\u20132% is stimulatory. 3.5\u20135% is restrictive, used to cool above-target inflation.",
+        "1\u20132.5% is stimulatory. 3.5\u20135% is restrictive, used to cool above-target inflation.",
       red: "< 1% are emergency lows that distort asset markets. > 5% creates significant borrowing costs across the economy.",
     },
   },
@@ -464,10 +464,10 @@ const ukMetricInfo: Record<string, MetricInfo> = {
       "GDP growth measures the annual percentage change in the total value of goods and services produced in the United Kingdom. The UK is the world's sixth-largest economy by nominal GDP.",
     thresholdRationale: {
       green:
-        "\u2265 2% \u2014 at or above trend growth for the UK economy. Enough to support job creation and rising living standards.",
+        "1.5\u20134.5% \u2014 at or above the OBR\u2019s estimated potential output growth of ~1\u2154%, and not yet overheating. Source: OBR Economic and Fiscal Outlook, Oct 2024.",
       yellow:
-        "0\u20132% \u2014 the economy is still growing but below trend, which may mean the labour market is softening.",
-      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+        "0\u20131.5% \u2014 below-potential growth; the labour market may be softening. 4.5\u20136% \u2014 running hot, with risk of inflation and capacity constraints.",
+      red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 6% \u2014 extreme overheating, unsustainable for a mature developed economy.",
     },
   },
   "gdp-per-capita": {
@@ -497,10 +497,10 @@ const ukMetricInfo: Record<string, MetricInfo> = {
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The Bank of England has a 2% CPI inflation target set by the Chancellor.",
     thresholdRationale: {
       green:
-        "2\u20133% \u2014 close to the BoE's 2% target. Price stability is maintained and the BoE has room to adjust rates without drastic action.",
+        "1.5\u20132.5% \u2014 symmetric \u00b10.5pp around the BoE\u2019s 2% CPI target. Price stability is maintained and the BoE has room to adjust rates without drastic action. Source: Bank of England inflation target mandate.",
       yellow:
-        "1\u20132% or 3\u20134% \u2014 outside the comfort zone. The BoE will typically signal a policy response. If CPI moves more than 1pp from target, the Governor must write a letter to the Chancellor explaining why.",
-      red: "< 1% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
+        "0.5\u20131.5% or 2.5\u20134% \u2014 outside the comfort zone. If CPI moves more than 1pp from the 2% target, the Governor must write a letter to the Chancellor explaining why.",
+      red: "< 0.5% \u2014 deflation risk, well below target. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
     },
   },
   wages: {
@@ -530,9 +530,9 @@ const ukMetricInfo: Record<string, MetricInfo> = {
       "The unemployment rate is the share of the labour force actively seeking work but unable to find it, measured by the Labour Force Survey as a 3-month rolling average.",
     thresholdRationale: {
       green:
-        "< 4.5% \u2014 close to full employment. Most people who want jobs can find them.",
+        "< 4.5% \u2014 at or near the OBR/BoE\u2019s estimated NAIRU of ~4\u20134.5%. Most people who want jobs can find them. Source: OBR Economic and Fiscal Outlook, Oct 2024.",
       yellow:
-        "4.5\u20136% \u2014 noticeable slack in the labour market. Job seekers face harder searches.",
+        "4.5\u20136% \u2014 noticeable slack in the labour market, above estimated NAIRU. Job seekers face harder searches.",
       red: "> 6% \u2014 significant labour market distress, typically associated with recession conditions.",
     },
   },
@@ -563,10 +563,10 @@ const ukMetricInfo: Record<string, MetricInfo> = {
       "The Bank Rate is the interest rate set by the Bank of England's Monetary Policy Committee (MPC). It's the rate the BoE pays on reserves held by commercial banks, and it flows through to mortgage rates, savings rates, and broader financial conditions.",
     thresholdRationale: {
       green:
-        "2\u20133.5% \u2014 broadly neutral for the UK economy. Neither stimulating nor restricting activity, consistent with inflation at the 2% target.",
+        "2.5\u20133.5% \u2014 within the BoE\u2019s estimated neutral rate range (~3\u20133.5%). At neutral, monetary policy neither stimulates nor restricts activity, consistent with inflation at the 2% target. Source: BoE Monetary Policy Report, Nov 2024.",
       yellow:
-        "1\u20132% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20134.5% is restrictive, used to cool above-target inflation.",
-      red: "< 1% are emergency lows that distort asset markets. > 4.5% creates significant mortgage stress for UK households.",
+        "1\u20132.5% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20135% is restrictive, used to cool above-target inflation.",
+      red: "< 1% are emergency lows that distort asset markets. > 5% is well above neutral \u2014 creates significant mortgage stress for UK households.",
     },
   },
   "gbp-usd": {
@@ -599,10 +599,10 @@ const caMetricInfo: Record<string, MetricInfo> = {
       "GDP growth measures the annual percentage change in the total value of goods and services produced in Canada. Canada is the world's ninth-largest economy by nominal GDP, with a highly trade-dependent structure.",
     thresholdRationale: {
       green:
-        "\u2265 2% \u2014 at or above trend growth for Canada. Enough to absorb population growth and support rising living standards.",
+        "2\u20135.5% \u2014 at or above the BoC\u2019s estimated potential growth rate of ~2%, and not yet overheating. Source: Bank of Canada Monetary Policy Report.",
       yellow:
-        "0\u20132% \u2014 the economy is still growing but below trend, which may mean jobs aren't being created fast enough to keep pace with population growth.",
-      red: "< 0% \u2014 the economy is shrinking. Two consecutive quarters of negative growth is the technical definition of a recession.",
+        "0\u20132% \u2014 below-potential growth; jobs may not be created fast enough to keep pace with population growth. 5.5\u20137.5% \u2014 running hot, with risk of inflation and capacity constraints.",
+      red: "< 0% \u2014 the economy is contracting (two consecutive negative quarters = recession). > 7.5% \u2014 extreme overheating, unsustainable for a mature developed economy.",
     },
   },
   "retail-sales": {
@@ -621,9 +621,9 @@ const caMetricInfo: Record<string, MetricInfo> = {
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The Bank of Canada targets 2% inflation, with a 1\u20133% control range.",
     thresholdRationale: {
       green:
-        "1\u20133% \u2014 within the Bank of Canada's control range. Price stability is maintained and the BoC has room to adjust rates without drastic action.",
+        "1\u20133% \u2014 within the BoC\u2019s formal 1\u20133% control range (target midpoint 2%). Price stability is maintained and the BoC has room to adjust rates without drastic action. Source: Bank of Canada inflation target.",
       yellow:
-        "0\u20131% or 3\u20134% \u2014 outside the control range. The BoC will typically signal a policy response to bring inflation back to target.",
+        "0\u20131% or 3\u20134% \u2014 outside the control range. The BoC will typically signal a policy response to bring inflation back to the 2% midpoint.",
       red: "< 0% risks deflation and economic stagnation. > 4% erodes real wages and savings rapidly, typically requiring aggressive rate rises.",
     },
   },
@@ -651,12 +651,12 @@ const caMetricInfo: Record<string, MetricInfo> = {
   },
   unemployment: {
     summary:
-      "The unemployment rate is the share of the labour force actively seeking work but unable to find it. Canada's natural rate of unemployment is typically estimated at around 5\u20136%.",
+      "The unemployment rate is the share of the labour force actively seeking work but unable to find it. Canada's natural rate of unemployment is structurally higher than peer economies due to regional diversity and labour market flexibility.",
     thresholdRationale: {
       green:
-        "< 5.5% \u2014 close to full employment. Most people who want jobs can find them without causing wage-driven inflation.",
+        "< 5.5% \u2014 at or near the BoC\u2019s estimated NAIRU of ~5.5\u20136%. Most people who want jobs can find them without causing wage-driven inflation. Source: Bank of Canada Monetary Policy Report.",
       yellow:
-        "5.5\u20137% \u2014 noticeable slack in the labour market. Job seekers face harder searches; weaker household incomes put pressure on consumer spending.",
+        "5.5\u20137% \u2014 noticeable slack in the labour market, above estimated NAIRU. Job seekers face harder searches; weaker household incomes put pressure on consumer spending.",
       red: "> 7% \u2014 significant labour market distress, typically associated with recession conditions.",
     },
   },
@@ -665,9 +665,9 @@ const caMetricInfo: Record<string, MetricInfo> = {
       "The Bank of Canada's policy interest rate influences borrowing costs across the economy. It flows through to mortgage rates, business loans, and the Canadian dollar. Tracked here via the 3-month interbank rate as a close proxy.",
     thresholdRationale: {
       green:
-        "2\u20133.5% \u2014 broadly neutral for the Canadian economy. Neither stimulating nor restricting activity, consistent with inflation at the 2% target.",
+        "2.25\u20133.25% \u2014 within the BoC\u2019s estimated neutral rate range. At neutral, monetary policy neither stimulates nor restricts activity, consistent with inflation at the 2% target. Source: BoC Staff Analytical Note 2024-9.",
       yellow:
-        "1\u20132% is stimulatory (appropriate during downturns but risks inflating assets). 3.5\u20134.5% is restrictive, used to cool above-target inflation.",
+        "1\u20132.25% is stimulatory (appropriate during downturns but risks inflating assets). 3.25\u20134.5% is restrictive, used to cool above-target inflation.",
       red: "< 1% are emergency lows that distort asset markets. > 4.5% creates significant mortgage stress for Canadian households, who carry high household debt ratios.",
     },
   },

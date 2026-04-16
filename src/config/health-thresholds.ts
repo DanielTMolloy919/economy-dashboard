@@ -14,10 +14,13 @@ export interface MetricThreshold {
 }
 
 const auHealthThresholds: Record<string, MetricThreshold> = {
+  // GDP — lower bound: RBA potential output growth estimate ~2.25% (SMP Nov 2024)
+  // https://www.rba.gov.au/publications/smp/2024/nov/outlook.html
+  // Upper bound: sustained growth >5.5% signals overheating for a mature developed economy.
   gdp: {
-    green: { min: 2.5, max: Infinity },
-    yellow: [{ min: 0, max: 2.5 }],
-    red: [{ min: -Infinity, max: 0 }],
+    green: { min: 2.25, max: 5.5 },
+    yellow: [{ min: 0, max: 2.25 }, { min: 5.5, max: 7.5 }],
+    red: [{ min: -Infinity, max: 0 }, { min: 7.5, max: Infinity }],
     weight: 0.18,
   },
   "gdp-per-capita": {
@@ -26,6 +29,8 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 0 }],
     weight: 0,
   },
+  // CPI — RBA formal 2–3% target band
+  // https://www.rba.gov.au/inflation/
   cpi: {
     green: { min: 2, max: 3 },
     yellow: [
@@ -38,21 +43,25 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
     ],
     weight: 0.18,
   },
+  // Unemployment — NAIRU: RBA estimate ~4.25–4.5% (SMP Nov 2024)
+  // https://www.rba.gov.au/publications/smp/2024/nov/outlook.html
   unemployment: {
     green: { min: -Infinity, max: 4.5 },
     yellow: [{ min: 4.5, max: 6 }],
     red: [{ min: 6, max: Infinity }],
     weight: 0.18,
   },
+  // Cash rate — neutral range: RBA estimate ~2.5–3.5% nominal (Speech by Kent, Jun 2024)
+  // https://www.rba.gov.au/speeches/2024/sp-ag-2024-06-26.html
   "cash-rate": {
-    green: { min: 2, max: 3.5 },
+    green: { min: 2.5, max: 3.5 },
     yellow: [
-      { min: 1, max: 2 },
-      { min: 3.5, max: 4.5 },
+      { min: 1, max: 2.5 },
+      { min: 3.5, max: 5 },
     ],
     red: [
       { min: -Infinity, max: 1 },
-      { min: 4.5, max: Infinity },
+      { min: 5, max: Infinity },
     ],
     weight: 0.13,
   },
@@ -131,12 +140,17 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
 };
 
 const nzHealthThresholds: Record<string, MetricThreshold> = {
+  // GDP — lower bound: RBNZ potential output growth estimate ~2.0% (Monetary Policy Statement)
+  // https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement
+  // Upper bound: sustained growth >5.5% signals overheating for a mature developed economy.
   gdp: {
-    green: { min: 2, max: Infinity },
-    yellow: [{ min: 0, max: 2 }],
-    red: [{ min: -Infinity, max: 0 }],
+    green: { min: 2.0, max: 5.5 },
+    yellow: [{ min: 0, max: 2.0 }, { min: 5.5, max: 7.5 }],
+    red: [{ min: -Infinity, max: 0 }, { min: 7.5, max: Infinity }],
     weight: 0.18,
   },
+  // CPI — RBNZ 1–3% target band with 2% midpoint (Policy Targets Agreement / Monetary Policy Remit)
+  // https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-monetary-policy-remit
   cpi: {
     green: { min: 1, max: 3 },
     yellow: [
@@ -149,20 +163,24 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
     ],
     weight: 0.18,
   },
+  // Unemployment — NAIRU: RBNZ estimate ~4–4.5% (Monetary Policy Statement)
+  // https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement
   unemployment: {
     green: { min: -Infinity, max: 4.5 },
     yellow: [{ min: 4.5, max: 6 }],
     red: [{ min: 6, max: Infinity }],
     weight: 0.18,
   },
+  // Cash rate — neutral OCR: RBNZ estimate ~2.5–2.75% nominal (Finding Neutral, Apr 2024)
+  // https://www.rbnz.govt.nz/hub/news/2024/04/finding-neutral
   "cash-rate": {
-    green: { min: 2, max: 3.5 },
+    green: { min: 2.25, max: 3.0 },
     yellow: [
-      { min: 1, max: 2 },
-      { min: 3.5, max: 4.5 },
+      { min: 0.75, max: 2.25 },
+      { min: 3.0, max: 4.5 },
     ],
     red: [
-      { min: -Infinity, max: 1 },
+      { min: -Infinity, max: 0.75 },
       { min: 4.5, max: Infinity },
     ],
     weight: 0.13,
@@ -218,10 +236,13 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
 };
 
 const usHealthThresholds: Record<string, MetricThreshold> = {
+  // GDP — lower bound: Fed SEP longer-run real GDP growth ~1.8% (Dec 2024)
+  // https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20241218.htm
+  // Upper bound: sustained growth >5.0% signals overheating for the US economy.
   gdp: {
-    green: { min: 2, max: Infinity },
-    yellow: [{ min: 0, max: 2 }],
-    red: [{ min: -Infinity, max: 0 }],
+    green: { min: 1.8, max: 5.0 },
+    yellow: [{ min: 0, max: 1.8 }, { min: 5.0, max: 7.0 }],
+    red: [{ min: -Infinity, max: 0 }, { min: 7.0, max: Infinity }],
     weight: 0.15,
   },
   "gdp-per-capita": {
@@ -248,14 +269,16 @@ const usHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: -1000 }],
     weight: 0.04,
   },
+  // CPI — symmetric ±0.5pp around Fed's 2% PCE target (CPI runs ~0.3pp above PCE)
+  // https://www.federalreserve.gov/monetarypolicy/files/FOMC_LongerRunGoals.pdf
   cpi: {
-    green: { min: 2, max: 3 },
+    green: { min: 1.5, max: 2.5 },
     yellow: [
-      { min: 1, max: 2 },
-      { min: 3, max: 4 },
+      { min: 0.5, max: 1.5 },
+      { min: 2.5, max: 4 },
     ],
     red: [
-      { min: -Infinity, max: 1 },
+      { min: -Infinity, max: 0.5 },
       { min: 4, max: Infinity },
     ],
     weight: 0.15,
@@ -272,10 +295,12 @@ const usHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: -0.5 }],
     weight: 0.06,
   },
+  // Unemployment — NAIRU: Fed SEP longer-run unemployment ~4.1% median (Dec 2024)
+  // https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20241218.htm
   unemployment: {
-    green: { min: -Infinity, max: 4.5 },
-    yellow: [{ min: 4.5, max: 6 }],
-    red: [{ min: 6, max: Infinity }],
+    green: { min: -Infinity, max: 4.0 },
+    yellow: [{ min: 4.0, max: 5.5 }],
+    red: [{ min: 5.5, max: Infinity }],
     weight: 0.15,
   },
   underemployment: {
@@ -290,10 +315,12 @@ const usHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 5000 }],
     weight: 0.04,
   },
+  // Fed funds rate — neutral rate: Fed SEP longer-run FFR median ~3.0% (Dec 2024)
+  // https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20241218.htm
   "fed-funds-rate": {
-    green: { min: 2, max: 3.5 },
+    green: { min: 2.5, max: 3.5 },
     yellow: [
-      { min: 1, max: 2 },
+      { min: 1, max: 2.5 },
       { min: 3.5, max: 5 },
     ],
     red: [
@@ -335,10 +362,13 @@ const usHealthThresholds: Record<string, MetricThreshold> = {
 };
 
 const ukHealthThresholds: Record<string, MetricThreshold> = {
+  // GDP — lower bound: OBR potential output growth avg ~1⅔% (EFO Oct 2024)
+  // https://obr.uk/efo/economic-and-fiscal-outlook-october-2024/
+  // Upper bound: sustained growth >4.5% signals overheating for the UK economy.
   gdp: {
-    green: { min: 2, max: Infinity },
-    yellow: [{ min: 0, max: 2 }],
-    red: [{ min: -Infinity, max: 0 }],
+    green: { min: 1.5, max: 4.5 },
+    yellow: [{ min: 0, max: 1.5 }, { min: 4.5, max: 6.0 }],
+    red: [{ min: -Infinity, max: 0 }, { min: 6.0, max: Infinity }],
     weight: 0.18,
   },
   "gdp-per-capita": {
@@ -359,14 +389,16 @@ const ukHealthThresholds: Record<string, MetricThreshold> = {
     ],
     weight: 0.08,
   },
+  // CPI — symmetric ±0.5pp around BoE's 2% CPI target (mandated by HM Treasury)
+  // https://www.bankofengland.co.uk/monetary-policy/inflation
   cpi: {
-    green: { min: 2, max: 3 },
+    green: { min: 1.5, max: 2.5 },
     yellow: [
-      { min: 1, max: 2 },
-      { min: 3, max: 4 },
+      { min: 0.5, max: 1.5 },
+      { min: 2.5, max: 4 },
     ],
     red: [
-      { min: -Infinity, max: 1 },
+      { min: -Infinity, max: 0.5 },
       { min: 4, max: Infinity },
     ],
     weight: 0.18,
@@ -383,6 +415,8 @@ const ukHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: -0.5 }],
     weight: 0.08,
   },
+  // Unemployment — NAIRU: OBR/BoE estimate ~4–4.5% (EFO Oct 2024, MPR Nov 2024)
+  // https://obr.uk/efo/economic-and-fiscal-outlook-october-2024/
   unemployment: {
     green: { min: -Infinity, max: 4.5 },
     yellow: [{ min: 4.5, max: 6 }],
@@ -401,15 +435,17 @@ const ukHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 600 }],
     weight: 0.06,
   },
+  // Bank rate — neutral rate: BoE r* estimate ~3–3.5% (MPR Nov 2024 + market participants survey)
+  // https://www.bankofengland.co.uk/monetary-policy-report/2024/november-2024
   "bank-rate": {
-    green: { min: 2, max: 3.5 },
+    green: { min: 2.5, max: 3.5 },
     yellow: [
-      { min: 1, max: 2 },
-      { min: 3.5, max: 4.5 },
+      { min: 1, max: 2.5 },
+      { min: 3.5, max: 5 },
     ],
     red: [
       { min: -Infinity, max: 1 },
-      { min: 4.5, max: Infinity },
+      { min: 5, max: Infinity },
     ],
     weight: 0.13,
   },
@@ -434,10 +470,13 @@ const ukHealthThresholds: Record<string, MetricThreshold> = {
 };
 
 const caHealthThresholds: Record<string, MetricThreshold> = {
+  // GDP — lower bound: BoC potential output growth estimate ~2.0% (Monetary Policy Report)
+  // https://www.bankofcanada.ca/publications/mpr/
+  // Upper bound: sustained growth >5.5% signals overheating for the Canadian economy.
   gdp: {
-    green: { min: 2, max: Infinity },
-    yellow: [{ min: 0, max: 2 }],
-    red: [{ min: -Infinity, max: 0 }],
+    green: { min: 2.0, max: 5.5 },
+    yellow: [{ min: 0, max: 2.0 }, { min: 5.5, max: 7.5 }],
+    red: [{ min: -Infinity, max: 0 }, { min: 7.5, max: Infinity }],
     weight: 0.18,
   },
   "retail-sales": {
@@ -452,6 +491,8 @@ const caHealthThresholds: Record<string, MetricThreshold> = {
     ],
     weight: 0.08,
   },
+  // CPI — BoC 1–3% control range with 2% target midpoint
+  // https://www.bankofcanada.ca/core-functions/monetary-policy/inflation/
   cpi: {
     green: { min: 1, max: 3 },
     yellow: [
@@ -476,17 +517,21 @@ const caHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: -0.5 }],
     weight: 0.08,
   },
+  // Unemployment — NAIRU: BoC estimate ~5.5–6% (structurally higher than peers)
+  // https://www.bankofcanada.ca/publications/mpr/
   unemployment: {
     green: { min: -Infinity, max: 5.5 },
     yellow: [{ min: 5.5, max: 7 }],
     red: [{ min: 7, max: Infinity }],
     weight: 0.18,
   },
+  // Policy rate — neutral rate: BoC estimate 2.25–3.25% nominal (Staff Analytical Note 2024-9)
+  // https://www.bankofcanada.ca/2024/04/staff-analytical-note-2024-9/
   "policy-rate": {
-    green: { min: 2, max: 3.5 },
+    green: { min: 2.25, max: 3.25 },
     yellow: [
-      { min: 1, max: 2 },
-      { min: 3.5, max: 4.5 },
+      { min: 1, max: 2.25 },
+      { min: 3.25, max: 4.5 },
     ],
     red: [
       { min: -Infinity, max: 1 },
