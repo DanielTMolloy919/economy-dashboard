@@ -18,6 +18,7 @@ interface MetricChartProps {
 
 // Clamp the y-axis to the P2–P98 range + 10% padding so that extreme
 // outliers (e.g. COVID-era monthly swings) don't squash the normal range.
+// Snaps bounds to "nice" numbers so Recharts generates clean tick labels.
 function clampedDomain(values: number[]): [number, number] | ["auto", "auto"] {
   if (values.length < 10) return ["auto", "auto"];
   const sorted = [...values].sort((a, b) => a - b);
@@ -26,7 +27,13 @@ function clampedDomain(values: number[]): [number, number] | ["auto", "auto"] {
   const range = hi - lo;
   if (range === 0) return ["auto", "auto"];
   const pad = range * 0.1;
-  return [lo - pad, hi + pad];
+  const rawLo = lo - pad;
+  const rawHi = hi + pad;
+  // Snap to a "nice" step so ticks land on round numbers
+  const roughStep = (rawHi - rawLo) / 4;
+  const mag = Math.pow(10, Math.floor(Math.log10(roughStep)));
+  const step = Math.ceil(roughStep / mag) * mag;
+  return [Math.floor(rawLo / step) * step, Math.ceil(rawHi / step) * step];
 }
 
 function makeTickFormatter(spanYears: number) {
@@ -84,10 +91,8 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
         domain={domain}
         allowDataOverflow
         tickFormatter={(v: number) => {
-          const abs = Math.abs(v);
-          if (abs >= 100) return v.toFixed(0);
-          if (abs >= 10) return v.toFixed(1);
-          return v.toFixed(2);
+          const rounded = Math.round(v * 10) / 10;
+          return rounded % 1 === 0 ? String(rounded) : rounded.toFixed(1);
         }}
       />
       <ChartTooltip
