@@ -114,15 +114,18 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
-        <div className="mx-auto w-full max-w-2xl px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto w-full max-w-2xl px-4 py-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             <CountrySwitcher current={country} />
-            <div>
-              <h1 className="text-lg font-bold leading-tight">{config.name} Economy</h1>
-              <p className="text-xs text-muted-foreground">Economic health dashboard</p>
+            <div className="min-w-0">
+              <h1 className="text-lg font-bold leading-tight truncate">{config.name} Economy</h1>
+              <p className="text-xs text-muted-foreground truncate">Economic health dashboard</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <ThemeToggle />
+        </div>
+        <div className="border-t bg-background/95">
+          <div className="mx-auto w-full max-w-2xl px-4 py-2 flex items-center justify-between gap-3">
             <TimeRangeTabs value={timeRange} onChange={setTimeRange} />
             <Button
               variant={showBands ? "default" : "outline"}
@@ -132,7 +135,6 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
             >
               Bands
             </Button>
-            <ThemeToggle />
           </div>
         </div>
       </header>
