@@ -71,7 +71,7 @@ function clampedDomain(values: number[]): [number, number] | ["auto", "auto"] {
 // Concrete numeric y-bounds for band clipping. Falls back to data min/max when
 // clampedDomain returned "auto" (short series or zero-range data).
 function numericBounds(values: number[], domain: [number, number] | ["auto", "auto"]): [number, number] {
-  if (typeof domain[0] === "number") return domain as [number, number];
+  if (typeof domain[0] === "number" && typeof domain[1] === "number") return [domain[0], domain[1]];
   if (values.length === 0) return [0, 1];
   const lo = Math.min(...values);
   const hi = Math.max(...values);
