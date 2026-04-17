@@ -1,5 +1,5 @@
 "use client";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ReferenceArea, XAxis, YAxis } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -7,6 +7,7 @@ import {
   type ChartConfig,
 } from "~/components/ui/chart";
 import type { ChartType, MetricSeries } from "~/types/metrics";
+import type { MetricThreshold, ThresholdRange } from "~/config/health-thresholds";
 
 interface MetricChartProps {
   series: MetricSeries[];
@@ -14,6 +15,37 @@ interface MetricChartProps {
   name: string;
   unit: string;
   mini?: boolean;
+  threshold?: MetricThreshold;
+}
+
+const BAND_COLORS = {
+  green: "#22c55e",
+  yellow: "#eab308",
+  red: "#ef4444",
+} as const;
+const BAND_OPACITY = 0.18;
+
+// Clip a threshold range to the visible y-domain. Returns null if the range
+// falls entirely outside the chart, so we don't render invisible ReferenceAreas.
+function clipRange(range: ThresholdRange, loY: number, hiY: number): [number, number] | null {
+  const lo = Math.max(range.min, loY);
+  const hi = Math.min(range.max, hiY);
+  if (hi <= lo) return null;
+  return [lo, hi];
+}
+
+function buildBands(threshold: MetricThreshold, loY: number, hiY: number) {
+  const bands: Array<{ color: keyof typeof BAND_COLORS; y1: number; y2: number }> = [];
+  const push = (color: keyof typeof BAND_COLORS, ranges: ThresholdRange[]) => {
+    for (const r of ranges) {
+      const clipped = clipRange(r, loY, hiY);
+      if (clipped) bands.push({ color, y1: clipped[0], y2: clipped[1] });
+    }
+  };
+  push("green", [threshold.green]);
+  push("yellow", threshold.yellow);
+  push("red", threshold.red);
+  return bands;
 }
 
 // Clamp the y-axis to the P2–P98 range + 10% padding so that extreme
@@ -36,6 +68,18 @@ function clampedDomain(values: number[]): [number, number] | ["auto", "auto"] {
   return [Math.floor(rawLo / step) * step, Math.ceil(rawHi / step) * step];
 }
 
+// Concrete numeric y-bounds for band clipping. Falls back to data min/max when
+// clampedDomain returned "auto" (short series or zero-range data).
+function numericBounds(values: number[], domain: [number, number] | ["auto", "auto"]): [number, number] {
+  if (typeof domain[0] === "number") return domain as [number, number];
+  if (values.length === 0) return [0, 1];
+  const lo = Math.min(...values);
+  const hi = Math.max(...values);
+  if (hi === lo) return [lo - 1, hi + 1];
+  const pad = (hi - lo) * 0.1;
+  return [lo - pad, hi + pad];
+}
+
 function makeTickFormatter(spanYears: number) {
   return (dateStr: string) => {
     const d = new Date(dateStr);
@@ -46,7 +90,7 @@ function makeTickFormatter(spanYears: number) {
   };
 }
 
-export function MetricChart({ series, chartType, name, unit, mini = false }: MetricChartProps) {
+export function MetricChart({ series, chartType, name, unit, mini = false, threshold }: MetricChartProps) {
   const chartConfig = {
     value: {
       label: name,
@@ -58,7 +102,21 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
     },
   } satisfies ChartConfig;
   const data = series.map((p) => ({ value: p.value, date: p.date }));
-  const domain = clampedDomain(data.map((d) => d.value));
+  const values = data.map((d) => d.value);
+  const domain = clampedDomain(values);
+  const [loY, hiY] = numericBounds(values, domain);
+  const bands = !mini && threshold ? buildBands(threshold, loY, hiY) : [];
+  const bandElements = bands.map((b, i) => (
+    <ReferenceArea
+      key={`${b.color}-${i}`}
+      y1={b.y1}
+      y2={b.y2}
+      fill={BAND_COLORS[b.color]}
+      fillOpacity={BAND_OPACITY}
+      stroke="none"
+      ifOverflow="hidden"
+    />
+  ));
 
   const spanYears =
     data.length >= 2
@@ -122,6 +180,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
         <BarChart data={data} margin={margin}>
           {axes}
           <CartesianGrid horizontal={true} vertical={false} />
+          {bandElements}
           <Bar dataKey="value" radius={[2, 2, 0, 0]} isAnimationActive={false}>
             {data.map((entry, i) => (
               <Cell
@@ -147,6 +206,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
           </defs>
           {axes}
           <CartesianGrid horizontal={true} vertical={false} />
+          {bandElements}
           <Area
             type="monotone"
             dataKey="value"
@@ -166,6 +226,7 @@ export function MetricChart({ series, chartType, name, unit, mini = false }: Met
       <LineChart data={data} margin={margin}>
         {axes}
         <CartesianGrid horizontal={true} vertical={false} />
+        {bandElements}
         <Line
           type={chartType === "step" ? "stepAfter" : "monotone"}
           dataKey="value"

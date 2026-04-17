@@ -17,6 +17,7 @@ import { OverallHealth } from "~/components/dashboard/overall-health";
 import { SummaryCards } from "~/components/dashboard/summary-cards";
 import { MetricCard } from "~/components/dashboard/metric-card";
 import { ThemeToggle } from "~/components/dashboard/theme-toggle";
+import { Button } from "~/components/ui/button";
 import { CountrySwitcher } from "~/components/dashboard/country-switcher";
 import { ScoreHistoryChart } from "~/components/dashboard/score-history-chart";
 import { Separator } from "~/components/ui/separator";
@@ -40,6 +41,7 @@ function formatReplayDate(date: string): string {
 export function DashboardView({ metrics, country }: { metrics: MetricData[]; country: CountryCode }) {
   const [timeRange, setTimeRange] = useState<TimeRange>("all");
   const [replayDate, setReplayDate] = useState<string | null>(null);
+  const [showBands, setShowBands] = useState(false);
 
   const config = countries[country];
   const metricDefs = getMetricDefinitions(country);
@@ -122,6 +124,14 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
           </div>
           <div className="flex items-center gap-3">
             <TimeRangeTabs value={timeRange} onChange={setTimeRange} />
+            <Button
+              variant={showBands ? "default" : "outline"}
+              size="sm"
+              onClick={() => setShowBands((v) => !v)}
+              aria-pressed={showBands}
+            >
+              Bands
+            </Button>
             <ThemeToggle />
           </div>
         </div>
@@ -197,6 +207,7 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
                   filteredSeries={filterSeries(data.series, timeRange)}
                   metricInfo={metricInfoMap}
                   locale={config.locale}
+                  threshold={showBands ? thresholds[id] : undefined}
                 />
               </div>
             );
@@ -226,6 +237,7 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
                       filteredSeries={filterSeries(data.series, timeRange)}
                       metricInfo={metricInfoMap}
                       locale={config.locale}
+                      threshold={showBands ? thresholds[def.id] : undefined}
                     />
                   </div>
                 );

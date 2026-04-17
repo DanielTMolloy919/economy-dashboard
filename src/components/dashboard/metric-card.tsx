@@ -16,6 +16,7 @@ import { MetricInfoPopover } from "~/components/dashboard/metric-info-popover";
 import type { MetricData } from "~/types/metrics";
 import type { MetricDefinition } from "~/config/metrics";
 import type { MetricInfo } from "~/config/metric-info";
+import type { MetricThreshold } from "~/config/health-thresholds";
 
 interface MetricCardProps {
   data: MetricData;
@@ -23,9 +24,10 @@ interface MetricCardProps {
   filteredSeries: MetricData["series"];
   metricInfo: Record<string, MetricInfo>;
   locale: string;
+  threshold?: MetricThreshold;
 }
 
-export function MetricCard({ data, definition, filteredSeries, metricInfo, locale }: MetricCardProps) {
+export function MetricCard({ data, definition, filteredSeries, metricInfo, locale, threshold }: MetricCardProps) {
   const trend = getTrendDirection(data.series, definition.trendWindow, definition.trendThreshold);
   const sentiment = getTrendSentiment(trend, definition.trendPolarity);
   const { decimals } = definition;
@@ -63,6 +65,7 @@ export function MetricCard({ data, definition, filteredSeries, metricInfo, local
             chartType={definition.chartType}
             name={data.name}
             unit={data.unit}
+            threshold={threshold}
           />
         </div>
       </CardContent>
