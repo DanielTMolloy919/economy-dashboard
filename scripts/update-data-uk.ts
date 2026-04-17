@@ -13,6 +13,7 @@ import type { MetricData } from "~/types/metrics";
 import {
   fetchUkGdp,
   fetchUkGdpPerCapita,
+  fetchUkProductivity,
   fetchUkCpi,
   fetchUkWages,
   fetchUkUnemployment,
@@ -56,6 +57,7 @@ async function main() {
   await Promise.all([
     run("gdp", fetchUkGdp),
     run("gdp-per-capita", fetchUkGdpPerCapita),
+    run("productivity", fetchUkProductivity),
     run("cpi", fetchUkCpi),
     run("wages", fetchUkWages),
     run("unemployment", fetchUkUnemployment),

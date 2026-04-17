@@ -32,6 +32,17 @@ const auMetricInfo: Record<string, MetricInfo> = {
       red: "< 0% \u2014 the economy is shrinking on a per-person basis. Even if total GDP is positive, population growth is outpacing output \u2014 living standards are falling.",
     },
   },
+  productivity: {
+    summary:
+      "Labour productivity \u2014 GDP per hour worked \u2014 measures how much output the economy generates for each hour of work. Over the long run, productivity growth is what drives real wage growth and rising living standards. Australia\u2019s productivity growth has slowed markedly since the mid-2000s, a focus of Productivity Commission analysis.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.0% \u2014 productivity is growing at or above the developed-economy trend rate. Real wages can rise without generating inflation.",
+      yellow:
+        "0\u20131.0% \u2014 stagnant productivity. Output is rising only because more hours are being worked, not because work is getting more efficient. Real wage growth will be hard to sustain.",
+      red: "< 0% \u2014 labour productivity is going backwards. Each hour worked produces less than a year ago \u2014 a serious structural concern.",
+    },
+  },
   cpi: {
     summary:
       "The Consumer Price Index tracks the annual change in the price of a representative basket of goods and services. The RBA's formal mandate is to keep inflation within the 2\u20133% target band.",
@@ -324,6 +335,17 @@ const usMetricInfo: Record<string, MetricInfo> = {
       red: "< 0% \u2014 the economy is shrinking on a per-person basis, even if total GDP is positive.",
     },
   },
+  productivity: {
+    summary:
+      "Labour productivity is output per hour worked in the nonfarm business sector \u2014 the BLS headline series covering about three-quarters of the US economy. It\u2019s the foundation of long-run real wage growth: when productivity rises, workers can be paid more without driving up prices.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.0% \u2014 productivity is tracking at or above the developed-economy trend rate. The post-pandemic US productivity surge has run well above this.",
+      yellow:
+        "0\u20131.0% \u2014 stagnant productivity, similar to the 2010s slowdown. Output grows only via more hours worked.",
+      red: "< 0% \u2014 productivity is contracting. Historically rare outside recessions.",
+    },
+  },
   "personal-consumption": {
     summary:
       "Personal consumption expenditures (PCE) track annual change in real consumer spending. Consumer spending drives roughly 70% of US GDP, making it the single most important demand-side indicator.",
@@ -490,6 +512,17 @@ const ukMetricInfo: Record<string, MetricInfo> = {
       yellow:
         "0\u20131.5% \u2014 the economy is growing per person but below trend. Living standards are broadly flat.",
       red: "< 0% \u2014 the economy is shrinking on a per-person basis, even if total GDP is positive.",
+    },
+  },
+  productivity: {
+    summary:
+      "Labour productivity \u2014 output per hour worked across the whole UK economy \u2014 is ONS\u2019s headline measure. The UK\u2019s productivity puzzle (persistently weak growth since the 2008 crisis) is a central theme of OBR and Bank of England analysis, since it directly limits how fast real wages can sustainably rise.",
+    thresholdRationale: {
+      green:
+        "\u2265 1.0% \u2014 productivity is growing at or above the trend rate for developed economies. Real wage growth is on firmer ground.",
+      yellow:
+        "0\u20131.0% \u2014 stagnant productivity, broadly the UK\u2019s post-2008 experience. Output grows only via more hours worked.",
+      red: "< 0% \u2014 productivity is shrinking. Each hour worked produces less than a year ago \u2014 a serious structural concern.",
     },
   },
   "retail-sales": {

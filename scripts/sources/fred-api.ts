@@ -100,6 +100,28 @@ export async function fetchUsGdpPerCapita(): Promise<MetricData> {
   };
 }
 
+// --- Labour Productivity (quarterly index, YoY computed at runtime in data.ts) ---
+export async function fetchUsProductivity(): Promise<MetricData> {
+  // OPHNFB: Nonfarm Business Sector — Labor Productivity (Output per Hour), index 2017=100
+  const series = await fetchFredSeries("OPHNFB", "2004-01-01");
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  return {
+    id: "productivity",
+    name: "Labour Productivity",
+    lastUpdated,
+    nextExpectedUpdate: nextFredUpdate(lastUpdated, "quarterly"),
+    source: "FRED",
+    unit: "index",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: "yellow", // recomputed at runtime after YoY transform
+    series,
+  };
+}
+
 // --- CPI (monthly index → YoY %) ---
 export async function fetchUsCpi(): Promise<MetricData> {
   // CPIAUCSL: Consumer Price Index for All Urban Consumers (SA)

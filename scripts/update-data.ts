@@ -15,7 +15,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
-import { fetchGdp, fetchGdpPerCapita, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
+import { fetchGdp, fetchGdpPerCapita, fetchProductivity, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
 import { fetchFiscalBalance } from "./sources/abs-gfs";
 import { computeRealWages } from "./sources/derived";
 
@@ -55,6 +55,7 @@ async function main() {
     run("aud-usd", fetchAudUsd),
     run("gdp", fetchGdp),
     run("gdp-per-capita", fetchGdpPerCapita),
+    run("productivity", fetchProductivity),
     run("trade", fetchTrade),
     run("unemployment", fetchUnemployment),
     run("underemployment", fetchUnderemployment),

@@ -29,6 +29,7 @@ const rolling4QMetrics: Record<CountryCode, Set<string>> = {
 // Value = number of periods per year (4 for quarterly data).
 const yoyIndexMetrics: Record<string, number> = {
   "gdp-per-capita": 4,
+  productivity: 4,
 };
 
 function toRolling4Q(series: MetricData["series"]): MetricData["series"] {

@@ -29,6 +29,13 @@ const auHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 0 }],
     weight: 0,
   },
+  // Labour productivity — trend rate for developed economies is ~1%/yr
+  productivity: {
+    green: { min: 1.0, max: Infinity },
+    yellow: [{ min: 0, max: 1.0 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
   // CPI — RBA formal 2–3% target band
   // https://www.rba.gov.au/inflation/
   cpi: {
@@ -258,6 +265,13 @@ const usHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: 0 }],
     weight: 0,
   },
+  // Labour productivity — trend rate for developed economies is ~1%/yr
+  productivity: {
+    green: { min: 1.0, max: Infinity },
+    yellow: [{ min: 0, max: 1.0 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
   "personal-consumption": {
     green: { min: 2, max: 7 },
     yellow: [
@@ -381,6 +395,13 @@ const ukHealthThresholds: Record<string, MetricThreshold> = {
   "gdp-per-capita": {
     green: { min: 1.5, max: Infinity },
     yellow: [{ min: 0, max: 1.5 }],
+    red: [{ min: -Infinity, max: 0 }],
+    weight: 0,
+  },
+  // Labour productivity — trend rate for developed economies is ~1%/yr
+  productivity: {
+    green: { min: 1.0, max: Infinity },
+    yellow: [{ min: 0, max: 1.0 }],
     red: [{ min: -Infinity, max: 0 }],
     weight: 0,
   },

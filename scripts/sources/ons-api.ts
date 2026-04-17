@@ -136,6 +136,32 @@ export async function fetchUkGdpPerCapita(): Promise<MetricData> {
   };
 }
 
+// --- Labour Productivity (quarterly index, YoY computed at runtime in data.ts) ---
+export async function fetchUkProductivity(): Promise<MetricData> {
+  // LZVB: Output per hour worked, whole economy, SA (index)
+  const series = await fetchOnsSeries(
+    "/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/lzvb/prdy",
+    "quarters",
+    "2004-01-01",
+  );
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
+  const lastUpdated = series.at(-1)!.date;
+  return {
+    id: "productivity",
+    name: "Labour Productivity",
+    lastUpdated,
+    nextExpectedUpdate: nextOnsUpdate(lastUpdated, "quarterly"),
+    source: "ONS",
+    unit: "index",
+    frequency: "Quarterly",
+    currentValue,
+    previousValue,
+    health: "yellow", // recomputed at runtime after YoY transform
+    series,
+  };
+}
+
 // --- Retail Sales (monthly index → YoY %) ---
 export async function fetchUkRetailSales(): Promise<MetricData> {
   // J5EK: All retailing including automotive fuel, volume SA (index, 2019=100)
