@@ -59,7 +59,7 @@ export function MetricCard({ data, definition, filteredSeries, metricInfo, local
         </div>
       </CardHeader>
       <CardContent className="pb-2">
-        <div className="h-44">
+        <div className="h-64">
           <MetricChart
             series={filteredSeries}
             chartType={definition.chartType}
