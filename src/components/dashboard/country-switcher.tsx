@@ -1,7 +1,7 @@
 "use client";
 
 import type { CountryCode } from "~/config/countries";
-import { countries, validCountryCodes } from "~/config/countries";
+import { countries, validCountryCodes, isValidCountry } from "~/config/countries";
 import {
   Select,
   SelectContent,
@@ -18,7 +18,7 @@ export function CountrySwitcher({
   onSelect: (code: CountryCode) => void;
 }) {
   return (
-    <Select value={current} onValueChange={(v) => onSelect(v as CountryCode)}>
+    <Select value={current} onValueChange={(v) => { if (v && isValidCountry(v)) onSelect(v); }}>
       <SelectTrigger className="w-52">
         <SelectValue>
           {countries[current].flag} {countries[current].name}
