@@ -1,13 +1,13 @@
 {
   "id": "wages",
   "name": "Wage Growth (AWE)",
-  "lastUpdated": "2026-01-01",
-  "nextExpectedUpdate": "2026-04-04",
+  "lastUpdated": "2026-02-01",
+  "nextExpectedUpdate": "2026-05-05",
   "source": "ONS",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 3.9,
-  "previousValue": 4.2,
+  "currentValue": 3.8,
+  "previousValue": 4.1,
   "health": "green",
   "series": [
     {
@@ -972,15 +972,15 @@
     },
     {
       "date": "2025-01-01",
-      "value": 5.8
+      "value": 5.6
     },
     {
       "date": "2025-02-01",
-      "value": 5.8
+      "value": 5.7
     },
     {
       "date": "2025-03-01",
-      "value": 5.7
+      "value": 5.6
     },
     {
       "date": "2025-04-01",
@@ -1020,7 +1020,11 @@
     },
     {
       "date": "2026-01-01",
-      "value": 3.9
+      "value": 4.1
+    },
+    {
+      "date": "2026-02-01",
+      "value": 3.8
     }
   ]
 }
