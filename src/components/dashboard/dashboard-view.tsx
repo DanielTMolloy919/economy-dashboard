@@ -38,10 +38,28 @@ function formatReplayDate(date: string): string {
   return d.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
 }
 
-export function DashboardView({ metrics, country }: { metrics: MetricData[]; country: CountryCode }) {
+export function DashboardView({
+  metrics: initialMetrics,
+  country: initialCountry,
+}: {
+  metrics: MetricData[];
+  country: CountryCode;
+}) {
+  const [country, setCountry] = useState<CountryCode>(initialCountry);
+  const [metrics, setMetrics] = useState<MetricData[]>(initialMetrics);
   const [timeRange, setTimeRange] = useState<TimeRange>("all");
   const [replayDate, setReplayDate] = useState<string | null>(null);
   const [showBands, setShowBands] = useState(false);
+
+  async function handleCountrySelect(code: CountryCode) {
+    if (code === country) return;
+    const res = await fetch(`/api/metrics/${code}`);
+    const data = (await res.json()) as MetricData[];
+    setMetrics(data);
+    setCountry(code);
+    setReplayDate(null);
+    window.history.pushState(null, "", `/${code}`);
+  }
 
   const config = countries[country];
   const metricDefs = getMetricDefinitions(country);
@@ -116,7 +134,7 @@ export function DashboardView({ metrics, country }: { metrics: MetricData[]; cou
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
         <div className="mx-auto w-full max-w-2xl px-4 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <CountrySwitcher current={country} />
+            <CountrySwitcher current={country} onSelect={handleCountrySelect} />
             <div className="min-w-0">
               <h1 className="text-lg font-bold leading-tight truncate">{config.name} Economy</h1>
               <p className="text-xs text-muted-foreground truncate">Economic health dashboard</p>
