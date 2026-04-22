@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { GitCompareIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -13,6 +15,7 @@ import {
 } from "~/components/dashboard/trend-arrow";
 import { MetricChart } from "~/components/charts/metric-chart";
 import { MetricInfoPopover } from "~/components/dashboard/metric-info-popover";
+import { COMPARABLE_METRIC_IDS } from "~/config/comparable-metrics";
 import type { MetricData } from "~/types/metrics";
 import type { MetricDefinition } from "~/config/metrics";
 import type { MetricInfo } from "~/config/metric-info";
@@ -43,6 +46,15 @@ export function MetricCard({ data, definition, filteredSeries, metricInfo, local
             <div className="flex items-center gap-2">
               <HealthBadge status={data.health} />
               {info && <MetricInfoPopover info={info} name={data.name} />}
+              {(COMPARABLE_METRIC_IDS as readonly string[]).includes(definition.id) && (
+                <Link
+                  href={`/metric/${definition.id}`}
+                  aria-label={`Compare ${data.name} across countries`}
+                  className="inline-flex size-6 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                >
+                  <GitCompareIcon className="size-3.5" />
+                </Link>
+              )}
             </div>
             <p className="text-base font-semibold leading-tight">{data.name}</p>
           </div>
