@@ -1,12 +1,12 @@
 {
   "id": "cpi",
   "name": "Inflation (CPI)",
-  "lastUpdated": "2026-02-01",
-  "nextExpectedUpdate": "2026-05-05",
+  "lastUpdated": "2026-03-01",
+  "nextExpectedUpdate": "2026-06-04",
   "source": "ONS",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 3,
+  "currentValue": 3.3,
   "previousValue": 3,
   "health": "yellow",
   "series": [
@@ -1025,6 +1025,10 @@
     {
       "date": "2026-02-01",
       "value": 3
+    },
+    {
+      "date": "2026-03-01",
+      "value": 3.3
     }
   ]
 }
