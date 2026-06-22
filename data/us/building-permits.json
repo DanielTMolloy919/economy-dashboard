@@ -1,14 +1,14 @@
 {
   "id": "building-permits",
   "name": "Building Permits",
-  "lastUpdated": "2026-01-01",
-  "nextExpectedUpdate": "2026-03-25",
+  "lastUpdated": "2026-05-01",
+  "nextExpectedUpdate": "2026-07-25",
   "source": "FRED",
   "unit": "k",
   "frequency": "Monthly",
-  "currentValue": 1386,
-  "previousValue": 1455,
-  "health": "yellow",
+  "currentValue": 1413,
+  "previousValue": 1423,
+  "health": "green",
   "series": [
     {
       "date": "2005-01-01",
@@ -732,59 +732,59 @@
     },
     {
       "date": "2020-01-01",
-      "value": 1495
+      "value": 1490
     },
     {
       "date": "2020-02-01",
-      "value": 1455
+      "value": 1461
     },
     {
       "date": "2020-03-01",
-      "value": 1346
+      "value": 1351
     },
     {
       "date": "2020-04-01",
-      "value": 1076
+      "value": 1079
     },
     {
       "date": "2020-05-01",
-      "value": 1250
+      "value": 1251
     },
     {
       "date": "2020-06-01",
-      "value": 1334
+      "value": 1333
     },
     {
       "date": "2020-07-01",
-      "value": 1546
+      "value": 1539
     },
     {
       "date": "2020-08-01",
-      "value": 1533
+      "value": 1534
     },
     {
       "date": "2020-09-01",
-      "value": 1636
+      "value": 1650
     },
     {
       "date": "2020-10-01",
-      "value": 1613
+      "value": 1612
     },
     {
       "date": "2020-11-01",
-      "value": 1703
+      "value": 1692
     },
     {
       "date": "2020-12-01",
-      "value": 1752
+      "value": 1755
     },
     {
       "date": "2021-01-01",
-      "value": 1855
+      "value": 1856
     },
     {
       "date": "2021-02-01",
-      "value": 1711
+      "value": 1703
     },
     {
       "date": "2021-03-01",
@@ -792,235 +792,251 @@
     },
     {
       "date": "2021-04-01",
-      "value": 1721
+      "value": 1710
     },
     {
       "date": "2021-05-01",
-      "value": 1703
+      "value": 1705
     },
     {
       "date": "2021-06-01",
-      "value": 1654
+      "value": 1662
     },
     {
       "date": "2021-07-01",
-      "value": 1658
+      "value": 1666
     },
     {
       "date": "2021-08-01",
-      "value": 1736
+      "value": 1740
     },
     {
       "date": "2021-09-01",
-      "value": 1640
+      "value": 1649
     },
     {
       "date": "2021-10-01",
-      "value": 1707
+      "value": 1699
     },
     {
       "date": "2021-11-01",
-      "value": 1765
+      "value": 1770
     },
     {
       "date": "2021-12-01",
-      "value": 1919
+      "value": 1886
     },
     {
       "date": "2022-01-01",
-      "value": 1920
+      "value": 1923
     },
     {
       "date": "2022-02-01",
-      "value": 1857
+      "value": 1846
     },
     {
       "date": "2022-03-01",
-      "value": 1868
+      "value": 1899
     },
     {
       "date": "2022-04-01",
-      "value": 1859
+      "value": 1849
     },
     {
       "date": "2022-05-01",
-      "value": 1704
+      "value": 1711
     },
     {
       "date": "2022-06-01",
-      "value": 1737
+      "value": 1726
     },
     {
       "date": "2022-07-01",
-      "value": 1703
+      "value": 1707
     },
     {
       "date": "2022-08-01",
-      "value": 1557
+      "value": 1565
     },
     {
       "date": "2022-09-01",
-      "value": 1600
+      "value": 1586
     },
     {
       "date": "2022-10-01",
-      "value": 1594
+      "value": 1583
     },
     {
       "date": "2022-11-01",
-      "value": 1401
+      "value": 1424
     },
     {
       "date": "2022-12-01",
-      "value": 1410
+      "value": 1398
     },
     {
       "date": "2023-01-01",
-      "value": 1410
+      "value": 1418
     },
     {
       "date": "2023-02-01",
-      "value": 1618
+      "value": 1605
     },
     {
       "date": "2023-03-01",
-      "value": 1480
+      "value": 1472
     },
     {
       "date": "2023-04-01",
-      "value": 1474
+      "value": 1482
     },
     {
       "date": "2023-05-01",
-      "value": 1575
+      "value": 1579
     },
     {
       "date": "2023-06-01",
-      "value": 1464
+      "value": 1447
     },
     {
       "date": "2023-07-01",
-      "value": 1522
+      "value": 1530
     },
     {
       "date": "2023-08-01",
-      "value": 1561
+      "value": 1596
     },
     {
       "date": "2023-09-01",
-      "value": 1537
+      "value": 1530
     },
     {
       "date": "2023-10-01",
-      "value": 1528
+      "value": 1524
     },
     {
       "date": "2023-11-01",
-      "value": 1503
+      "value": 1513
     },
     {
       "date": "2023-12-01",
-      "value": 1519
+      "value": 1501
     },
     {
       "date": "2024-01-01",
-      "value": 1545
+      "value": 1548
     },
     {
       "date": "2024-02-01",
-      "value": 1577
+      "value": 1570
     },
     {
       "date": "2024-03-01",
-      "value": 1476
+      "value": 1477
     },
     {
       "date": "2024-04-01",
-      "value": 1459
+      "value": 1456
     },
     {
       "date": "2024-05-01",
-      "value": 1407
+      "value": 1405
     },
     {
       "date": "2024-06-01",
-      "value": 1461
+      "value": 1459
     },
     {
       "date": "2024-07-01",
-      "value": 1436
+      "value": 1448
     },
     {
       "date": "2024-08-01",
-      "value": 1476
+      "value": 1492
     },
     {
       "date": "2024-09-01",
-      "value": 1434
+      "value": 1421
     },
     {
       "date": "2024-10-01",
-      "value": 1428
+      "value": 1435
     },
     {
       "date": "2024-11-01",
-      "value": 1508
+      "value": 1512
     },
     {
       "date": "2024-12-01",
-      "value": 1480
+      "value": 1467
     },
     {
       "date": "2025-01-01",
-      "value": 1460
+      "value": 1463
     },
     {
       "date": "2025-02-01",
-      "value": 1454
+      "value": 1446
     },
     {
       "date": "2025-03-01",
-      "value": 1481
+      "value": 1492
     },
     {
       "date": "2025-04-01",
-      "value": 1422
+      "value": 1445
     },
     {
       "date": "2025-05-01",
-      "value": 1394
+      "value": 1416
     },
     {
       "date": "2025-06-01",
-      "value": 1393
+      "value": 1399
     },
     {
       "date": "2025-07-01",
-      "value": 1362
+      "value": 1400
     },
     {
       "date": "2025-08-01",
-      "value": 1330
+      "value": 1347
     },
     {
       "date": "2025-09-01",
-      "value": 1415
+      "value": 1444
     },
     {
       "date": "2025-10-01",
-      "value": 1411
+      "value": 1418
     },
     {
       "date": "2025-11-01",
-      "value": 1388
+      "value": 1414
     },
     {
       "date": "2025-12-01",
-      "value": 1455
+      "value": 1482
     },
     {
       "date": "2026-01-01",
-      "value": 1386
+      "value": 1393
+    },
+    {
+      "date": "2026-02-01",
+      "value": 1540
+    },
+    {
+      "date": "2026-03-01",
+      "value": 1363
+    },
+    {
+      "date": "2026-04-01",
+      "value": 1423
+    },
+    {
+      "date": "2026-05-01",
+      "value": 1413
     }
   ]
 }

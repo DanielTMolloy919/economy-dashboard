@@ -1,13 +1,13 @@
 {
   "id": "unemployment",
   "name": "Unemployment",
-  "lastUpdated": "2025-10-01",
-  "nextExpectedUpdate": "2026-03-02",
+  "lastUpdated": "2026-01-01",
+  "nextExpectedUpdate": "2026-05-30",
   "source": "FRED",
   "unit": "%",
   "frequency": "Quarterly",
-  "currentValue": 5.4,
-  "previousValue": 5.3,
+  "currentValue": 5.3,
+  "previousValue": 5.4,
   "health": "yellow",
   "series": [
     {
@@ -308,7 +308,7 @@
     },
     {
       "date": "2023-07-01",
-      "value": 4
+      "value": 3.9
     },
     {
       "date": "2023-10-01",
@@ -345,6 +345,10 @@
     {
       "date": "2025-10-01",
       "value": 5.4
+    },
+    {
+      "date": "2026-01-01",
+      "value": 5.3
     }
   ]
 }

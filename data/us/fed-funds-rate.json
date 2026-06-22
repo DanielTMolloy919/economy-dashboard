@@ -1,12 +1,12 @@
 {
   "id": "fed-funds-rate",
   "name": "Federal Funds Rate",
-  "lastUpdated": "2026-03-01",
-  "nextExpectedUpdate": "2026-05-25",
+  "lastUpdated": "2026-05-01",
+  "nextExpectedUpdate": "2026-07-25",
   "source": "FRED",
   "unit": "%",
   "frequency": "~8x/year",
-  "currentValue": 3.64,
+  "currentValue": 3.63,
   "previousValue": 3.64,
   "health": "yellow",
   "series": [
@@ -1029,6 +1029,14 @@
     {
       "date": "2026-03-01",
       "value": 3.64
+    },
+    {
+      "date": "2026-04-01",
+      "value": 3.64
+    },
+    {
+      "date": "2026-05-01",
+      "value": 3.63
     }
   ]
 }

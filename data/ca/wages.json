@@ -1,14 +1,14 @@
 {
   "id": "wages",
   "name": "Wage Growth",
-  "lastUpdated": "2025-07-01",
-  "nextExpectedUpdate": "2025-11-30",
+  "lastUpdated": "2025-10-01",
+  "nextExpectedUpdate": "2026-03-02",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 3.7,
-  "previousValue": 4.6,
-  "health": "green",
+  "currentValue": -1.3,
+  "previousValue": 3.6,
+  "health": "red",
   "series": [
     {
       "date": "2009-01-01",
@@ -276,7 +276,11 @@
     },
     {
       "date": "2025-07-01",
-      "value": 3.7
+      "value": 3.6
+    },
+    {
+      "date": "2025-10-01",
+      "value": -1.3
     }
   ]
 }

@@ -1,13 +1,13 @@
 {
   "id": "productivity",
   "name": "Labour Productivity",
-  "lastUpdated": "2025-07-01",
-  "nextExpectedUpdate": "2025-12-26",
+  "lastUpdated": "2025-10-01",
+  "nextExpectedUpdate": "2026-03-28",
   "source": "ONS",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 99.6,
-  "previousValue": 99,
+  "currentValue": 99.1,
+  "previousValue": 99.7,
   "health": "yellow",
   "series": [
     {
@@ -344,11 +344,11 @@
     },
     {
       "date": "2024-10-01",
-      "value": 99.5
+      "value": 99.6
     },
     {
       "date": "2025-01-01",
-      "value": 99.7
+      "value": 99.8
     },
     {
       "date": "2025-04-01",
@@ -356,7 +356,11 @@
     },
     {
       "date": "2025-07-01",
-      "value": 99.6
+      "value": 99.7
+    },
+    {
+      "date": "2025-10-01",
+      "value": 99.1
     }
   ]
 }

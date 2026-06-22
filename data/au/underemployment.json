@@ -1,13 +1,13 @@
 {
   "id": "underemployment",
   "name": "Underemployment",
-  "lastUpdated": "2026-03-01",
-  "nextExpectedUpdate": "2026-06-04",
+  "lastUpdated": "2026-04-01",
+  "nextExpectedUpdate": "2026-07-05",
   "source": "ABS",
   "unit": "%",
   "frequency": "Monthly",
-  "currentValue": 6.2,
-  "previousValue": 6.1,
+  "currentValue": 6.1,
+  "previousValue": 6.2,
   "health": "green",
   "series": [
     {
@@ -364,7 +364,7 @@
     },
     {
       "date": "2017-05-01",
-      "value": 9.3
+      "value": 9.2
     },
     {
       "date": "2017-06-01",
@@ -432,7 +432,7 @@
     },
     {
       "date": "2018-10-01",
-      "value": 8.7
+      "value": 8.6
     },
     {
       "date": "2018-11-01",
@@ -552,7 +552,7 @@
     },
     {
       "date": "2021-04-01",
-      "value": 8.2
+      "value": 8.3
     },
     {
       "date": "2021-05-01",
@@ -780,7 +780,7 @@
     },
     {
       "date": "2026-01-01",
-      "value": 6.2
+      "value": 6.1
     },
     {
       "date": "2026-02-01",
@@ -789,6 +789,10 @@
     {
       "date": "2026-03-01",
       "value": 6.2
+    },
+    {
+      "date": "2026-04-01",
+      "value": 6.1
     }
   ]
 }

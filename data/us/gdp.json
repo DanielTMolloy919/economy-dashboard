@@ -1,13 +1,13 @@
 {
   "id": "gdp",
   "name": "GDP Growth",
-  "lastUpdated": "2025-10-01",
-  "nextExpectedUpdate": "2026-03-02",
+  "lastUpdated": "2026-01-01",
+  "nextExpectedUpdate": "2026-05-30",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 0.5,
-  "previousValue": 4.4,
+  "currentValue": 1.6,
+  "previousValue": 0.5,
   "health": "yellow",
   "series": [
     {
@@ -345,6 +345,10 @@
     {
       "date": "2025-10-01",
       "value": 0.5
+    },
+    {
+      "date": "2026-01-01",
+      "value": 1.6
     }
   ]
 }

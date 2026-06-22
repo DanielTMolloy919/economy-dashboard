@@ -1,13 +1,13 @@
 {
   "id": "gdp-per-capita",
   "name": "GDP per Capita",
-  "lastUpdated": "2025-10-01",
-  "nextExpectedUpdate": "2026-03-28",
+  "lastUpdated": "2026-01-01",
+  "nextExpectedUpdate": "2026-06-25",
   "source": "ONS",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 10127,
-  "previousValue": 10135,
+  "currentValue": 10215,
+  "previousValue": 10155,
   "health": "yellow",
   "series": [
     {
@@ -332,35 +332,39 @@
     },
     {
       "date": "2024-01-01",
-      "value": 10004
+      "value": 9995
     },
     {
       "date": "2024-04-01",
-      "value": 10036
+      "value": 10029
     },
     {
       "date": "2024-07-01",
-      "value": 10051
+      "value": 10041
     },
     {
       "date": "2024-10-01",
-      "value": 10071
+      "value": 10076
     },
     {
       "date": "2025-01-01",
-      "value": 10130
+      "value": 10126
     },
     {
       "date": "2025-04-01",
-      "value": 10143
+      "value": 10132
     },
     {
       "date": "2025-07-01",
-      "value": 10135
+      "value": 10144
     },
     {
       "date": "2025-10-01",
-      "value": 10127
+      "value": 10155
+    },
+    {
+      "date": "2026-01-01",
+      "value": 10215
     }
   ]
 }

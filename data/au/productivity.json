@@ -1,13 +1,13 @@
 {
   "id": "productivity",
   "name": "Labour Productivity",
-  "lastUpdated": "2025-12-31",
-  "nextExpectedUpdate": "2026-05-19",
+  "lastUpdated": "2026-03-31",
+  "nextExpectedUpdate": "2026-08-18",
   "source": "ABS",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 100.1,
-  "previousValue": 100.1,
+  "currentValue": 99.6,
+  "previousValue": 100.2,
   "health": "yellow",
   "series": [
     {
@@ -76,7 +76,7 @@
     },
     {
       "date": "2008-03-31",
-      "value": 87.4
+      "value": 87.3
     },
     {
       "date": "2008-06-30",
@@ -108,7 +108,7 @@
     },
     {
       "date": "2010-03-31",
-      "value": 89.9
+      "value": 90
     },
     {
       "date": "2010-06-30",
@@ -172,7 +172,7 @@
     },
     {
       "date": "2014-03-31",
-      "value": 96.3
+      "value": 96.4
     },
     {
       "date": "2014-06-30",
@@ -180,7 +180,7 @@
     },
     {
       "date": "2014-09-30",
-      "value": 96.6
+      "value": 96.5
     },
     {
       "date": "2014-12-31",
@@ -192,7 +192,7 @@
     },
     {
       "date": "2015-06-30",
-      "value": 96.8
+      "value": 96.7
     },
     {
       "date": "2015-09-30",
@@ -316,7 +316,7 @@
     },
     {
       "date": "2023-03-31",
-      "value": 99.8
+      "value": 99.7
     },
     {
       "date": "2023-06-30",
@@ -328,11 +328,11 @@
     },
     {
       "date": "2023-12-31",
-      "value": 100.1
+      "value": 100.2
     },
     {
       "date": "2024-03-31",
-      "value": 100.5
+      "value": 100.4
     },
     {
       "date": "2024-06-30",
@@ -344,7 +344,7 @@
     },
     {
       "date": "2024-12-31",
-      "value": 99.1
+      "value": 99.2
     },
     {
       "date": "2025-03-31",
@@ -352,15 +352,19 @@
     },
     {
       "date": "2025-06-30",
-      "value": 99.9
+      "value": 100
     },
     {
       "date": "2025-09-30",
-      "value": 100.1
+      "value": 100.2
     },
     {
       "date": "2025-12-31",
-      "value": 100.1
+      "value": 100.2
+    },
+    {
+      "date": "2026-03-31",
+      "value": 99.6
     }
   ]
 }

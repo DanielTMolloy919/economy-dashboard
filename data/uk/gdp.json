@@ -1,13 +1,13 @@
 {
   "id": "gdp",
   "name": "GDP Growth",
-  "lastUpdated": "2025-10-01",
-  "nextExpectedUpdate": "2026-03-28",
+  "lastUpdated": "2026-01-01",
+  "nextExpectedUpdate": "2026-06-25",
   "source": "ONS",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 1,
-  "previousValue": 1.2,
+  "currentValue": 1.1,
+  "previousValue": 1,
   "health": "yellow",
   "series": [
     {
@@ -316,7 +316,7 @@
     },
     {
       "date": "2024-01-01",
-      "value": 0.3
+      "value": 0.2
     },
     {
       "date": "2024-04-01",
@@ -324,11 +324,11 @@
     },
     {
       "date": "2024-07-01",
-      "value": 1.3
+      "value": 1.2
     },
     {
       "date": "2024-10-01",
-      "value": 1.9
+      "value": 2
     },
     {
       "date": "2025-01-01",
@@ -340,11 +340,15 @@
     },
     {
       "date": "2025-07-01",
-      "value": 1.2
+      "value": 1.3
     },
     {
       "date": "2025-10-01",
       "value": 1
+    },
+    {
+      "date": "2026-01-01",
+      "value": 1.1
     }
   ]
 }

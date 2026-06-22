@@ -1,13 +1,13 @@
 {
   "id": "wages",
   "name": "Wage Growth",
-  "lastUpdated": "2025-12-31",
-  "nextExpectedUpdate": "2026-05-19",
+  "lastUpdated": "2026-03-31",
+  "nextExpectedUpdate": "2026-08-18",
   "source": "ABS",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 3.4,
-  "previousValue": 3.3,
+  "currentValue": 3.3,
+  "previousValue": 3.4,
   "health": "yellow",
   "series": [
     {
@@ -36,7 +36,7 @@
     },
     {
       "date": "2011-09-30",
-      "value": 3.6
+      "value": 3.7
     },
     {
       "date": "2011-12-31",
@@ -52,7 +52,7 @@
     },
     {
       "date": "2012-09-30",
-      "value": 3.8
+      "value": 3.7
     },
     {
       "date": "2012-12-31",
@@ -208,7 +208,7 @@
     },
     {
       "date": "2022-06-30",
-      "value": 2.6
+      "value": 2.7
     },
     {
       "date": "2022-09-30",
@@ -224,11 +224,11 @@
     },
     {
       "date": "2023-06-30",
-      "value": 3.7
+      "value": 3.6
     },
     {
       "date": "2023-09-30",
-      "value": 4
+      "value": 4.1
     },
     {
       "date": "2023-12-31",
@@ -244,7 +244,7 @@
     },
     {
       "date": "2024-09-30",
-      "value": 3.6
+      "value": 3.5
     },
     {
       "date": "2024-12-31",
@@ -265,6 +265,10 @@
     {
       "date": "2025-12-31",
       "value": 3.4
+    },
+    {
+      "date": "2026-03-31",
+      "value": 3.3
     }
   ]
 }

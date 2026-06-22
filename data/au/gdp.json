@@ -1,13 +1,13 @@
 {
   "id": "gdp",
   "name": "GDP Growth",
-  "lastUpdated": "2025-12-31",
-  "nextExpectedUpdate": "2026-05-19",
+  "lastUpdated": "2026-03-31",
+  "nextExpectedUpdate": "2026-08-18",
   "source": "ABS",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 2.6,
-  "previousValue": 2.1,
+  "currentValue": 2.5,
+  "previousValue": 2.5,
   "health": "green",
   "series": [
     {
@@ -268,7 +268,7 @@
     },
     {
       "date": "2021-03-31",
-      "value": 2
+      "value": 1.9
     },
     {
       "date": "2021-06-30",
@@ -284,7 +284,7 @@
     },
     {
       "date": "2022-03-31",
-      "value": 3.7
+      "value": 3.6
     },
     {
       "date": "2022-06-30",
@@ -292,11 +292,11 @@
     },
     {
       "date": "2022-09-30",
-      "value": 6.2
+      "value": 6.1
     },
     {
       "date": "2022-12-31",
-      "value": 3.2
+      "value": 3.3
     },
     {
       "date": "2023-03-31",
@@ -336,7 +336,7 @@
     },
     {
       "date": "2025-06-30",
-      "value": 1.9
+      "value": 2
     },
     {
       "date": "2025-09-30",
@@ -344,7 +344,11 @@
     },
     {
       "date": "2025-12-31",
-      "value": 2.6
+      "value": 2.5
+    },
+    {
+      "date": "2026-03-31",
+      "value": 2.5
     }
   ]
 }

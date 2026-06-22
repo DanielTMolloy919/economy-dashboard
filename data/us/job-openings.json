@@ -1,13 +1,13 @@
 {
   "id": "job-openings",
   "name": "Job Openings",
-  "lastUpdated": "2026-02-01",
-  "nextExpectedUpdate": "2026-04-25",
+  "lastUpdated": "2026-04-01",
+  "nextExpectedUpdate": "2026-06-25",
   "source": "FRED",
   "unit": "k",
   "frequency": "Monthly",
-  "currentValue": 6882,
-  "previousValue": 7240,
+  "currentValue": 7618,
+  "previousValue": 6887,
   "health": "yellow",
   "series": [
     {
@@ -1024,7 +1024,15 @@
     },
     {
       "date": "2026-02-01",
-      "value": 6882
+      "value": 6922
+    },
+    {
+      "date": "2026-03-01",
+      "value": 6887
+    },
+    {
+      "date": "2026-04-01",
+      "value": 7618
     }
   ]
 }

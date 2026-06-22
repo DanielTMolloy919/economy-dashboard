@@ -1,14 +1,14 @@
 {
   "id": "cpi",
   "name": "Inflation (CPI)",
-  "lastUpdated": "2026-02-01",
-  "nextExpectedUpdate": "2026-05-05",
+  "lastUpdated": "2026-04-01",
+  "nextExpectedUpdate": "2026-07-05",
   "source": "ABS",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 3.7,
-  "previousValue": 3.8,
-  "health": "yellow",
+  "currentValue": 4.2,
+  "previousValue": 4.1,
+  "health": "red",
   "series": [
     {
       "date": "2010-03-31",
@@ -267,12 +267,12 @@
       "value": 3.6
     },
     {
-      "date": "2026-01-01",
-      "value": 3.8
+      "date": "2026-03-31",
+      "value": 4.1
     },
     {
-      "date": "2026-02-01",
-      "value": 3.7
+      "date": "2026-04-01",
+      "value": 4.2
     }
   ]
 }

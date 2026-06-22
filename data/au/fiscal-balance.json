@@ -1,13 +1,13 @@
 {
   "id": "fiscal-balance",
   "name": "Fiscal Balance",
-  "lastUpdated": "2025-12-01",
-  "nextExpectedUpdate": "2026-05-19",
+  "lastUpdated": "2026-03-01",
+  "nextExpectedUpdate": "2026-08-18",
   "source": "ABS",
   "unit": "A$B",
   "frequency": "Quarterly",
   "currentValue": -0.4,
-  "previousValue": -33.8,
+  "previousValue": -1.8,
   "health": "yellow",
   "series": [
     {
@@ -79,10 +79,6 @@
       "value": -15
     },
     {
-      "date": "2022-12-01",
-      "value": 12
-    },
-    {
       "date": "2023-03-01",
       "value": 6.4
     },
@@ -112,22 +108,26 @@
     },
     {
       "date": "2024-12-01",
-      "value": -2.9
+      "value": -2.8
     },
     {
       "date": "2025-03-01",
-      "value": -0.6
+      "value": -1.3
     },
     {
       "date": "2025-06-01",
-      "value": 4
+      "value": 2.6
     },
     {
       "date": "2025-09-01",
-      "value": -33.8
+      "value": -34.6
     },
     {
       "date": "2025-12-01",
+      "value": -1.8
+    },
+    {
+      "date": "2026-03-01",
       "value": -0.4
     }
   ]
