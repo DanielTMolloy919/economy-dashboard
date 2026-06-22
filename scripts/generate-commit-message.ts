@@ -61,108 +61,110 @@ function describe(change: Change): string {
         id === "fed-funds-rate" ? "rates" :
         id === "bank-rate" ? "the Bank Rate" :
         "the cash rate";
-      return `${bank} ${action} ${rateName} to ${pct(to)}`;
+      return `${bank} ${action} ${rateName} from ${pct(from)} to ${pct(to)}`;
     }
 
     case "cpi":
       return dir === "up"
-        ? `Inflation ticked up to ${pct(to)}`
-        : `Inflation eased to ${pct(to)}`;
+        ? `Inflation ticked up from ${pct(from)} to ${pct(to)}`
+        : `Inflation eased from ${pct(from)} to ${pct(to)}`;
 
     case "unemployment":
       return dir === "up"
-        ? `Unemployment rose to ${pct(to)}`
-        : `Unemployment fell to ${pct(to)}`;
+        ? `Unemployment rose from ${pct(from)} to ${pct(to)}`
+        : `Unemployment fell from ${pct(from)} to ${pct(to)}`;
     case "underemployment":
       return dir === "up"
-        ? `Underemployment ticked up to ${pct(to)}`
-        : `Underemployment eased to ${pct(to)}`;
+        ? `Underemployment ticked up from ${pct(from)} to ${pct(to)}`
+        : `Underemployment eased from ${pct(from)} to ${pct(to)}`;
     case "economic-inactivity":
       return dir === "up"
-        ? `Economic inactivity rose to ${pct(to)}`
-        : `Economic inactivity fell to ${pct(to)}`;
+        ? `Economic inactivity rose from ${pct(from)} to ${pct(to)}`
+        : `Economic inactivity fell from ${pct(from)} to ${pct(to)}`;
     case "job-vacancies":
-      return dir === "up" ? `Job vacancies rose to ${to}k` : `Job vacancies fell to ${to}k`;
+      return dir === "up" ? `Job vacancies rose from ${from}k to ${to}k` : `Job vacancies fell from ${from}k to ${to}k`;
     case "job-openings":
-      return dir === "up" ? `Job openings rose to ${to}k` : `Job openings fell to ${to}k`;
+      return dir === "up" ? `Job openings rose from ${from}k to ${to}k` : `Job openings fell from ${from}k to ${to}k`;
 
     case "wages":
       return dir === "up"
-        ? `Wages growth picked up to ${pct(to)}`
-        : `Wages growth slowed to ${pct(to)}`;
+        ? `Wages growth picked up from ${pct(from)} to ${pct(to)}`
+        : `Wages growth slowed from ${pct(from)} to ${pct(to)}`;
     case "real-wages":
       if (to < 0) {
         return dir === "down"
-          ? `Real wages fell further to ${pct(to)}`
-          : `Real wages improved to ${pct(to)} but remain negative`;
+          ? `Real wages fell further from ${pct(from)} to ${pct(to)}`
+          : `Real wages improved from ${pct(from)} to ${pct(to)} but remain negative`;
       }
       return dir === "up"
-        ? `Real wages grew to ${pct(to)}`
-        : `Real wages slipped to ${pct(to)}`;
+        ? `Real wages grew from ${pct(from)} to ${pct(to)}`
+        : `Real wages slipped from ${pct(from)} to ${pct(to)}`;
 
     case "gdp":
       return dir === "up"
-        ? `GDP growth picked up to ${pct(to)}`
-        : `GDP growth slowed to ${pct(to)}`;
+        ? `GDP growth picked up from ${pct(from)} to ${pct(to)}`
+        : `GDP growth slowed from ${pct(from)} to ${pct(to)}`;
     case "gdp-per-capita":
       return dir === "up"
-        ? `GDP per capita edged up to ${to}`
-        : `GDP per capita dipped to ${to}`;
+        ? `GDP per capita edged up from ${from} to ${to}`
+        : `GDP per capita dipped from ${from} to ${to}`;
 
     case "household-spending":
       return dir === "up"
-        ? `Household spending accelerated to ${pct(to)}`
-        : `Household spending cooled to ${pct(to)}`;
+        ? `Household spending accelerated from ${pct(from)} to ${pct(to)}`
+        : `Household spending cooled from ${pct(from)} to ${pct(to)}`;
     case "personal-consumption":
       return dir === "up"
-        ? `Personal consumption grew to ${pct(to)}`
-        : `Personal consumption slowed to ${pct(to)}`;
+        ? `Personal consumption grew from ${pct(from)} to ${pct(to)}`
+        : `Personal consumption slowed from ${pct(from)} to ${pct(to)}`;
     case "retail-sales":
     case "retail-trade": {
       const noun = id === "retail-trade" ? "trade" : "sales";
-      return dir === "up" ? `Retail ${noun} rose to ${pct(to)}` : `Retail ${noun} fell to ${pct(to)}`;
+      return dir === "up"
+        ? `Retail ${noun} rose from ${pct(from)} to ${pct(to)}`
+        : `Retail ${noun} fell from ${pct(from)} to ${pct(to)}`;
     }
 
     case "productivity":
       return dir === "up"
-        ? `Labour productivity improved to ${to}`
-        : `Labour productivity declined to ${to}`;
+        ? `Labour productivity improved from ${from} to ${to}`
+        : `Labour productivity declined from ${from} to ${to}`;
 
     case "fiscal-balance":
-      return `Fiscal balance ${to > from ? "improved" : "worsened"} to ${fmtCurrency(to, unit)}`;
+      return `Fiscal balance ${to > from ? "improved" : "worsened"} from ${fmtCurrency(from, unit)} to ${fmtCurrency(to, unit)}`;
 
     case "trade": {
       const wasNeg = from < 0;
       const nowPos = to > 0;
-      if (wasNeg && nowPos) return `Trade flipped to a ${fmtCurrency(to, unit)} surplus`;
-      if (!wasNeg && to < 0) return `Trade flipped to a ${fmtCurrency(Math.abs(to), unit)} deficit`;
+      if (wasNeg && nowPos) return `Trade flipped from a ${fmtCurrency(Math.abs(from), unit)} deficit to a ${fmtCurrency(to, unit)} surplus`;
+      if (!wasNeg && to < 0) return `Trade flipped from a ${fmtCurrency(from, unit)} surplus to a ${fmtCurrency(Math.abs(to), unit)} deficit`;
       return dir === "up"
-        ? `Trade balance improved to ${fmtCurrency(to, unit)}`
-        : `Trade balance worsened to ${fmtCurrency(to, unit)}`;
+        ? `Trade balance improved from ${fmtCurrency(from, unit)} to ${fmtCurrency(to, unit)}`
+        : `Trade balance worsened from ${fmtCurrency(from, unit)} to ${fmtCurrency(to, unit)}`;
     }
 
     case "aud-usd":
-      return dir === "up" ? `AUD strengthened to ${to} against USD` : `AUD weakened to ${to} against USD`;
+      return dir === "up" ? `AUD strengthened from ${from} to ${to} against USD` : `AUD weakened from ${from} to ${to} against USD`;
     case "nzd-usd":
-      return dir === "up" ? `NZD strengthened to ${to} against USD` : `NZD weakened to ${to} against USD`;
+      return dir === "up" ? `NZD strengthened from ${from} to ${to} against USD` : `NZD weakened from ${from} to ${to} against USD`;
     case "gbp-usd":
-      return dir === "up" ? `GBP strengthened to ${to} against USD` : `GBP weakened to ${to} against USD`;
+      return dir === "up" ? `GBP strengthened from ${from} to ${to} against USD` : `GBP weakened from ${from} to ${to} against USD`;
     case "cad-usd":
-      return dir === "up" ? `CAD strengthened to ${to} against USD` : `CAD weakened to ${to} against USD`;
+      return dir === "up" ? `CAD strengthened from ${from} to ${to} against USD` : `CAD weakened from ${from} to ${to} against USD`;
     case "usd-index":
-      return dir === "up" ? `USD strengthened (index: ${to})` : `USD weakened (index: ${to})`;
+      return dir === "up" ? `USD strengthened from ${from} to ${to} (index)` : `USD weakened from ${from} to ${to} (index)`;
 
     case "building-approvals":
-      return dir === "up" ? `Building approvals rose to ${pct(to)}` : `Building approvals fell to ${pct(to)}`;
+      return dir === "up" ? `Building approvals rose from ${pct(from)} to ${pct(to)}` : `Building approvals fell from ${pct(from)} to ${pct(to)}`;
     case "dwelling-completions":
-      return dir === "up" ? `Dwelling completions rose to ${to}k` : `Dwelling completions fell to ${to}k`;
+      return dir === "up" ? `Dwelling completions rose from ${from}k to ${to}k` : `Dwelling completions fell from ${from}k to ${to}k`;
     case "building-permits":
-      return dir === "up" ? `Building permits rose to ${to}k` : `Building permits fell to ${to}k`;
+      return dir === "up" ? `Building permits rose from ${from}k to ${to}k` : `Building permits fell from ${from}k to ${to}k`;
     case "housing-starts":
-      return dir === "up" ? `Housing starts rose to ${to}k` : `Housing starts fell to ${to}k`;
+      return dir === "up" ? `Housing starts rose from ${from}k to ${to}k` : `Housing starts fell from ${from}k to ${to}k`;
 
     default:
-      return dir === "up" ? `${id} rose to ${to}${unit}` : `${id} fell to ${to}${unit}`;
+      return dir === "up" ? `${id} rose from ${to}${unit} to ${to}${unit}` : `${id} fell from ${from}${unit} to ${to}${unit}`;
   }
 }
 
