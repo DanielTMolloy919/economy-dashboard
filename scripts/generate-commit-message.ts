@@ -171,7 +171,7 @@ function describe(change: Change): string {
 function parseCurrentValue(block: string, sign: "+" | "-"): number | null {
   const regex = new RegExp(`^\\${sign}\\s*"currentValue":\\s*([\\d.eE+\\-]+)`, "m");
   const match = block.match(regex);
-  return match ? parseFloat(match[1]) : null;
+  return match?.[1] !== undefined ? parseFloat(match[1]) : null;
 }
 
 function main() {
@@ -189,8 +189,8 @@ function main() {
     const fileMatch = block.match(/^a\/data\/(\w+)\/(.+?)\.json\s/);
     if (!fileMatch) continue;
 
-    const country = fileMatch[1];
-    const id = fileMatch[2];
+    const country = fileMatch[1]!;
+    const id = fileMatch[2]!;
     if (!COUNTRY_NAMES[country]) continue;
 
     const oldValue = parseCurrentValue(block, "-");
@@ -219,8 +219,8 @@ function main() {
   const lines: string[] = [`chore: update economic data [skip ci]`, ``, `Data refresh — ${today}`];
 
   for (const country of countries) {
-    lines.push(``, COUNTRY_NAMES[country]);
-    for (const change of changesByCountry[country]) {
+    lines.push(``, COUNTRY_NAMES[country]!);
+    for (const change of changesByCountry[country]!) {
       lines.push(`- ${describe(change)}`);
     }
   }
