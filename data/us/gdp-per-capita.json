@@ -6,7 +6,7 @@
   "source": "FRED",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 70502,
+  "currentValue": 70583,
   "previousValue": 70249,
   "health": "yellow",
   "series": [
@@ -364,7 +364,7 @@
     },
     {
       "date": "2026-01-01",
-      "value": 70502
+      "value": 70583
     }
   ]
 }

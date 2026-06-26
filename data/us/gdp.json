@@ -6,9 +6,9 @@
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 1.6,
+  "currentValue": 2.1,
   "previousValue": 0.5,
-  "health": "yellow",
+  "health": "green",
   "series": [
     {
       "date": "2005-01-01",
@@ -348,7 +348,7 @@
     },
     {
       "date": "2026-01-01",
-      "value": 1.6
+      "value": 2.1
     }
   ]
 }

@@ -6,7 +6,7 @@
   "source": "FRED",
   "unit": "k",
   "frequency": "Monthly",
-  "currentValue": 1413,
+  "currentValue": 1410,
   "previousValue": 1423,
   "health": "green",
   "series": [
@@ -1036,7 +1036,7 @@
     },
     {
       "date": "2026-05-01",
-      "value": 1413
+      "value": 1410
     }
   ]
 }
