@@ -1,13 +1,13 @@
 {
   "id": "trade",
   "name": "Trade Balance",
-  "lastUpdated": "2026-04-01",
-  "nextExpectedUpdate": "2026-06-25",
+  "lastUpdated": "2026-05-01",
+  "nextExpectedUpdate": "2026-07-25",
   "source": "FRED",
   "unit": "$B",
   "frequency": "Monthly",
-  "currentValue": -55.9,
-  "previousValue": -56.6,
+  "currentValue": -77.6,
+  "previousValue": -54.6,
   "health": "yellow",
   "series": [
     {
@@ -1032,7 +1032,11 @@
     },
     {
       "date": "2026-04-01",
-      "value": -55.9
+      "value": -54.6
+    },
+    {
+      "date": "2026-05-01",
+      "value": -77.6
     }
   ]
 }

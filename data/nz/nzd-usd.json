@@ -1,13 +1,13 @@
 {
   "id": "nzd-usd",
   "name": "NZD/USD",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-07-01",
   "nextExpectedUpdate": null,
   "source": "FRED",
   "unit": "USD",
   "frequency": "Monthly",
-  "currentValue": 0.5651,
-  "previousValue": 0.5992,
+  "currentValue": 0.5707,
+  "previousValue": 0.5676,
   "health": "yellow",
   "series": [
     {
@@ -800,7 +800,11 @@
     },
     {
       "date": "2026-06-01",
-      "value": 0.5651
+      "value": 0.5676
+    },
+    {
+      "date": "2026-07-01",
+      "value": 0.5707
     }
   ]
 }
