@@ -1,13 +1,13 @@
 {
   "id": "policy-rate",
   "name": "Policy Rate",
-  "lastUpdated": "2026-05-01",
+  "lastUpdated": "2026-06-01",
   "nextExpectedUpdate": null,
   "source": "FRED",
   "unit": "%",
   "frequency": "Monthly",
-  "currentValue": 2.29,
-  "previousValue": 2.27,
+  "currentValue": 2.27,
+  "previousValue": 2.29,
   "health": "green",
   "series": [
     {
@@ -797,6 +797,10 @@
     {
       "date": "2026-05-01",
       "value": 2.29
+    },
+    {
+      "date": "2026-06-01",
+      "value": 2.27
     }
   ]
 }
