@@ -1,8 +1,8 @@
 {
   "id": "real-wages",
   "name": "Real Wage Growth",
-  "lastUpdated": "2026-05-01",
-  "nextExpectedUpdate": "2026-08-04",
+  "lastUpdated": "2026-06-30",
+  "nextExpectedUpdate": "2026-08-18",
   "source": "ABS",
   "unit": "% YoY",
   "frequency": "Quarterly",
