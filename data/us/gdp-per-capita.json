@@ -1,13 +1,13 @@
 {
   "id": "gdp-per-capita",
   "name": "GDP per Capita",
-  "lastUpdated": "2026-01-01",
-  "nextExpectedUpdate": "2026-05-30",
+  "lastUpdated": "2026-04-01",
+  "nextExpectedUpdate": "2026-08-30",
   "source": "FRED",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 70583,
-  "previousValue": 70249,
+  "currentValue": 70812,
+  "previousValue": 70583,
   "health": "yellow",
   "series": [
     {
@@ -365,6 +365,10 @@
     {
       "date": "2026-01-01",
       "value": 70583
+    },
+    {
+      "date": "2026-04-01",
+      "value": 70812
     }
   ]
 }

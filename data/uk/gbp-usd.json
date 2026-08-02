@@ -6,7 +6,7 @@
   "source": "BoE",
   "unit": "USD",
   "frequency": "Monthly",
-  "currentValue": 1.3292,
+  "currentValue": 1.3425,
   "previousValue": 1.3273,
   "health": "green",
   "series": [
@@ -1044,7 +1044,7 @@
     },
     {
       "date": "2026-07-01",
-      "value": 1.3292
+      "value": 1.3425
     }
   ]
 }

@@ -1,13 +1,13 @@
 {
   "id": "building-approvals",
   "name": "Building Approvals",
-  "lastUpdated": "2026-05-01",
-  "nextExpectedUpdate": "2026-08-04",
+  "lastUpdated": "2026-06-01",
+  "nextExpectedUpdate": "2026-09-04",
   "source": "ABS",
   "unit": "k dwellings",
   "frequency": "Monthly",
-  "currentValue": 16.9,
-  "previousValue": 17.5,
+  "currentValue": 18.9,
+  "previousValue": 17,
   "health": "green",
   "series": [
     {
@@ -1072,19 +1072,23 @@
     },
     {
       "date": "2026-02-01",
-      "value": 19.1
+      "value": 19.2
     },
     {
       "date": "2026-03-01",
-      "value": 17.9
+      "value": 18
     },
     {
       "date": "2026-04-01",
-      "value": 17.5
+      "value": 17.6
     },
     {
       "date": "2026-05-01",
-      "value": 16.9
+      "value": 17
+    },
+    {
+      "date": "2026-06-01",
+      "value": 18.9
     }
   ]
 }
