@@ -1,13 +1,13 @@
 {
   "id": "productivity",
   "name": "Labour Productivity",
-  "lastUpdated": "2026-01-01",
-  "nextExpectedUpdate": "2026-05-30",
+  "lastUpdated": "2026-04-01",
+  "nextExpectedUpdate": "2026-08-30",
   "source": "FRED",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 119.437,
-  "previousValue": 119.35,
+  "currentValue": 120.017,
+  "previousValue": 119.594,
   "health": "yellow",
   "series": [
     {
@@ -364,7 +364,11 @@
     },
     {
       "date": "2026-01-01",
-      "value": 119.437
+      "value": 119.594
+    },
+    {
+      "date": "2026-04-01",
+      "value": 120.017
     }
   ]
 }

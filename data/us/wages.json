@@ -1,14 +1,14 @@
 {
   "id": "wages",
   "name": "Wage Growth",
-  "lastUpdated": "2026-06-01",
-  "nextExpectedUpdate": "2026-08-25",
+  "lastUpdated": "2026-07-01",
+  "nextExpectedUpdate": "2026-09-25",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 3.5,
+  "currentValue": 3.2,
   "previousValue": 3.4,
-  "health": "green",
+  "health": "yellow",
   "series": [
     {
       "date": "2007-03-01",
@@ -932,11 +932,15 @@
     },
     {
       "date": "2026-05-01",
-      "value": 3.4
+      "value": 3.3
     },
     {
       "date": "2026-06-01",
-      "value": 3.5
+      "value": 3.4
+    },
+    {
+      "date": "2026-07-01",
+      "value": 3.2
     }
   ]
 }

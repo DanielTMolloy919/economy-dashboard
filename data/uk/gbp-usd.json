@@ -1,13 +1,13 @@
 {
   "id": "gbp-usd",
   "name": "GBP/USD",
-  "lastUpdated": "2026-07-01",
-  "nextExpectedUpdate": "2026-10-05",
+  "lastUpdated": "2026-08-01",
+  "nextExpectedUpdate": "2026-11-04",
   "source": "BoE",
   "unit": "USD",
   "frequency": "Monthly",
-  "currentValue": 1.3425,
-  "previousValue": 1.3273,
+  "currentValue": 1.3466,
+  "previousValue": 1.3457,
   "health": "green",
   "series": [
     {
@@ -1044,7 +1044,11 @@
     },
     {
       "date": "2026-07-01",
-      "value": 1.3425
+      "value": 1.3457
+    },
+    {
+      "date": "2026-08-01",
+      "value": 1.3466
     }
   ]
 }
