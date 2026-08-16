@@ -1,13 +1,13 @@
 {
   "id": "usd-index",
   "name": "USD Index",
-  "lastUpdated": "2026-07-01",
-  "nextExpectedUpdate": "2026-09-25",
+  "lastUpdated": "2026-08-01",
+  "nextExpectedUpdate": "2026-10-25",
   "source": "FRED",
   "unit": "index",
   "frequency": "Monthly",
-  "currentValue": 119.7,
-  "previousValue": 120.9,
+  "currentValue": 119.1,
+  "previousValue": 119.7,
   "health": "yellow",
   "series": [
     {
@@ -997,6 +997,10 @@
     {
       "date": "2026-07-01",
       "value": 119.7
+    },
+    {
+      "date": "2026-08-01",
+      "value": 119.1
     }
   ]
 }

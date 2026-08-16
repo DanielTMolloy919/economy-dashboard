@@ -1,13 +1,13 @@
 {
   "id": "gdp-per-capita",
   "name": "GDP per Capita",
-  "lastUpdated": "2026-01-01",
-  "nextExpectedUpdate": "2026-06-25",
+  "lastUpdated": "2026-04-01",
+  "nextExpectedUpdate": "2026-09-25",
   "source": "ONS",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 10215,
-  "previousValue": 10155,
+  "currentValue": 10234,
+  "previousValue": 10197,
   "health": "yellow",
   "series": [
     {
@@ -292,79 +292,83 @@
     },
     {
       "date": "2021-07-01",
-      "value": 9927
+      "value": 9925
     },
     {
       "date": "2021-10-01",
-      "value": 10039
+      "value": 10035
     },
     {
       "date": "2022-01-01",
-      "value": 10116
+      "value": 10111
     },
     {
       "date": "2022-04-01",
-      "value": 10147
+      "value": 10141
     },
     {
       "date": "2022-07-01",
-      "value": 10124
+      "value": 10117
     },
     {
       "date": "2022-10-01",
-      "value": 10118
+      "value": 10110
     },
     {
       "date": "2023-01-01",
-      "value": 10090
+      "value": 10082
     },
     {
       "date": "2023-04-01",
-      "value": 10062
+      "value": 10053
     },
     {
       "date": "2023-07-01",
-      "value": 10010
+      "value": 10004
     },
     {
       "date": "2023-10-01",
-      "value": 9950
+      "value": 9948
     },
     {
       "date": "2024-01-01",
-      "value": 9995
+      "value": 9996
     },
     {
       "date": "2024-04-01",
-      "value": 10029
+      "value": 10034
     },
     {
       "date": "2024-07-01",
-      "value": 10041
+      "value": 10043
     },
     {
       "date": "2024-10-01",
-      "value": 10076
+      "value": 10079
     },
     {
       "date": "2025-01-01",
-      "value": 10126
+      "value": 10128
     },
     {
       "date": "2025-04-01",
-      "value": 10132
+      "value": 10135
     },
     {
       "date": "2025-07-01",
-      "value": 10144
+      "value": 10138
     },
     {
       "date": "2025-10-01",
-      "value": 10155
+      "value": 10138
     },
     {
       "date": "2026-01-01",
-      "value": 10215
+      "value": 10197
+    },
+    {
+      "date": "2026-04-01",
+      "value": 10234
     }
   ]
 }

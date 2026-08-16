@@ -1,13 +1,13 @@
 {
   "id": "trade",
   "name": "Trade Balance",
-  "lastUpdated": "2026-05-01",
-  "nextExpectedUpdate": "2026-08-04",
+  "lastUpdated": "2026-06-01",
+  "nextExpectedUpdate": "2026-09-04",
   "source": "ONS",
   "unit": "£B",
   "frequency": "Monthly",
-  "currentValue": -18.7,
-  "previousValue": -24.6,
+  "currentValue": -23,
+  "previousValue": -21.1,
   "health": "red",
   "series": [
     {
@@ -1032,11 +1032,15 @@
     },
     {
       "date": "2026-04-01",
-      "value": -24.6
+      "value": -25.2
     },
     {
       "date": "2026-05-01",
-      "value": -18.7
+      "value": -21.1
+    },
+    {
+      "date": "2026-06-01",
+      "value": -23
     }
   ]
 }
