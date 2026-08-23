@@ -1,13 +1,13 @@
 {
   "id": "economic-inactivity",
   "name": "Economic Inactivity",
-  "lastUpdated": "2026-04-01",
-  "nextExpectedUpdate": "2026-07-05",
+  "lastUpdated": "2026-05-01",
+  "nextExpectedUpdate": "2026-08-04",
   "source": "ONS",
   "unit": "%",
   "frequency": "Monthly",
   "currentValue": 20.9,
-  "previousValue": 21,
+  "previousValue": 20.9,
   "health": "green",
   "series": [
     {
@@ -1032,6 +1032,10 @@
     },
     {
       "date": "2026-04-01",
+      "value": 20.9
+    },
+    {
+      "date": "2026-05-01",
       "value": 20.9
     }
   ]

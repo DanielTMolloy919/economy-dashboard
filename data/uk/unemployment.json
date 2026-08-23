@@ -1,8 +1,8 @@
 {
   "id": "unemployment",
   "name": "Unemployment",
-  "lastUpdated": "2026-04-01",
-  "nextExpectedUpdate": "2026-07-05",
+  "lastUpdated": "2026-05-01",
+  "nextExpectedUpdate": "2026-08-04",
   "source": "ONS",
   "unit": "%",
   "frequency": "Monthly",
@@ -1032,6 +1032,10 @@
     },
     {
       "date": "2026-04-01",
+      "value": 4.9
+    },
+    {
+      "date": "2026-05-01",
       "value": 4.9
     }
   ]

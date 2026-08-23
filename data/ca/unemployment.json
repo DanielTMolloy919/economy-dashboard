@@ -1,13 +1,13 @@
 {
   "id": "unemployment",
   "name": "Unemployment",
-  "lastUpdated": "2026-06-01",
-  "nextExpectedUpdate": "2026-08-25",
+  "lastUpdated": "2026-07-01",
+  "nextExpectedUpdate": "2026-09-25",
   "source": "FRED",
   "unit": "%",
   "frequency": "Monthly",
-  "currentValue": 6.5,
-  "previousValue": 6.6,
+  "currentValue": 6.4,
+  "previousValue": 6.5,
   "health": "yellow",
   "series": [
     {
@@ -1041,6 +1041,10 @@
     {
       "date": "2026-06-01",
       "value": 6.5
+    },
+    {
+      "date": "2026-07-01",
+      "value": 6.4
     }
   ]
 }

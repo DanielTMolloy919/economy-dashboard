@@ -1,13 +1,13 @@
 {
   "id": "cpi",
   "name": "Inflation (CPI)",
-  "lastUpdated": "2026-06-01",
-  "nextExpectedUpdate": "2026-09-04",
+  "lastUpdated": "2026-07-01",
+  "nextExpectedUpdate": "2026-10-05",
   "source": "ONS",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 2.6,
-  "previousValue": 2.8,
+  "currentValue": 2.9,
+  "previousValue": 2.6,
   "health": "yellow",
   "series": [
     {
@@ -1041,6 +1041,10 @@
     {
       "date": "2026-06-01",
       "value": 2.6
+    },
+    {
+      "date": "2026-07-01",
+      "value": 2.9
     }
   ]
 }
