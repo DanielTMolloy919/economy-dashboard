@@ -1,13 +1,13 @@
 {
   "id": "personal-consumption",
   "name": "Personal Consumption",
-  "lastUpdated": "2026-06-01",
-  "nextExpectedUpdate": "2026-08-25",
+  "lastUpdated": "2026-07-01",
+  "nextExpectedUpdate": "2026-09-25",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 2.5,
-  "previousValue": 2.4,
+  "currentValue": 2.1,
+  "previousValue": 2.6,
   "health": "green",
   "series": [
     {
@@ -896,7 +896,11 @@
     },
     {
       "date": "2026-06-01",
-      "value": 2.5
+      "value": 2.6
+    },
+    {
+      "date": "2026-07-01",
+      "value": 2.1
     }
   ]
 }
