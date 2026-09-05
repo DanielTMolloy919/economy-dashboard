@@ -1,13 +1,13 @@
 {
   "id": "wages",
   "name": "Wage Growth",
-  "lastUpdated": "2026-07-01",
-  "nextExpectedUpdate": "2026-09-25",
+  "lastUpdated": "2026-08-01",
+  "nextExpectedUpdate": "2026-10-25",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 3.2,
-  "previousValue": 3.4,
+  "currentValue": 3.1,
+  "previousValue": 3.2,
   "health": "yellow",
   "series": [
     {
@@ -941,6 +941,10 @@
     {
       "date": "2026-07-01",
       "value": 3.2
+    },
+    {
+      "date": "2026-08-01",
+      "value": 3.1
     }
   ]
 }

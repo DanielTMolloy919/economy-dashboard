@@ -1,13 +1,13 @@
 {
   "id": "aud-usd",
   "name": "AUD/USD",
-  "lastUpdated": "2026-07-01",
-  "nextExpectedUpdate": "2026-10-05",
+  "lastUpdated": "2026-08-01",
+  "nextExpectedUpdate": "2026-11-04",
   "source": "RBA",
   "unit": "USD",
   "frequency": "Monthly",
-  "currentValue": 0.703,
-  "previousValue": 0.6869,
+  "currentValue": 0.7166,
+  "previousValue": 0.703,
   "health": "green",
   "series": [
     {
@@ -805,6 +805,10 @@
     {
       "date": "2026-07-01",
       "value": 0.703
+    },
+    {
+      "date": "2026-08-01",
+      "value": 0.7166
     }
   ]
 }
