@@ -1,14 +1,14 @@
 {
   "id": "cad-usd",
   "name": "CAD/USD",
-  "lastUpdated": "2026-08-01",
+  "lastUpdated": "2026-09-01",
   "nextExpectedUpdate": null,
   "source": "FRED",
   "unit": "USD",
   "frequency": "Monthly",
-  "currentValue": 0.7197,
-  "previousValue": 0.7129,
-  "health": "yellow",
+  "currentValue": 0.7229,
+  "previousValue": 0.7214,
+  "health": "green",
   "series": [
     {
       "date": "2010-01-01",
@@ -808,7 +808,11 @@
     },
     {
       "date": "2026-08-01",
-      "value": 0.7197
+      "value": 0.7214
+    },
+    {
+      "date": "2026-09-01",
+      "value": 0.7229
     }
   ]
 }
