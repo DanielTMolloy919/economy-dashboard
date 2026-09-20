@@ -1,13 +1,13 @@
 {
   "id": "housing-starts",
   "name": "Housing Starts",
-  "lastUpdated": "2026-07-01",
-  "nextExpectedUpdate": "2026-09-25",
+  "lastUpdated": "2026-08-01",
+  "nextExpectedUpdate": "2026-10-25",
   "source": "FRED",
   "unit": "k",
   "frequency": "Monthly",
-  "currentValue": 1239,
-  "previousValue": 1415,
+  "currentValue": 1275,
+  "previousValue": 1309,
   "health": "yellow",
   "series": [
     {
@@ -1040,11 +1040,15 @@
     },
     {
       "date": "2026-06-01",
-      "value": 1415
+      "value": 1439
     },
     {
       "date": "2026-07-01",
-      "value": 1239
+      "value": 1309
+    },
+    {
+      "date": "2026-08-01",
+      "value": 1275
     }
   ]
 }

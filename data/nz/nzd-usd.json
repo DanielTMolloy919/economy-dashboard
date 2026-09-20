@@ -6,7 +6,7 @@
   "source": "FRED",
   "unit": "USD",
   "frequency": "Monthly",
-  "currentValue": 0.589,
+  "currentValue": 0.5817,
   "previousValue": 0.5917,
   "health": "green",
   "series": [
@@ -812,7 +812,7 @@
     },
     {
       "date": "2026-09-01",
-      "value": 0.589
+      "value": 0.5817
     }
   ]
 }

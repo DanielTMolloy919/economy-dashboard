@@ -1,13 +1,13 @@
 {
   "id": "job-vacancies",
   "name": "Job Vacancies",
-  "lastUpdated": "2026-06-01",
-  "nextExpectedUpdate": "2026-09-04",
+  "lastUpdated": "2026-07-01",
+  "nextExpectedUpdate": "2026-10-05",
   "source": "ONS",
   "unit": "k",
   "frequency": "Monthly",
-  "currentValue": 707,
-  "previousValue": 711,
+  "currentValue": 702,
+  "previousValue": 706,
   "health": "yellow",
   "series": [
     {
@@ -996,7 +996,7 @@
     },
     {
       "date": "2025-07-01",
-      "value": 737
+      "value": 738
     },
     {
       "date": "2025-08-01",
@@ -1040,7 +1040,11 @@
     },
     {
       "date": "2026-06-01",
-      "value": 707
+      "value": 706
+    },
+    {
+      "date": "2026-07-01",
+      "value": 702
     }
   ]
 }

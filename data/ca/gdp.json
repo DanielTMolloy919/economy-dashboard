@@ -6,8 +6,8 @@
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 1,
-  "previousValue": -0.1,
+  "currentValue": 1.1,
+  "previousValue": 0.1,
   "health": "yellow",
   "series": [
     {
@@ -348,11 +348,11 @@
     },
     {
       "date": "2026-01-01",
-      "value": -0.1
+      "value": 0.1
     },
     {
       "date": "2026-04-01",
-      "value": 1
+      "value": 1.1
     }
   ]
 }
