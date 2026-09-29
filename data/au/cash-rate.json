@@ -1,12 +1,12 @@
 {
   "id": "cash-rate",
   "name": "Cash Rate",
-  "lastUpdated": "2026-08-12",
-  "nextExpectedUpdate": "2026-09-29",
+  "lastUpdated": "2026-09-30",
+  "nextExpectedUpdate": "2026-11-03",
   "source": "RBA",
   "unit": "%",
   "frequency": "~8x/year",
-  "currentValue": 4.35,
+  "currentValue": 4.6,
   "previousValue": 4.35,
   "health": "yellow",
   "series": [
@@ -713,6 +713,10 @@
     {
       "date": "2026-08-12",
       "value": 4.35
+    },
+    {
+      "date": "2026-09-30",
+      "value": 4.6
     }
   ]
 }
