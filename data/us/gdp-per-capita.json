@@ -6,8 +6,8 @@
   "source": "FRED",
   "unit": "index",
   "frequency": "Quarterly",
-  "currentValue": 70809,
-  "previousValue": 70583,
+  "currentValue": 71212,
+  "previousValue": 70857,
   "health": "yellow",
   "series": [
     {
@@ -284,91 +284,91 @@
     },
     {
       "date": "2021-01-01",
-      "value": 63490
+      "value": 63563
     },
     {
       "date": "2021-04-01",
-      "value": 64539
+      "value": 64639
     },
     {
       "date": "2021-07-01",
-      "value": 64990
+      "value": 65062
     },
     {
       "date": "2021-10-01",
-      "value": 66011
+      "value": 66050
     },
     {
       "date": "2022-01-01",
-      "value": 65773
+      "value": 65812
     },
     {
       "date": "2022-04-01",
-      "value": 65777
+      "value": 65805
     },
     {
       "date": "2022-07-01",
-      "value": 66120
+      "value": 66116
     },
     {
       "date": "2022-10-01",
-      "value": 66433
+      "value": 66416
     },
     {
       "date": "2023-01-01",
-      "value": 66789
+      "value": 66841
     },
     {
       "date": "2023-04-01",
-      "value": 67077
+      "value": 67068
     },
     {
       "date": "2023-07-01",
-      "value": 67689
+      "value": 67652
     },
     {
       "date": "2023-10-01",
-      "value": 68089
+      "value": 68088
     },
     {
       "date": "2024-01-01",
-      "value": 68082
+      "value": 68182
     },
     {
       "date": "2024-04-01",
-      "value": 68524
+      "value": 68623
     },
     {
       "date": "2024-07-01",
-      "value": 68951
+      "value": 69019
     },
     {
       "date": "2024-10-01",
-      "value": 69168
+      "value": 69330
     },
     {
       "date": "2025-01-01",
-      "value": 68979
+      "value": 69278
     },
     {
       "date": "2025-04-01",
-      "value": 69549
+      "value": 69881
     },
     {
       "date": "2025-07-01",
-      "value": 70218
+      "value": 70469
     },
     {
       "date": "2025-10-01",
-      "value": 70249
+      "value": 70453
     },
     {
       "date": "2026-01-01",
-      "value": 70583
+      "value": 70857
     },
     {
       "date": "2026-04-01",
-      "value": 70809
+      "value": 71212
     }
   ]
 }
