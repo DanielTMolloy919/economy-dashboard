@@ -1,14 +1,14 @@
 {
   "id": "cash-rate",
   "name": "Official Cash Rate",
-  "lastUpdated": "2026-08-01",
+  "lastUpdated": "2026-09-01",
   "nextExpectedUpdate": null,
   "source": "FRED",
   "unit": "%",
   "frequency": "Monthly",
-  "currentValue": 2.98,
-  "previousValue": 2.85,
-  "health": "green",
+  "currentValue": 3.13,
+  "previousValue": 2.98,
+  "health": "yellow",
   "series": [
     {
       "date": "2010-01-01",
@@ -809,6 +809,10 @@
     {
       "date": "2026-08-01",
       "value": 2.98
+    },
+    {
+      "date": "2026-09-01",
+      "value": 3.13
     }
   ]
 }

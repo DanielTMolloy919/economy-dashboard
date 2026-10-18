@@ -1,13 +1,13 @@
 {
   "id": "trade",
   "name": "Trade Balance",
-  "lastUpdated": "2026-06-01",
-  "nextExpectedUpdate": "2026-08-25",
+  "lastUpdated": "2026-08-01",
+  "nextExpectedUpdate": "2026-10-25",
   "source": "FRED",
   "unit": "C$B",
   "frequency": "Monthly",
-  "currentValue": 6,
-  "previousValue": 3.5,
+  "currentValue": 5.6,
+  "previousValue": 1.2,
   "health": "green",
   "series": [
     {
@@ -1020,27 +1020,35 @@
     },
     {
       "date": "2026-01-01",
-      "value": -4.1
+      "value": -4.3
     },
     {
       "date": "2026-02-01",
-      "value": -3.8
+      "value": -4
     },
     {
       "date": "2026-03-01",
-      "value": 0.3
+      "value": -0.1
     },
     {
       "date": "2026-04-01",
-      "value": 3.3
+      "value": 2.7
     },
     {
       "date": "2026-05-01",
-      "value": 3.5
+      "value": 3.2
     },
     {
       "date": "2026-06-01",
-      "value": 6
+      "value": 4.9
+    },
+    {
+      "date": "2026-07-01",
+      "value": 1.2
+    },
+    {
+      "date": "2026-08-01",
+      "value": 5.6
     }
   ]
 }

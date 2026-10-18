@@ -2,12 +2,12 @@
   "id": "real-wages",
   "name": "Real Wage Growth",
   "lastUpdated": "2026-09-01",
-  "nextExpectedUpdate": "2026-10-25",
+  "nextExpectedUpdate": "2026-11-25",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": -0.6,
-  "previousValue": -0.3,
+  "currentValue": -1,
+  "previousValue": -0.6,
   "health": "red",
   "series": [
     {
@@ -941,6 +941,10 @@
     {
       "date": "2026-08-01",
       "value": -0.6
+    },
+    {
+      "date": "2026-09-01",
+      "value": -1
     }
   ]
 }
