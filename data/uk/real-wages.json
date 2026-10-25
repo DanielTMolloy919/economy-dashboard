@@ -1,13 +1,13 @@
 {
   "id": "real-wages",
   "name": "Real Wage Growth",
-  "lastUpdated": "2026-08-01",
-  "nextExpectedUpdate": "2026-10-05",
+  "lastUpdated": "2026-09-01",
+  "nextExpectedUpdate": "2026-11-04",
   "source": "ONS",
   "unit": "% YoY",
   "frequency": "Monthly",
-  "currentValue": 1,
-  "previousValue": 1.6,
+  "currentValue": 0.6,
+  "previousValue": 1,
   "health": "green",
   "series": [
     {
@@ -996,7 +996,7 @@
     },
     {
       "date": "2025-07-01",
-      "value": 1.1
+      "value": 1
     },
     {
       "date": "2025-08-01",
@@ -1045,6 +1045,10 @@
     {
       "date": "2026-07-01",
       "value": 1
+    },
+    {
+      "date": "2026-08-01",
+      "value": 0.6
     }
   ]
 }
