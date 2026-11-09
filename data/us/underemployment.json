@@ -1,13 +1,13 @@
 {
   "id": "underemployment",
   "name": "Underemployment (U-6)",
-  "lastUpdated": "2026-09-01",
-  "nextExpectedUpdate": "2026-11-25",
+  "lastUpdated": "2026-10-01",
+  "nextExpectedUpdate": "2026-12-25",
   "source": "FRED",
   "unit": "%",
   "frequency": "Monthly",
-  "currentValue": 7.6,
-  "previousValue": 7.7,
+  "currentValue": 7.9,
+  "previousValue": 7.6,
   "health": "green",
   "series": [
     {
@@ -1049,6 +1049,10 @@
     {
       "date": "2026-09-01",
       "value": 7.6
+    },
+    {
+      "date": "2026-10-01",
+      "value": 7.9
     }
   ]
 }

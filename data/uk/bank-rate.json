@@ -1,13 +1,13 @@
 {
   "id": "bank-rate",
   "name": "Bank Rate",
-  "lastUpdated": "2025-12-18",
-  "nextExpectedUpdate": "2026-02-02",
+  "lastUpdated": "2026-11-05",
+  "nextExpectedUpdate": "2026-12-21",
   "source": "BoE",
   "unit": "%",
   "frequency": "~8x/year",
-  "currentValue": 3.75,
-  "previousValue": 4,
+  "currentValue": 4,
+  "previousValue": 3.75,
   "health": "yellow",
   "series": [
     {
@@ -109,6 +109,10 @@
     {
       "date": "2025-12-18",
       "value": 3.75
+    },
+    {
+      "date": "2026-11-05",
+      "value": 4
     }
   ]
 }
