@@ -1,14 +1,14 @@
 {
   "id": "real-wages",
   "name": "Real Wage Growth",
-  "lastUpdated": "2026-04-01",
-  "nextExpectedUpdate": "2025-05-25",
+  "lastUpdated": "2026-09-01",
+  "nextExpectedUpdate": "2026-08-30",
   "source": "FRED",
   "unit": "% YoY",
   "frequency": "Quarterly",
-  "currentValue": 0.7,
-  "previousValue": 7.5,
-  "health": "green",
+  "currentValue": -3.6,
+  "previousValue": -0.1,
+  "health": "red",
   "series": [
     {
       "date": "2009-01-01",
@@ -269,6 +269,26 @@
     {
       "date": "2025-01-01",
       "value": 0.7
+    },
+    {
+      "date": "2025-04-01",
+      "value": 2.9
+    },
+    {
+      "date": "2025-07-01",
+      "value": 1.9
+    },
+    {
+      "date": "2025-10-01",
+      "value": -3.5
+    },
+    {
+      "date": "2026-01-01",
+      "value": -0.1
+    },
+    {
+      "date": "2026-04-01",
+      "value": -3.6
     }
   ]
 }

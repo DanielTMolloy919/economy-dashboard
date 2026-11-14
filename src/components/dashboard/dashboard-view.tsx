@@ -62,7 +62,10 @@ export function DashboardView({
   }
 
   const config = countries[country];
-  const metricDefs = getMetricDefinitions(country);
+  // Only metrics with data are returned by the server; drop the rest so their
+  // section headings don't render empty.
+  const availableIds = new Set(metrics.map((m) => m.id));
+  const metricDefs = getMetricDefinitions(country).filter((d) => availableIds.has(d.id));
   const heroMetricIds = getHeroMetricIds(country);
   const thresholds = getHealthThresholds(country);
   const metricInfoMap = getMetricInfo(country);

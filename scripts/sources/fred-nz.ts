@@ -5,28 +5,6 @@ import { fetchFredSeries, round1 } from "./fred-api";
 
 const nzThresholds = getHealthThresholds("nz");
 
-// --- GDP per Capita (quarterly index, YoY computed at runtime in data.ts) ---
-export async function fetchNzGdpPerCapita(): Promise<MetricData> {
-  // NZLRGDPPCMEI: Real GDP per capita, chain volume index, quarterly SA (OECD MEI)
-  const series = await fetchFredSeries("NZLRGDPPCMEI", "2004-01-01");
-  const currentValue = series.at(-1)!.value;
-  const previousValue = series.at(-2)!.value;
-  const lastUpdated = series.at(-1)!.date;
-  return {
-    id: "gdp-per-capita",
-    name: "GDP per Capita",
-    lastUpdated,
-    nextExpectedUpdate: nextFredUpdate(lastUpdated, "quarterly"),
-    source: "FRED",
-    unit: "index",
-    frequency: "Quarterly",
-    currentValue,
-    previousValue,
-    health: "yellow", // recomputed at runtime after YoY transform
-    series,
-  };
-}
-
 // --- GDP Growth (quarterly, already % YoY from FRED) ---
 export async function fetchNzGdp(): Promise<MetricData> {
   // NZLGDPRQPSMEI: GDP growth rate, same period previous year, quarterly
@@ -46,29 +24,6 @@ export async function fetchNzGdp(): Promise<MetricData> {
     currentValue,
     previousValue,
     health: getHealthStatus(nzThresholds, "gdp", currentValue),
-    series: rounded,
-  };
-}
-
-// --- CPI (quarterly, already % YoY from FRED) ---
-export async function fetchNzCpi(): Promise<MetricData> {
-  // NZLCPALTT01CTGYQ: CPI All Items YoY % change, quarterly
-  const series = await fetchFredSeries("NZLCPALTT01CTGYQ", "2009-01-01");
-  const rounded = series.map((p) => ({ ...p, value: round1(p.value) }));
-  const currentValue = rounded.at(-1)!.value;
-  const previousValue = rounded.at(-2)!.value;
-  const lastUpdated = rounded.at(-1)!.date;
-  return {
-    id: "cpi",
-    name: "Inflation (CPI)",
-    lastUpdated,
-    nextExpectedUpdate: nextFredUpdate(lastUpdated, "quarterly"),
-    source: "FRED",
-    unit: "% YoY",
-    frequency: "Quarterly",
-    currentValue,
-    previousValue,
-    health: getHealthStatus(nzThresholds, "cpi", currentValue),
     series: rounded,
   };
 }

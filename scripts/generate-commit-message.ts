@@ -101,6 +101,12 @@ function describe(change: Change): string {
         : `Real wages slipped from ${pct(from)} to ${pct(to)}`;
 
     case "gdp":
+      // Some countries store real GDP as a level ("index"); YoY is computed at runtime.
+      if (unit === "index") {
+        return dir === "up"
+          ? `Real GDP rose from ${from} to ${to}`
+          : `Real GDP fell from ${from} to ${to}`;
+      }
       return dir === "up"
         ? `GDP growth picked up from ${pct(from)} to ${pct(to)}`
         : `GDP growth slowed from ${pct(from)} to ${pct(to)}`;

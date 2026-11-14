@@ -7,7 +7,8 @@
  *   - FRED API key: Free at https://fred.stlouisfed.org/docs/api/api_key.html
  *
  * Sources:
- *   - FRED: gdp, cpi, unemployment, wages, trade, retail-trade, nzd-usd, cash-rate
+ *   - FRED: gdp, unemployment, wages, trade, retail-trade, nzd-usd, cash-rate
+ *   - OECD: cpi, gdp-per-capita
  *   - NZ Treasury XLSX: fiscal-balance (OBEGAL)
  *   - Derived: real-wages (wages − CPI)
  */
@@ -17,9 +18,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import {
-  fetchNzGdpPerCapita,
   fetchNzGdp,
-  fetchNzCpi,
   fetchNzUnemployment,
   fetchNzWages,
   fetchNzTrade,
@@ -27,6 +26,7 @@ import {
   fetchNzNzdUsd,
   fetchNzCashRate,
 } from "./sources/fred-nz";
+import { fetchOecdCpi, fetchOecdGdpPerCapita } from "./sources/oecd-api";
 import { fetchNzFiscalBalance } from "./sources/nz-treasury";
 import { computeRealWages } from "./sources/derived";
 
@@ -63,8 +63,8 @@ async function main() {
   await Promise.all([
     // FRED
     run("gdp", fetchNzGdp),
-    run("gdp-per-capita", fetchNzGdpPerCapita),
-    run("cpi", fetchNzCpi),
+    run("gdp-per-capita", () => fetchOecdGdpPerCapita("nz")),
+    run("cpi", () => fetchOecdCpi("nz")),
     run("unemployment", fetchNzUnemployment),
     run("wages", fetchNzWages),
     run("trade", fetchNzTrade),
