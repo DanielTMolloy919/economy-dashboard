@@ -81,7 +81,8 @@ export function MetricChart({ series, chartType, name, unit, mini = false, thres
   const gradientId = `fill-${useId().replace(/:/g, "")}`;
   const data = series.map((p) => ({ value: p.value, t: toTime(p.date) }));
   const values = data.map((d) => d.value);
-  const { domain: yDomain, ticks: yTicks } = yAxisScale(values);
+  const effectiveType: ChartType = chartType === "bar" && data.length > MAX_BARS ? "area" : chartType;
+  const { domain: yDomain, ticks: yTicks } = yAxisScale(values, { includeZero: effectiveType === "bar" });
   const [loY, hiY] = yDomain;
   const bands = !mini && threshold ? buildBands(threshold, loY, hiY) : [];
   const bandElements = bands.map((b, i) => (
@@ -96,7 +97,6 @@ export function MetricChart({ series, chartType, name, unit, mini = false, thres
     />
   ));
 
-  const effectiveType: ChartType = chartType === "bar" && data.length > MAX_BARS ? "area" : chartType;
 
   // Time-scaled x-axis so irregular dates (e.g. central-bank decision dates) and
   // gaps in the data are spaced correctly. Bars get half a period of padding on

@@ -30,13 +30,21 @@ function clean(v: number): number {
 //   always-negative balances stay <= 0).
 // - Snaps both bounds to a multiple of a "nice" step and returns explicit ticks,
 //   so every tick lands on a round number at an even interval.
-export function yAxisScale(values: number[], maxTicks = 6): YAxisScale {
+export function yAxisScale(
+  values: number[],
+  { includeZero = false, maxTicks = 6 }: { includeZero?: boolean; maxTicks?: number } = {},
+): YAxisScale {
   if (values.length === 0) return { domain: [0, 1], ticks: [0, 1] };
 
   const sorted = [...values].sort((a, b) => a - b);
   const clamp = values.length >= 10;
-  const lo = clamp ? sorted[Math.floor(sorted.length * 0.02)]! : sorted[0]!;
-  const hi = clamp ? sorted[Math.floor(sorted.length * 0.98)]! : sorted.at(-1)!;
+  let lo = clamp ? sorted[Math.floor(sorted.length * 0.02)]! : sorted[0]!;
+  let hi = clamp ? sorted[Math.floor(sorted.length * 0.98)]! : sorted.at(-1)!;
+  // Bar length encodes the value, so bars must be measured from zero.
+  if (includeZero) {
+    lo = Math.min(lo, 0);
+    hi = Math.max(hi, 0);
+  }
 
   let rawLo: number;
   let rawHi: number;
