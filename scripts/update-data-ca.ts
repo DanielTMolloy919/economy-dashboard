@@ -1,5 +1,6 @@
 /**
- * Canada data update orchestrator — fetches all CA metrics from FRED and writes to /data/ca/*.json
+ * Canada data update orchestrator — fetches CA metrics from FRED (CPI and GDP per capita
+ * from the OECD) and writes to /data/ca/*.json
  *
  * Usage: FRED_API_KEY=<key> pnpm tsx scripts/update-data-ca.ts
  *
@@ -12,9 +13,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import {
-  fetchCaGdpPerCapita,
   fetchCaGdp,
-  fetchCaCpi,
   fetchCaUnemployment,
   fetchCaWages,
   fetchCaPolicyRate,
@@ -22,6 +21,7 @@ import {
   fetchCaTrade,
   fetchCaRetailSales,
 } from "./sources/fred-ca";
+import { fetchOecdCpi, fetchOecdGdpPerCapita } from "./sources/oecd-api";
 import { computeRealWages } from "./sources/derived";
 
 const DATA_DIR = join(process.cwd(), "data", "ca");
@@ -55,8 +55,8 @@ async function main() {
 
   await Promise.all([
     run("gdp", fetchCaGdp),
-    run("gdp-per-capita", fetchCaGdpPerCapita),
-    run("cpi", fetchCaCpi),
+    run("gdp-per-capita", () => fetchOecdGdpPerCapita("ca")),
+    run("cpi", () => fetchOecdCpi("ca")),
     run("unemployment", fetchCaUnemployment),
     run("wages", fetchCaWages),
     run("policy-rate", fetchCaPolicyRate),

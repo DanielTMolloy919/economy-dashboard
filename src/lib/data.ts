@@ -17,17 +17,20 @@ const runtimeTransforms: Record<string, { factor: number; unit: string }> = {
 
 // Metrics that should display as a trailing 4-quarter sum (removes fiscal seasonality).
 // US fiscal data is pre-computed as a trailing 12-month sum in the fetcher, so excluded here.
+// NZ fiscal data (Treasury OBEGAL) is annual, so it must not be summed.
 const rolling4QMetrics: Record<CountryCode, Set<string>> = {
   au: new Set(["fiscal-balance"]),
-  nz: new Set(["fiscal-balance"]),
+  nz: new Set(),
   us: new Set(),
   uk: new Set(),
   ca: new Set(),
 };
 
-// Metrics stored as index numbers that should display as YoY % change.
-// Value = number of periods per year (4 for quarterly data).
+// Metrics stored as levels (unit "index") that should display as YoY % change.
+// Value = number of periods per year (4 for quarterly data). Countries whose source
+// already publishes the YoY rate store "% YoY" and are left untouched.
 const yoyIndexMetrics: Record<string, number> = {
+  gdp: 4,
   "gdp-per-capita": 4,
   productivity: 4,
 };
@@ -73,7 +76,7 @@ function applyTransform(data: MetricData, country: CountryCode): MetricData {
   }
 
   const periodsPerYear = yoyIndexMetrics[data.id];
-  if (periodsPerYear && result.series.length > periodsPerYear) {
+  if (periodsPerYear && data.unit === "index" && result.series.length > periodsPerYear) {
     const series = toYoY(result.series, periodsPerYear);
     const currentValue = series.at(-1)!.value;
     result = {
@@ -100,14 +103,19 @@ function readMetricFile(country: CountryCode, id: string): MetricData {
   return applyTransform(JSON.parse(raw) as MetricData, country);
 }
 
+// Metrics whose source has no data yet (e.g. a discontinued series) are omitted
+// rather than shown as a blank chart with a fake 0 value.
 export function getAllMetrics(country: CountryCode): MetricData[] {
   const definitions = getMetricDefinitions(country);
-  return definitions.map((def) => readMetricFile(country, def.id));
+  return definitions
+    .map((def) => readMetricFile(country, def.id))
+    .filter((m) => m.series.length > 0);
 }
 
 export function getMetricById(country: CountryCode, id: string): MetricData | null {
   try {
-    return readMetricFile(country, id);
+    const data = readMetricFile(country, id);
+    return data.series.length > 0 ? data : null;
   } catch {
     return null;
   }

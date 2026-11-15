@@ -1,31 +1,9 @@
 import { getHealthStatus, getHealthThresholds } from "~/config/health-thresholds";
 import type { MetricData, MetricSeries } from "~/types/metrics";
 import { nextFredUpdate } from "./next-update";
-import { fetchFredSeries, toYoY, round1 } from "./fred-api";
+import { fetchFredSeries, round1 } from "./fred-api";
 
 const caThresholds = getHealthThresholds("ca");
-
-// --- GDP per Capita (quarterly index, YoY computed at runtime in data.ts) ---
-export async function fetchCaGdpPerCapita(): Promise<MetricData> {
-  // CANRGDPPCMEI: Real GDP per capita, chain volume index, quarterly SA (OECD MEI)
-  const series = await fetchFredSeries("CANRGDPPCMEI", "2004-01-01");
-  const currentValue = series.at(-1)!.value;
-  const previousValue = series.at(-2)!.value;
-  const lastUpdated = series.at(-1)!.date;
-  return {
-    id: "gdp-per-capita",
-    name: "GDP per Capita",
-    lastUpdated,
-    nextExpectedUpdate: nextFredUpdate(lastUpdated, "quarterly"),
-    source: "FRED",
-    unit: "index",
-    frequency: "Quarterly",
-    currentValue,
-    previousValue,
-    health: "yellow", // recomputed at runtime after YoY transform
-    series,
-  };
-}
 
 // --- GDP Growth (quarterly, already % YoY from FRED) ---
 export async function fetchCaGdp(): Promise<MetricData> {
@@ -46,30 +24,6 @@ export async function fetchCaGdp(): Promise<MetricData> {
     currentValue,
     previousValue,
     health: getHealthStatus(caThresholds, "gdp", currentValue),
-    series: rounded,
-  };
-}
-
-// --- CPI (monthly, already % YoY from FRED) ---
-export async function fetchCaCpi(): Promise<MetricData> {
-  // CPALTT01CAM659N: CPI All Items, Total for Canada, growth rate same period previous year (YoY), monthly
-  // Note: 657N is MoM % change; 659N is YoY % change
-  const series = await fetchFredSeries("CPALTT01CAM659N", "2005-01-01");
-  const rounded = series.map((p) => ({ ...p, value: round1(p.value) }));
-  const currentValue = rounded.at(-1)!.value;
-  const previousValue = rounded.at(-2)!.value;
-  const lastUpdated = rounded.at(-1)!.date;
-  return {
-    id: "cpi",
-    name: "Inflation (CPI)",
-    lastUpdated,
-    nextExpectedUpdate: nextFredUpdate(lastUpdated, "monthly"),
-    source: "FRED",
-    unit: "% YoY",
-    frequency: "Monthly",
-    currentValue,
-    previousValue,
-    health: getHealthStatus(caThresholds, "cpi", currentValue),
     series: rounded,
   };
 }

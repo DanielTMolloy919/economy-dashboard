@@ -56,12 +56,14 @@ export function round1(v: number): number {
   return Math.round(v * 10) / 10;
 }
 
-// --- GDP Growth (quarterly, already a % change) ---
+// --- GDP Growth (quarterly real GDP level, YoY computed at runtime in data.ts) ---
+// Note: A191RL1Q225SBEA is the quarter-on-quarter *annualised* rate (SAAR), which
+// is not comparable with the YoY growth shown for every other country.
 export async function fetchUsGdp(): Promise<MetricData> {
-  // A191RL1Q225SBEA: Real GDP growth rate (percent change from preceding period, SAAR)
-  const series = await fetchFredSeries("A191RL1Q225SBEA", "2005-01-01");
-  const currentValue = round1(series.at(-1)!.value);
-  const previousValue = round1(series.at(-2)!.value);
+  // GDPC1: Real Gross Domestic Product, billions of chained 2017 dollars, SAAR
+  const series = await fetchFredSeries("GDPC1", "2004-01-01");
+  const currentValue = series.at(-1)!.value;
+  const previousValue = series.at(-2)!.value;
   const lastUpdated = series.at(-1)!.date;
   return {
     id: "gdp",
@@ -69,16 +71,15 @@ export async function fetchUsGdp(): Promise<MetricData> {
     lastUpdated,
     nextExpectedUpdate: nextFredUpdate(lastUpdated, "quarterly"),
     source: "FRED",
-    unit: "% YoY",
+    unit: "index",
     frequency: "Quarterly",
     currentValue,
     previousValue,
-    health: getHealthStatus(usThresholds, "gdp", currentValue),
-    series: series.map((p) => ({ ...p, value: round1(p.value) })),
+    health: "yellow", // recomputed at runtime after YoY transform
+    series,
   };
 }
 
-// --- GDP per Capita (quarterly index, YoY computed at runtime in data.ts) ---
 export async function fetchUsGdpPerCapita(): Promise<MetricData> {
   // A939RX0Q048SBEA: Real GDP per capita (chained 2017 dollars)
   const series = await fetchFredSeries("A939RX0Q048SBEA", "2004-01-01");
