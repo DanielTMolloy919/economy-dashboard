@@ -1,13 +1,13 @@
 {
   "id": "fiscal-balance",
   "name": "Federal Surplus/Deficit",
-  "lastUpdated": "2026-09-01",
-  "nextExpectedUpdate": "2026-11-25",
+  "lastUpdated": "2026-10-01",
+  "nextExpectedUpdate": "2026-12-25",
   "source": "FRED",
   "unit": "$B",
   "frequency": "Monthly",
-  "currentValue": -1992,
-  "previousValue": -1768,
+  "currentValue": -2112,
+  "previousValue": -1992,
   "health": "red",
   "series": [
     {
@@ -1057,6 +1057,10 @@
     {
       "date": "2026-09-01",
       "value": -1992.5
+    },
+    {
+      "date": "2026-10-01",
+      "value": -2112.2
     }
   ]
 }
