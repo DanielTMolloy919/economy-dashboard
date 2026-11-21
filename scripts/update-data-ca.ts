@@ -21,7 +21,7 @@ import {
   fetchCaTrade,
   fetchCaRetailSales,
 } from "./sources/fred-ca";
-import { fetchOecdCpi, fetchOecdGdpPerCapita } from "./sources/oecd-api";
+import { fetchOecdCpi, fetchOecdGdpPerCapita, OecdRateLimitedError } from "./sources/oecd-api";
 import { computeRealWages } from "./sources/derived";
 
 const DATA_DIR = join(process.cwd(), "data", "ca");
@@ -45,6 +45,10 @@ async function run(
     write(data);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    if (err instanceof OecdRateLimitedError) {
+      console.log(`  ~ ${name}: skipped — ${message}. Existing data retained.`);
+      return;
+    }
     console.error(`  ✗ ${name}: ${message}`);
     failures.push(name);
     console.error(`    Existing data retained.`);

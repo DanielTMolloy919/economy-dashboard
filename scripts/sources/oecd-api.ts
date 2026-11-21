@@ -27,19 +27,27 @@ function periodToDate(period: string): string {
   throw new Error(`Unrecognised OECD period: ${period}`);
 }
 
+// Thrown when the OECD API is still rate-limiting us (5xx/429) after retries.
+// Update scripts treat this as a skip rather than a failure, since it's
+// transient and not something we can fix in code.
+export class OecdRateLimitedError extends Error {}
+
 export async function fetchOecdSeries(
   dataflow: string,
   key: string,
   startPeriod: string,
 ): Promise<MetricSeries[]> {
   const url = `${OECD_BASE}/${dataflow}/${key}?startPeriod=${startPeriod}`;
-  // The OECD API intermittently returns 5xx/429 under load, so retry a few times.
+  // The OECD API returns 5xx/429 when rate-limiting (often for concurrent
+  // requests), so retry briefly, then give up without blocking the update.
   let res: Response | undefined;
-  for (let attempt = 1; attempt <= 4; attempt++) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
     res = await fetch(url, { headers: { Accept: "application/vnd.sdmx.data+csv; charset=utf-8" } });
     if (res.ok || (res.status < 500 && res.status !== 429)) break;
-    await new Promise((r) => setTimeout(r, attempt * 10_000));
+    if (attempt < 3) await new Promise((r) => setTimeout(r, attempt * 5_000));
   }
+  if (res && (res.status >= 500 || res.status === 429))
+    throw new OecdRateLimitedError(`OECD rate-limited (${res.status}) for ${dataflow}/${key}`);
   if (!res?.ok) throw new Error(`OECD fetch failed: ${res?.status} for ${dataflow}/${key}`);
   const lines = (await res.text()).trim().split(/\r?\n/);
   const header = lines[0]!.split(",");

@@ -26,7 +26,7 @@ import {
   fetchNzNzdUsd,
   fetchNzCashRate,
 } from "./sources/fred-nz";
-import { fetchOecdCpi, fetchOecdGdpPerCapita } from "./sources/oecd-api";
+import { fetchOecdCpi, fetchOecdGdpPerCapita, OecdRateLimitedError } from "./sources/oecd-api";
 import { fetchNzFiscalBalance } from "./sources/nz-treasury";
 import { computeRealWages } from "./sources/derived";
 
@@ -51,6 +51,10 @@ async function run(
     write(data);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    if (err instanceof OecdRateLimitedError) {
+      console.log(`  ~ ${name}: skipped — ${message}. Existing data retained.`);
+      return;
+    }
     console.error(`  ✗ ${name}: ${message}`);
     failures.push(name);
     console.error(`    Existing data retained.`);
