@@ -1,13 +1,13 @@
 {
   "id": "building-permits",
   "name": "Building Permits",
-  "lastUpdated": "2026-09-01",
-  "nextExpectedUpdate": "2026-11-25",
+  "lastUpdated": "2026-10-01",
+  "nextExpectedUpdate": "2026-12-25",
   "source": "FRED",
   "unit": "k",
   "frequency": "Monthly",
-  "currentValue": 1398,
-  "previousValue": 1403,
+  "currentValue": 1295,
+  "previousValue": 1398,
   "health": "yellow",
   "series": [
     {
@@ -1053,6 +1053,10 @@
     {
       "date": "2026-09-01",
       "value": 1398
+    },
+    {
+      "date": "2026-10-01",
+      "value": 1295
     }
   ]
 }
