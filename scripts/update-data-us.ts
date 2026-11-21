@@ -40,6 +40,8 @@ function write(metric: MetricData) {
   );
 }
 
+const failures: string[] = [];
+
 async function run(
   name: string,
   fetcher: () => Promise<MetricData>,
@@ -50,6 +52,7 @@ async function run(
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`  ✗ ${name}: ${message}`);
+    failures.push(name);
     console.error(`    Existing data retained.`);
   }
 }
@@ -85,6 +88,13 @@ async function main() {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`  ✗ real-wages: ${message}`);
+    failures.push("real-wages");
+  }
+
+  if (failures.length > 0) {
+    console.error(`\n${failures.length} metric(s) failed: ${failures.join(", ")}`);
+    process.exitCode = 1;
+    return;
   }
 
   console.log("\nDone.");
