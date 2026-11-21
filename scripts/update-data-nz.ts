@@ -9,7 +9,6 @@
  * Sources:
  *   - FRED: gdp, unemployment, wages, trade, retail-trade, nzd-usd, cash-rate
  *   - OECD: cpi, gdp-per-capita
- *   - NZ Treasury XLSX: fiscal-balance (OBEGAL)
  *   - Derived: real-wages (wages − CPI)
  */
 
@@ -27,7 +26,6 @@ import {
   fetchNzCashRate,
 } from "./sources/fred-nz";
 import { fetchOecdCpi, fetchOecdGdpPerCapita, OecdRateLimitedError } from "./sources/oecd-api";
-import { fetchNzFiscalBalance } from "./sources/nz-treasury";
 import { computeRealWages } from "./sources/derived";
 
 const DATA_DIR = join(process.cwd(), "data", "nz");
@@ -78,8 +76,6 @@ async function main() {
     run("retail-trade", fetchNzRetailTrade),
     run("nzd-usd", fetchNzNzdUsd),
     run("cash-rate", fetchNzCashRate),
-    // NZ Treasury
-    run("fiscal-balance", fetchNzFiscalBalance),
   ]);
 
   // Derived metrics (depend on fetched data above)

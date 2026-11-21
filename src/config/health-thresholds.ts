@@ -241,12 +241,6 @@ const nzHealthThresholds: Record<string, MetricThreshold> = {
     red: [{ min: -Infinity, max: -2 }],
     weight: 0.05,
   },
-  "fiscal-balance": {
-    green: { min: 0, max: Infinity },
-    yellow: [{ min: -10, max: 0 }],
-    red: [{ min: -Infinity, max: -10 }],
-    weight: 0.06,
-  },
 };
 
 const usHealthThresholds: Record<string, MetricThreshold> = {

@@ -386,20 +386,6 @@ const nzMetricDefinitions: MetricDefinition[] = [
     trendWindow: 4,
     trendThreshold: 0.1,
   },
-  {
-    id: "fiscal-balance",
-    name: "Fiscal Balance (OBEGAL)",
-    unit: "NZ$B",
-    source: "NZ Treasury",
-    frequency: "Annual",
-    chartType: "bar",
-    description: "Operating balance excluding gains and losses",
-    section: "Growth & Output",
-    trendPolarity: "positive",
-    decimals: 1,
-    trendWindow: 4,
-    trendThreshold: 1,
-  },
 ];
 
 const usMetricDefinitions: MetricDefinition[] = [

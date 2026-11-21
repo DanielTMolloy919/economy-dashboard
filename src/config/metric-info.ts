@@ -299,17 +299,6 @@ const nzMetricInfo: Record<string, MetricInfo> = {
       red: "< -NZ$2B deficit \u2014 a large deficit that accumulates foreign debt and puts downward pressure on the NZD.",
     },
   },
-  "fiscal-balance": {
-    summary:
-      "The Operating Balance Excluding Gains and Losses (OBEGAL) is NZ's core fiscal measure \u2014 the difference between Crown revenues and expenses, stripping out volatile revaluation movements. Shown as the trailing 12-month sum.",
-    thresholdRationale: {
-      green:
-        "> NZ$0B (surplus) \u2014 the Crown is running a surplus. Revenues exceed expenses, reducing net debt.",
-      yellow:
-        "NZ$0B to -NZ$10B deficit \u2014 a moderate deficit consistent with normal economic cycles or targeted fiscal stimulus.",
-      red: "< -NZ$10B deficit \u2014 a large structural deficit requiring significant borrowing.",
-    },
-  },
 };
 
 const usMetricInfo: Record<string, MetricInfo> = {
