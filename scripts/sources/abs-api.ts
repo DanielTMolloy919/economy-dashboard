@@ -13,6 +13,13 @@ interface AbsDimension {
   values: { id: string; name: string }[];
 }
 
+interface AbsStructure {
+  dimensions: {
+    series: AbsDimension[];
+    observation: AbsDimension[];
+  };
+}
+
 interface AbsResponse {
   data: {
     dataSets: Array<{
@@ -21,12 +28,10 @@ interface AbsResponse {
         { observations: Record<string, [number | null]> }
       >;
     }>;
-    structures: Array<{
-      dimensions: {
-        series: AbsDimension[];
-        observation: AbsDimension[];
-      };
-    }>;
+    // The ABS API has returned both a `structures` array and a single
+    // `structure` object at different times, so accept either.
+    structure?: AbsStructure;
+    structures?: AbsStructure[];
   };
 }
 
@@ -56,7 +61,8 @@ async function fetchAbs(
 }
 
 function extractSeries(response: AbsResponse, seriesKey = "0"): MetricSeries[] {
-  const structure = response.data.structures[0]!;
+  const structure = response.data.structure ?? response.data.structures?.[0];
+  if (!structure) throw new Error("ABS response missing structure metadata");
   const timeDim = structure.dimensions.observation[0]!;
   const dataset = response.data.dataSets[0]!;
 
