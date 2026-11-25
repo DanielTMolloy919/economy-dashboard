@@ -92,14 +92,21 @@ function toYoY(series: MetricSeries[], periodsPerYear: number): MetricSeries[] {
 }
 
 // Stitch a low-resolution series with a high-resolution one.
-// Uses low-res for history, then switches to high-res for any dates
-// beyond the last low-res point. If no high-res data exists beyond
-// that cutoff, the low-res series is returned unchanged.
+// Uses low-res for history, then high-res from its first point onwards, so the
+// recent series is never a mix of the two frequencies.
 function stitchHighRes(lowRes: MetricSeries[], highRes: MetricSeries[]): MetricSeries[] {
-  const cutoff = lowRes.at(-1)?.date;
-  if (!cutoff) return lowRes;
-  const extension = highRes.filter((p) => p.date > cutoff);
-  return extension.length > 0 ? [...lowRes, ...extension] : lowRes;
+  const start = highRes[0]?.date;
+  if (!start) return lowRes;
+  return [...lowRes.filter((p) => p.date < start), ...highRes];
+}
+
+// Re-date monthly points from the first to the last day of the month, matching
+// the period-end convention parseAbsDate uses for quarters.
+function toMonthEnd(series: MetricSeries[]): MetricSeries[] {
+  return series.map((p) => {
+    const [year, month] = p.date.split("-").map(Number) as [number, number];
+    return { ...p, date: new Date(Date.UTC(year, month, 0)).toISOString().slice(0, 10) };
+  });
 }
 
 export async function fetchGdp(): Promise<MetricData> {
@@ -423,21 +430,32 @@ export async function fetchDwellingCompletions(): Promise<MetricData> {
   };
 }
 
-export async function fetchCpi(): Promise<MetricData> {
-  // CPI: Consumer Price Index — quarterly history stitched with monthly recent data.
-  // Quarterly (2009–): CPI 2.0.0, key 1.10001..50.Q → toYoY(4)
-  // Monthly (Apr 2024–): CPI 2.0.0, key 1.10001.10.50.M → toYoY(12)
-  // Monthly YoY points beyond the last quarterly print are appended via stitchHighRes.
+// Quarterly CPI YoY (2009–): CPI 2.0.0, key 1.10001..50.Q → toYoY(4)
+async function fetchQuarterlyCpiSeries(): Promise<MetricSeries[]> {
+  return toYoY(
+    extractSeries(await fetchAbs("ABS,CPI,2.0.0", "1.10001..50.Q", "2009-Q1")),
+    4,
+  );
+}
 
-  const [quarterlyResponse, monthlyResponse] = await Promise.all([
-    fetchAbs("ABS,CPI,2.0.0", "1.10001..50.Q", "2009-Q1"),
+// Quarterly-only CPI, for deriving real wages: WPI is quarterly, so it must be
+// deflated by quarterly CPI rather than the quarter's final month.
+export async function fetchQuarterlyCpi(): Promise<MetricData> {
+  return buildCpi(await fetchQuarterlyCpiSeries(), "quarterly");
+}
+
+export async function fetchCpi(): Promise<MetricData> {
+  // CPI: Consumer Price Index — quarterly history, then the complete monthly CPI.
+  // Monthly index starts Apr 2024 (key 1.10001.10.50.M), so monthly YoY starts Apr 2025.
+  const [quarterly, monthlyResponse] = await Promise.all([
+    fetchQuarterlyCpiSeries(),
     fetchAbs("ABS,CPI,2.0.0", "1.10001.10.50.M", "2024-04"),
   ]);
+  const monthly = toMonthEnd(toYoY(extractSeries(monthlyResponse), 12));
+  return buildCpi(stitchHighRes(quarterly, monthly), "monthly");
+}
 
-  const series = stitchHighRes(
-    toYoY(extractSeries(quarterlyResponse), 4),
-    toYoY(extractSeries(monthlyResponse), 12),
-  );
+function buildCpi(series: MetricSeries[], frequency: "monthly" | "quarterly"): MetricData {
   const currentValue = series.at(-1)!.value;
   const previousValue = series.at(-2)!.value;
   const lastUpdated = series.at(-1)!.date;
@@ -445,10 +463,10 @@ export async function fetchCpi(): Promise<MetricData> {
     id: "cpi",
     name: "Inflation (CPI)",
     lastUpdated,
-    nextExpectedUpdate: nextAbsUpdate(lastUpdated, "monthly"),
+    nextExpectedUpdate: nextAbsUpdate(lastUpdated, frequency),
     source: "ABS",
     unit: "% YoY",
-    frequency: "Monthly",
+    frequency: frequency === "monthly" ? "Monthly" : "Quarterly",
     currentValue,
     previousValue,
     health: getHealthStatus(auThresholds, "cpi", currentValue),

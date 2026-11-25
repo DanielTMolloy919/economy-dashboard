@@ -15,7 +15,7 @@ import { join } from "path";
 import type { MetricData } from "~/types/metrics";
 
 import { fetchCashRate, fetchAudUsd } from "./sources/rba-csv";
-import { fetchGdp, fetchGdpPerCapita, fetchProductivity, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
+import { fetchGdp, fetchGdpPerCapita, fetchProductivity, fetchTrade, fetchUnemployment, fetchUnderemployment, fetchWages, fetchCpi, fetchQuarterlyCpi, fetchHouseholdSpending, fetchJobVacancies, fetchBuildingApprovals, fetchDwellingCompletions } from "./sources/abs-api";
 import { fetchFiscalBalance } from "./sources/abs-gfs";
 import { computeRealWages } from "./sources/derived";
 
@@ -74,7 +74,7 @@ async function main() {
   // Derived metrics (depend on fetched data above)
   try {
     const wages: MetricData = JSON.parse(readFileSync(join(DATA_DIR, "wages.json"), "utf-8"));
-    const cpi: MetricData = JSON.parse(readFileSync(join(DATA_DIR, "cpi.json"), "utf-8"));
+    const cpi = await fetchQuarterlyCpi();
     write(computeRealWages(wages, cpi, "au"));
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
