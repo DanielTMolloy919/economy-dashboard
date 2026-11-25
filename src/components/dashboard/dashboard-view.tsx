@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
+import { useAtom } from "jotai";
 import type { MetricData } from "~/types/metrics";
 import type { CountryCode } from "~/config/countries";
 import { countries } from "~/config/countries";
@@ -17,6 +18,7 @@ import { OverallHealth } from "~/components/dashboard/overall-health";
 import { SummaryCards } from "~/components/dashboard/summary-cards";
 import { MetricCard } from "~/components/dashboard/metric-card";
 import { ThemeToggle } from "~/components/dashboard/theme-toggle";
+import { showBandsAtom } from "~/lib/preferences";
 import { Button } from "~/components/ui/button";
 import { CountrySwitcher } from "~/components/dashboard/country-switcher";
 import { ScoreHistoryChart } from "~/components/dashboard/score-history-chart";
@@ -49,7 +51,7 @@ export function DashboardView({
   const [metrics, setMetrics] = useState<MetricData[]>(initialMetrics);
   const [timeRange, setTimeRange] = useState<TimeRange>("all");
   const [replayDate, setReplayDate] = useState<string | null>(null);
-  const [showBands, setShowBands] = useState(false);
+  const [showBands, setShowBands] = useAtom(showBandsAtom);
 
   async function handleCountrySelect(code: CountryCode) {
     if (code === country) return;
